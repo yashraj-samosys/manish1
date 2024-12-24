@@ -1,0 +1,58 @@
+.viewimg {
+    background: #e7e7e7;
+    margin-bottom: 20px;
+    padding: 30px;
+    min-height: 150px;
+    border-radius: 10px;
+}
+.viewimg img {
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 1px solid #237ffa;
+    box-shadow: 0 4px 5px #828080;
+}
+
+.removeIcon delete-icon.ng-star-inserted {
+    display: none !important;
+}
+
+// .ng-invalid:not(form).ng-touched{
+//     border:1px solid red;
+// }
+
+.mat-form-field {
+    width: 100%;
+}
+mat-form-field:hover:focus-visible {
+    outline: none;
+}
+
+.clear {
+    clear: both;
+}
+
+
+.form-control {
+    height: calc(2.2rem + 2px);
+    padding: 0.3rem 0.75rem
+}
+::ng-deep .mat-form-field-infix{
+    padding: 0rem 0 0.5rem 0 !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0.25em 0;
+    padding-bottom: 0;
+}
+.arrow{
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+    appearance: auto;
+
+}
+
+::ng-deep .add-edit-row .mat-form-field-flex {
+  display: inline-flex;
+  align-items: center;
+}

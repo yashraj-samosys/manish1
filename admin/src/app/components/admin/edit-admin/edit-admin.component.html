@@ -1,0 +1,146 @@
+<!-- 
+  <section class="mb-4">
+    <div class="container">
+        <div class="row">            
+            <div class="col-md-12">
+            <div class="col-md-12">
+                <h4 style="width: 50%; float: left;">{{"Edit Profile"}}</h4>
+                <div class="d-sm-flex mb-5">
+                    <span class="m-auto"></span>
+                    <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" (click)="onback()" >Back To
+                        List</button>
+                </div>
+            </div>
+              
+                <div class="input-group mb-10">
+                    <div class="custom-file viewimg">
+                        <span class="m-auto pencileBtn">
+                        <img src="{{showImg.image == '' ? './assets/images/avatar.jpg' : showImg.image }}" alt="">
+                        <i (click)="open(modalCropper)" class="i-Crop-2 pencileInner"></i>
+                    </span>
+                    </div>
+                                        
+                </div>
+                <div class="card  o-hidden">
+                    <div class="card-body">
+                        <form [formGroup]="EditForm" (ngSubmit)="Edit()">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>First Name <span class="text-red">*</span></label>
+                                        <input onKeyPress="if(this.value.length==70) return false;"
+                                            formControlName="first_name" type="text" class="form-control"
+                                            placeholder="User Name">
+                                        <div *ngIf="EditForm.controls['first_name'].errors && (!EditForm.controls['first_name'].pristine || submitted ||EditForm.controls['first_name'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!EditForm.controls['first_name'].errors.required">First Name
+                                                is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Last Name <span class="text-red">*</span></label>
+                                        <input onKeyPress="if(this.value.length==70) return false;"
+                                            formControlName="last_name" type="text" class="form-control"
+                                            placeholder="User Name">
+                                        <div *ngIf="EditForm.controls['last_name'].errors && (!EditForm.controls['last_name'].pristine || submitted ||EditForm.controls['last_name'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!EditForm.controls['last_name'].errors.required">Last Name
+                                                is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email <span class="text-red">*</span></label>
+                                        <input
+                                            onKeyPress="if(this.value.length==100) return false; return event.charCode != 32"
+                                            formControlName="email" type="email" class="form-control"
+                                            placeholder="Email">
+                                        <div *ngIf="EditForm.controls['email'].errors && (!EditForm.controls['email'].pristine || submitted ||EditForm.controls['email'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!EditForm.controls['email'].errors.required">Email is
+                                                required.</div>
+                                            <div [hidden]="!EditForm.controls['email'].errors.pattern">Invalid email.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" *ngIf="id == 0">
+                                    <div class="form-group">
+                                        <label>Password <span class="text-red">*</span></label>
+                                        <input
+                                            onKeyPress="if(this.value.length==100) return false; return event.charCode != 32"
+                                            formControlName="password" [type]="showHidePass ? 'password' : 'text'"
+                                            class="form-control" placeholder="Password">
+                                        <a href="javascript:void(0);" (click)="showHidePassword()" id="show"><span
+                                                [ngClass]="showHidePass ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+
+                                        <div *ngIf="EditForm.controls['password'].errors && (!EditForm.controls['password'].pristine || submitted ||EditForm.controls['password'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!EditForm.controls['password'].errors.required">Password
+                                                is
+                                                required.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Phone Code </label>
+                                        <select formControlName="country_code_id" class="form-control">
+                                            <option value=''>Select</option>
+                                            <option *ngFor="let item of code" [value]="item.id">
+                                                {{item.name}}(+{{item.phonecode}})</option>
+                                        </select>
+                                        <div *ngIf="EditForm.controls['country_code_id'].errors && (!EditForm.controls['country_code_id'].pristine || submitted ||EditForm.controls['country_code_id'].touched )"
+                                            class="error-msg">
+                                            <div [hidden]="!EditForm.controls['country_code_id'].errors.required">
+                                                Phone
+                                                code is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Mobile <span class="text-red">*</span> </label>
+                                        <input
+                                            onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                                            formControlName="mobile" type="text" class="form-control"
+                                            placeholder="Mobile No">
+                                      
+                                    </div>
+                                </div>
+                              
+                        </div>
+                            <button style="float: right;" type="submit" class="btn btn-primary btn-rounded m-1">
+                             Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<ng-template #modalCropper let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Upload & Crop</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <img-cropper #cropper [image]="showImg" [settings]="cropperSettings" (change)="fileChangeEvent($event)"></img-cropper><br>
+        <img *ngIf="showImg?.image" class="mt-3 mr-3" [src]="showImg?.image" [width]="100" [height]="100"  >
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-rounded btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template> -->

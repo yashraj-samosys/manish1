@@ -1,0 +1,17 @@
+::ng-deep .cuppa-dropdown .dropdown-list{ left: unset !important;    top: 644px !important; }
+
+.multi-select-m angular2-multiselect{
+    padding: 0;
+    height: auto;
+    }
+
+    .eye-icon {
+        float: right;
+        margin-right: 10px;
+        margin-top: -37px;
+        position: relative;
+      }
+
+      .is-invalid{
+        margin-right: 30px;
+      }

@@ -1,0 +1,117 @@
+<!-- <div style="height: 477px;width: 877px;margin-top: 170px;margin-left: 77px;"  class="set" >
+  <div class="rn-gt-wrapper">
+    <div class="container-fluid px-0">
+       <div class="gt-contents--inner u-fancy-scrollbar">
+              <p>Forget password</p>
+              </div>
+            </div>
+      
+        <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-xs-12 gt-col--center">
+          <form [formGroup]="resetForm" >
+  
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" id="password_gt" placeholder="Password" formControlName="password" [type]="showHidePass ? 'password': 'text'"    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                          <a href="javascript:void(0);" (click)="showHidePassword()" id="show"><span
+                              [ngClass]="showHidePass ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                          <label for="password_gt">{{"consumer_registration.password" | translate}}<span class="text-red">*
+                          </span></label>
+                          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">{{"consumer_registration.password_is_required" |
+                              translate}}</div>
+                            <div *ngIf="f.password.errors.minlength">
+                              {{"consumer_registration.password_must_be_at_least_6_characters" | translate}}</div>
+                              <div *ngIf="resetForm.controls['password'].errors.maxlength">{{"tolong.Password" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" id="password_confirm_gt"     placeholder="Password Confirm" formControlName="cpassword"
+                            [type]="showHidePass1 ? 'password': 'text'"
+                            [ngClass]="{ 'is-invalid': submitted && f.cpassword.errors }" />
+                          <a href="javascript:void(0);" (click)="showHidePassword1()" id="show"><span
+                              [ngClass]=" showHidePass1 ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                          <label for="password_confirm_gt">{{"consumer_registration.password_confirm" | translate}}<span
+                              class="text-red">*
+                            </span></label>
+                          <div *ngIf="submitted && f.cpassword.errors" class="invalid-feedback">
+                            <div *ngIf="f.cpassword.errors.required">
+                              {{"consumer_registration.confirm_password_is_required" | translate}}</div>
+                            <div *ngIf="f.cpassword.errors.mustMatch">{{"consumer_registration.passwords_must_match" |
+                              translate}}</div>
+                             
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" (click)="resetPassword()" >Change Password</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+ 
+ -->
+
+  <div style="height: 477px;width: 877px;margin-top: 70px;margin-left: 199px;"  class="set" >
+
+
+  <div class="modal-dialog" style="width: 400px; ">
+      <div class="modal-content text-center">
+          <div class="modal-header h5 text-white bg-primary justify-content-center">Change Password </div>
+          <div class="modal-body px-5">
+              <p class="py-2">
+                  Enter your new password .
+              </p>
+              <div class="form-outline">
+                <form [formGroup]="resetForm" >
+                <div class="form-group mb-20">
+                  <div class="form-floating">
+                    <input type="password" class="form-control" id="password_gt" placeholder="Password" formControlName="password" [type]="showHidePass ? 'password': 'text'"    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <a href="javascript:void(0);" (click)="showHidePassword()" id="show"><span
+                        [ngClass]="showHidePass ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                    <label for="password_gt">{{"consumer_registration.password" | translate}}<span class="text-red">*
+                    </span></label>
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                      <div *ngIf="f.password.errors.required">{{"consumer_registration.password_is_required" |
+                        translate}}</div>
+                      <div *ngIf="f.password.errors.minlength">
+                        {{"consumer_registration.password_must_be_at_least_6_characters" | translate}}</div>
+                        <div *ngIf="resetForm.controls['password'].errors.maxlength">{{"tolong.Password" | translate}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-20">
+                  <div class="form-floating">
+                    <input type="password" class="form-control" id="password_confirm_gt"     placeholder="Password Confirm" formControlName="cpassword"
+                      [type]="showHidePass1 ? 'password': 'text'"
+                      [ngClass]="{ 'is-invalid': submitted && f.cpassword.errors }" />
+                    <a href="javascript:void(0);" (click)="showHidePassword1()" id="show"><span
+                        [ngClass]=" showHidePass1 ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                    <label for="password_confirm_gt">{{"consumer_registration.password_confirm" | translate}}<span
+                        class="text-red">*
+                      </span></label>
+                    <div *ngIf="submitted && f.cpassword.errors" class="invalid-feedback">
+                      <div *ngIf="f.cpassword.errors.required" >
+                        {{"consumer_registration.confirm_password_is_required" | translate}}</div>
+                      <div *ngIf="f.cpassword.errors.mustMatch">{{"consumer_registration.passwords_must_match" |
+                        translate}}</div>
+                       
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+                <button type="submit" class="btn btn-primary w-100" (click)="resetPassword()" >Change Password</button>
+              </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>

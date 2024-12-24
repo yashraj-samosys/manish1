@@ -1,0 +1,218 @@
+<section>
+    <div class="container">
+        <div class="breadcrumb">
+            <h1>Partner Agent </h1>
+            <ul>
+                <li>List</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- <div class="form-group">
+                    <input id="email" placeholder="Search" [formControl]="searchControl"
+                        class="form-control form-control-rounded" type="text">
+                </div> -->
+                <div class="form-group">
+                    <input id="email" placeholder="Search" [formControl]="searchControl"
+                        (keyup)="applyFilter($event.target.value)" class="form-control form-control-rounded"
+                        type="text">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group" style="margin-top: 0;">
+                    <select (change)=statusFilter($event) [formControl]="userStatus"
+                        class="form-control form-control-rounded">
+                        <!-- <option selected disabled value="null">Select Status</option> -->
+                        <option value=1 [selected]="true">Active</option>
+                        <option value=0>Inactive</option>
+                        <!-- <option value=2>Deleted</option> -->
+                        <option value=5>Unverified</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 text-right">
+                <button [routerLink]="['/users/add-edit/0/3/0']" type="button"
+                    class="btn btn-primary btn-rounded m-1">Add
+                </button>
+                <button (click)="reset()" type="button" class="btn btn-primary btn-rounded m-1">Reset</button>
+
+                <button (click)="export()" type="button" class="btn btn-primary btn-rounded m-1">Export</button>
+            </div>
+            <div class="col-md-12">
+                <div class="card o-hidden">
+                    <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen hideFsa"
+                        [columnMode]="'force'" [headerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+                        [rows]="filtered">
+                        <ngx-datatable-column name="S.No" [sortable]="false" [minWidth]="70" [maxWidth]="70">
+                            <ng-template ngx-datatable-header-template>
+                                S.No
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex"
+                                let-row="row">
+                                {{rowIndex +1}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Title" prop="profile_img" [minWidth]="100" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Profile
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                <img style="width: 50px;height:50px;" [src]="row.profile_img" #img01
+                                    (error)="img01.src = './assets/images/avatar.jpg'">
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Title" prop="name" [minWidth]="70" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Name
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.first_name}} {{row.last_name && row.last_name != undefined && row.last_name !=
+                                'undefined' && row.last_name != 'null' ? row.last_name : ''}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Email" prop="email" [minWidth]="70" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Email
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.email}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="create_date" prop="create_date" [minWidth]="100" [width]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Create Date
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.created_date | date: 'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <!-- <ngx-datatable-column name="Email" prop="user_type" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Type
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                Default Agent
+                            </ng-template>
+                        </ngx-datatable-column> -->
+                        <ngx-datatable-column name="weight" prop="mobile" [minWidth]="70" [width]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Mobile
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                +{{row.phonecode}}{{row.mobile}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <!-- <ngx-datatable-column name="weight" prop="account_number" [minWidth]="50" [width]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Account
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.account_number}}
+                            </ng-template>
+                        </ngx-datatable-column> -->
+                        <ngx-datatable-column *ngIf="this.filterStatus != 2 && this.filterStatus != 5 " name="Status"
+                            prop="status" [minWidth]="70" [width]="60">
+                            <ng-template ngx-datatable-header-template>
+                                Status
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row"
+                                let-rowIndex="rowIndex">
+                                <label (click)="changeDefaultAgentStatus(row)" class="switch switch-primary mr-3">
+                                    <input [disabled]="true" type="checkbox"
+                                        [checked]="userStatus.value == '1' ? true : false">
+                                    <span class="slider"></span>
+                                </label>
+                                <!--
+    <label (click)="changeStatus(row)" class="switch switch-primary mr-3">
+     <input [disabled]="true"  type="checkbox" [checked]="userStatus.value == '1' ? true : false">
+                  <span class="slider"></span>
+                                </label> -->
+
+
+
+
+
+
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="false" [minWidth]="150">
+                            <ng-template ngx-datatable-header-template>
+                                Action
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row"
+                                let-rowIndex="rowIndex">
+                                <!-- <button (click)="defaultAgent(row)" type="button"
+                                    class="btn btn-primary btn-rounded m-1">Dafault Agent</button> -->
+                                <button *ngIf="row.status != 2" (click)="view(row,row.id)" type="button"
+                                    class="btn btn-primary btn-rounded m-1">View</button>
+                                <button *ngIf="row.status != 2" (click)="edit(row,row.id)" type="button"
+                                    class="btn btn-primary btn-rounded m-1">Edit</button>
+                                    <button *ngIf="row.status == 2" (click)="recover(row,rowIndex)" type="button"
+                                    class="btn btn-danger btn-rounded m-1">Activate</button>
+                                <button *ngIf="row.status == 5" (click)="verify(row,rowIndex)" type="button"
+                                    class="btn btn-danger btn-rounded m-1">Verified</button>
+                                <button *ngIf="row.status == 0" (click)="Delete(row,rowIndex)" type="button"
+                                    class="btn btn-danger btn-rounded m-1">Delete</button>
+                                    <!-- <button *ngIf="row.status == 0 || row.status == 5" (click)="Delete(row,rowIndex)" type="button"
+                                    class="btn btn-danger btn-rounded m-1">Delete</button> -->
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                    <mat-paginator #paginator [length]="total" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                        [pageSizeOptions]="[10, 20, 50, 100, 200, 300, 400, 500]" (page)="getAgentList($event)">
+                    </mat-paginator>
+
+                </div>
+                <div class="col-md-12 text-center" *ngIf="!filtered?.length">
+                    <div class="displayFlex">
+                        <div>
+                            <img src="../assets/images/nosearch.png"><br><br>
+                            <h5><b>No data found!</b></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #modalAlreadyActive let-modal class="modal-dialog-centered">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Default Agent Already Activated For {{agentData?.fsa_code}} !</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>If you want to activate this default agent then first deactivate {{agentData?.first_name}}
+                {{agentData?.last_name}}!</strong>
+        </p>
+        <p>Click here to view details<button (click)="view(agentData?.id)" type="button"
+                class="btn btn-primary btn-rounded m-1">View</button> </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #modalDeactive let-modal modal-dialog-centered>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title"> {{agentData?.status ? "Deactivate!" : "Activate"}}</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure you want to {{agentData?.status ? "deactivate!" : "activate!"}}</strong></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="agentData?.status ? deactiivate(agentData) : activate(agentData)">Yes</button>
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">No</button>
+    </div>
+</ng-template>

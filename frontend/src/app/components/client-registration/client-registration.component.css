@@ -1,0 +1,56 @@
+::ng-deep .cuppa-dropdown .dropdown-list{ left: unset !important;    top: 1080px !important; }
+
+.image-coropp-popup image-cropper {
+    width: auto !important;
+    height: auto !important;
+}
+.image-crop-view button{
+  position: absolute;
+    clear: both;
+    bottom: px;
+    left: 0;
+    right: 0;
+    padding: 0;
+    border-radius: 0;
+    font-size: 15px;
+    width: 120px;
+    background-color: rgb(0 0 0 / 60%);
+    /* height: 36px; */
+    height: auto;
+    line-height: 1.5;
+}
+.element.style {
+  line-height: 40px;
+}
+.web-icon label, .web-icon input
+  {    padding-left: 47px;}
+
+  .web-icon-btn
+  {
+    position: absolute;
+    top: 0px;
+    height: 58px;
+  }
+
+  .eye-icon {
+    float: right;
+    margin-right: 10px;
+    margin-top: -37px;
+    position: relative;
+  }
+ /* .is-invalid{
+    margin-right: 30px;
+  } */
+  .bottom-single-btn{
+    width: calc(100% - 120px);
+  }
+  @media screen and (max-width: 768px) {
+    ::ng-deep .top-bottom--row .btn-blue-fill{
+      width: 100%  !important;
+      margin-top: 0 !important;
+      margin-bottom: 2rem;
+    }
+    ::ng-deep .top-bottom--row .btn-col.btn-col-1{
+      width: 100%;
+    }
+    }

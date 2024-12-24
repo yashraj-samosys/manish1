@@ -1,0 +1,182 @@
+<section>
+    <div class="container">
+        <div class="breadcrumb">
+            <h1>Request to become a Client Agent</h1>
+            <ul>
+                <li>List</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input id="email" placeholder="Search" (keyup)="applyFilter($event.target.value)"
+                        class="form-control form-control-rounded" type="text">
+                </div>
+            </div>
+            <!-- <div class="col-md-8 text-right">
+                <button [routerLink]="['/users/add-edit/0/2']" type="button" class="btn btn-primary btn-rounded m-1">Add
+                </button>
+                <button (click)="export()" type="button" class="btn btn-primary btn-rounded m-1">Export</button>
+            </div> -->
+            <div class="col-md-12">
+                <div class="card o-hidden">
+                    <ngx-datatable *ngIf="filtered?.length" style="height: 500px; box-shadow: none"
+                        class="material fullscreen hideFsa" [columnMode]="'force'" [headerHeight]="50"
+                        [rowHeight]="60" [scrollbarV]="true" [rows]="filtered">
+                        <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
+                            <ng-template ngx-datatable-header-template>
+                                S.No
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex"
+                                let-row="row">
+                                {{rowIndex +1}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Title" prop="name" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Client Name
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.first_name + '  ' + row.last_name}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+<!--                         
+                        <ngx-datatable-column name="user_name" prop="user" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                User Name
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.user_data?.first_name}}  {{row.user_data?.last_name}}
+                            </ng-template>
+                        </ngx-datatable-column> -->
+
+                     
+
+
+                         <ngx-datatable-column name="Email" prop="email" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Email
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.email}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="added_by" prop="added_by" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Added By
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.added_by}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        
+                        <ngx-datatable-column name="Payment" prop="payment" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Payment
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.amount}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        
+                        <ngx-datatable-column name="create_date" prop="create_date" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Payment Date
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.created_at | date: 'dd/MM/yyyy'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+<!-- 
+                        <ngx-datatable-column name="Status" prop="Status" [minWidth]="50" >
+                            <ng-template ngx-datatable-header-template>
+                             Status
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row?.status == '0' ? 'new request' : row?.status == '1' ? 'Accept' : row.status == '2' ? ' Canceled' : row.status == '3' ? 'Request Form Submitted': '' }}
+                            </ng-template>
+                        </ngx-datatable-column> -->
+                        <ngx-datatable-column name="option" prop="option" [minWidth]="50" >
+                            <ng-template ngx-datatable-header-template>
+                                View
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                <button (click)="view(row.id)" type="button"
+
+                                class="btn btn-primary btn-rounded m-1">View</button>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+<!--                         
+                         <ngx-datatable-column name="Phone" prop="phone" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Phone
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.phone}}
+                            </ng-template>
+                        </ngx-datatable-column> -->
+
+                        <!-- <ngx-datatable-column name="brokerage_phone" prop="brokerage_phone" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Brokerage Phone
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.brokerage_phone}}
+                            </ng-template>
+                        </ngx-datatable-column> -->
+
+<!--                         
+                        <ngx-datatable-column name="office_addresse" prop="office_addresse" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Office Address
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.office_addresse}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                         -->
+                        
+                        
+                        <!-- <ngx-datatable-column [sortable]="false" [minWidth]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Action
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row"
+                                let-rowIndex="rowIndex">
+                                <button (click)="view(row.id)" type="button"
+                                    class="btn btn-primary btn-rounded m-1">View</button>
+                                <button (click)="edit(row.id)" type="button"
+                                    class="btn btn-primary btn-rounded m-1">Edit</button>
+                            </ng-template>
+                        </ngx-datatable-column> -->
+                    </ngx-datatable>
+                    <mat-paginator #paginator
+                    [length]="total"
+                    [pageIndex]="pageIndex"
+                    [pageSize]="pageSize"
+                    [pageSizeOptions]="[20, 50, 100, 200, 300, 400, 500]"
+                    (page)="getBecomeAgentList($event)"
+                    >
+                    </mat-paginator>
+                </div>
+                <div class="col-md-12 text-center" *ngIf="!filtered?.length">
+                    <div class="displayFlex">
+                        <div>
+                            <img src="../assets/images/nosearch.png"><br><br>
+                            <h5><b>No data found!</b></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

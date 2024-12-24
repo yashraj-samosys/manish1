@@ -1,0 +1,118 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.error-msg {
+  color: red;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.eye-icon {
+  float: right;
+  margin-right: 6px;
+  margin-top: -23px;
+  position: relative;
+}
+
+.ng-form-section {
+  position: relative;
+  bottom: 30px;
+}
+/* .ng-form-section li{ display: block; padding: 10px; background-color: #eeeeee; border: solid 1px #ced4da; } */
+.ng-form-section li {
+  cursor: pointer;
+}
+.ng-form-section li:hover {
+  background-color: #4d2673;
+  color: #fff;
+  transition: 0.3s;
+}
+.ng-form-section a img {
+  cursor: pointer;
+  text-align: end;
+  width: 4%;
+  font-size: 20px;
+  color: #653398;
+}
+.ng-form-section a {
+  position: relative;
+  bottom: 0px;
+  right: 5px;
+  top: -5px;
+  text-align: end;
+  display: inline-block;
+}
+
+.fa {
+  font-family: "Font Awesome 5 Pro" !important;
+  font-weight: 900;
+  font: normal normal normal 14px/1 FontAwesome !important;
+}
+
+.displayFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.select2-container {
+  width: 100% !important;
+}
+.fontAwesome{
+  font-family: "Font Awesome 5 Pro" !important;
+}
+
+.viewimg {
+  background: #e7e7e7;
+  margin-bottom: 20px;
+  padding: 30px;
+  min-height: 150px;
+  border-radius: 10px;
+}
+.viewimg img {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 1px solid #237ffa;
+  box-shadow: 0 4px 5px #828080;
+}
+
+.pencileBtn {
+  position: relative;
+}
+.pencileInner {
+  color: white;
+  position: absolute;
+  top: 82px;
+  right: 6px;
+  background: #653298;
+  font-size: 12px;
+  padding: 7px 7px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+body .hideFsa .datatable-footer-inner {
+display: none !important;
+}

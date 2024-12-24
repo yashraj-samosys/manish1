@@ -1,0 +1,70 @@
+::ng-deep .cuppa-dropdown .dropdown-list{ left: unset !important;    top: 1105px !important; }
+
+.pencileBtn {
+    position: relative;
+}
+.pencileInner {
+    color: white;
+    position: absolute;
+    top: 82px;
+    right: 6px;
+    background: #653298;
+    font-size: 12px;
+    padding: 7px 7px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+image-cropper {
+    max-height: 400px;
+  }
+
+.web-icon label, .web-icon input
+  {    padding-left: 47px;}
+
+  .web-icon-btn
+  {
+    position: absolute;
+    top: 0px;
+    height: 58px;
+  }
+
+  .image-coropp-popup image-cropper {
+    width: auto !important;
+    height: auto !important;
+}
+.image-crop-view button{
+  position: absolute;
+    clear: both;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    padding: 0;
+    border-radius: 0;
+    font-size: 15px;
+    width: 120px;
+    background-color: rgb(0 0 0 / 60%);
+    height: 36px;
+    line-height: 1.5;
+}
+.multi-select-m angular2-multiselect{
+  padding: 0;
+  height: auto;
+  }
+
+  .eye-icon {
+    float: right;
+    margin-right: 10px;
+    margin-top: -37px;
+    position: relative;
+  }
+  /* .is-invalid{
+    margin-right: 30px;
+  } */
+
+  .top-bottom--row{
+    justify-content: end !important;
+  }
+  .bottom-single-btn{
+    width: calc(100% - 120px);
+  }
+  

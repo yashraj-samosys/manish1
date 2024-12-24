@@ -1,0 +1,465 @@
+<div class="rn-gt-wrapper">
+  <div class="container-fluid px-0">
+    <div class="row gt-row--main">
+      <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-xs-12 gt-col--left">
+        <div class="gt-content--left">
+          <div class="gt-contents--main">
+            <div class="gt-contents--inner u-fancy-scrollbar">
+              <h3 class="title--large cc-book mb-40">{{"realtor_registration.free_realtor" | translate}}
+                {{"realtor_registration.sign_up" | translate}}</h3>
+              <p class="cc-book mb-30"> {{"realtor_registration.this_is_a_free_service_to_realtors" | translate}}.</p>
+              <p class="cc-book mb-30"> {{"realtor_registration.yes_only" | translate}}</p>
+              <p class="cc-book mb-30">{{"realtor_registration.the_my_referral_network_team" | translate}}</p>
+            </div>
+          </div>
+          <div class="bg-collage" style="background-image: url('assets/images/collage-img.png');"></div>
+        </div>
+      </div>
+      <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-xs-12 gt-col--right">
+        <div class="gt-content--right">
+          <form [formGroup]="regisrtationForm" (ngSubmit)="submitRequest()">
+
+            <div class="gt-contents--main">
+              <div class="gt-contents--inner u-fancy-scrollbar">
+                <h3 class="title--large cc-book text-center mb-30">{{"JoinUs.title" | translate}}</h3>
+                <div class="row gt-form--row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="name_gt" placeholder="Name*"
+                          onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                          formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                        <label for="name_gt">{{"realtor_registration.name" | translate}}*</label>
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                          <div *ngIf="f.name.errors.required">{{"realtor_registration.name_is_require" | translate}}
+                          </div>
+                          <div *ngIf="f.name.errors.pattern">{{"realtor_registration.invalid_name" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="name_gt" placeholder="Name*"
+                          onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                          formControlName="estate_brokeraege" [ngClass]="{ 'is-invalid': submitted && f.estate_brokeraege.errors }">
+                        <!-- <select class="form-select" id="estate_brokeraege_gt" aria-label="estate_brokeraege_gt" formControlName="estate_brokeraege" [ngClass]="{ 'is-invalid': submitted && f.estate_brokeraege.errors }">
+                          <option >{{"realtor_registration.real_estate_brokerage" | translate}} </option>
+                          <option value="1"> {{"realtor_registration.one" | translate}}</option>
+                          <option value="2"> {{"realtor_registration.two" | translate}}</option>
+                          <option value="3">{{"realtor_registration.three" | translate}}</option>
+                        </select> -->
+                        <label for="estate_brokeraege_gt">
+                          {{"realtor_registration.real_estate_brokerage" | translate}}</label>
+                        <div *ngIf="submitted && f.estate_brokeraege.errors" class="invalid-feedback">
+                          <div *ngIf="f.estate_brokeraege.errors.required">
+                            {{"realtor_registration.real_estate_brokerage_is_required" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="phone_gt" placeholder="Phone*"
+                          onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                          formControlName="phone" minlength="9" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                        <label for="phone_gt">{{"realtor_registration.phone" | translate}}*</label>
+                        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                          <div *ngIf="f.phone.errors.required"> {{"realtor_registration.phone_is_required" | translate}}
+                          </div>
+                            <div *ngIf="f.phone.errors.minlength">
+                            {{"realtor_registration.please_enter_10_digit_phone_no" | translate}}
+                          </div>
+                        </div> 
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="brokerage_phone_gt" placeholder="Brokerage Phone*"
+                          formControlName="brokerage_phone" minlength="9"
+                          onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                          [ngClass]="{ 'is-invalid': submitted && f.brokerage_phone.errors }">
+                        <label for="brokerage_phone">{{"realtor_registration.brokerage_phone" | translate}}*</label>
+                        <div *ngIf="submitted && f.brokerage_phone.errors" class="invalid-feedback">
+                          <div *ngIf="f.brokerage_phone.errors.required">
+                            {{"realtor_registration.brokerage_phone_is_required" | translate}}</div>
+                        </div>
+                         <!-- <div *ngIf="f.brokerage_phone.errors.minlength" class="invalid-feedback">
+                          {{"realtor_registration.please_enter_10_digit_phone_no" | translate}}
+                      </div>  -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating web-icon">
+                        <button class="btn btn-secondary web-icon-btn" type="button" id="button-addon1"><i
+                            class="fa fa-globe"></i></button>
+                        <input type="text" class="form-control pl-4" id="weblink_gt" placeholder="weblink*"
+                          formControlName="website" [ngClass]="{ 'is-invalid': submitted && f.website.errors }">
+                        <label for="website">{{ "realtor_registration.weblink" | translate}}*</label>
+                        <div *ngIf="submitted && f.website.errors" class="invalid-feedback">
+                          <div *ngIf="f.website.errors.required">
+                            {{"realtor_registration.weblink_is_required" | translate}}</div>
+                          <div *ngIf="f.website.errors.pattern">{{"realtor_registration.invalid_website" | translate}}
+                          </div>
+                          <!-- <div *ngIf="f.website.errors.required"> {{ "subagent.weblink_is_required" | translate}}
+                            </div> -->
+                          <!-- <div *ngIf="f.website.errors.pattern">Invalid address -->
+                          <!-- </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <textarea onKeyPress = "if(this.value.replace(/ /g, '').length ==20) return false;" class="form-control" placeholder="Short Bio" id="short_bio" formControlName="shortBio"
+                          [ngClass]="{'is-invalid': submitted && f.shortBio.errors }" style="height: 100px" minlength="2" ></textarea>
+                        <label for="short_bio">{{"realtor_registration.short_bio" | translate}}</label>
+                        <div *ngIf="submitted && f.shortBio.errors" class="invalid-feedback">
+                          <!-- <div *ngIf="f.shortBio.errors.required">ShortBio is required</div> -->
+                          <div *ngIf="f.shortBio.errors.required">
+                            {{"realtor_registration.short_Bio_is_required" | translate}}</div>
+                            <!-- <div *ngIf="f.shortBio.errors.minlength">
+                              short Bio should be under 20 characters </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <textarea class="form-control" formControlName="longBio" placeholder="Long Bio"
+                          [ngClass]="{'is-invalid': submitted && f.longBio.errors}" id="long_bio"
+                          style="height: 100px"></textarea>
+                        <label for="long_bio">{{"realtor_registration.long_bio" | translate}}</label>
+                        <div *ngIf="submitted && f.longBio.errors" class="invalid-feedback">
+                          <!-- <div *ngIf="f.longBio.errors.required">LongBio is required</div> -->
+                          <div *ngIf="f.longBio.errors.required">
+                            {{"realtor_registration.Long_Bio_is_required" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="email" class="form-control" id="email_gt" placeholder="Email"
+                          formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                        <label for="phone_gt">{{"realtor_registration.email" | translate}}</label>
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                          <div *ngIf="f.email.errors.required">{{"realtor_registration.email_is_require" | translate}}
+                          </div>
+                          <div *ngIf="f.email.errors.pattern">
+                            {{"realtor_registration.email_pattern_is_wrong" | translate}}.</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="password" class="form-control" id="password_gt" placeholder="Password"
+                          formControlName="password" [type]="showHidePass ? 'password': 'text'" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                          <a href="javascript:void(0);" (click)="showHidePassword()" id="show"><span
+                            [ngClass]="submitted ? 'fas fa-eye-slash eye-icon is-invalid' : showHidePass ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                        <label for="password_gt">{{"realtor_registration.password" | translate}}</label>
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                          <div *ngIf="f.password.errors.required">
+                            {{"realtor_registration.password_is_required" | translate}}</div>
+                          <div *ngIf="f.password.errors.minlength">
+                            {{"realtor_registration.password_must_be_at_least_6_characters" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="facebook_gt" placeholder="Facebook" formControlName="facebook" [ngClass]="{'is-invalid': submitted && f.facebook.errors}">
+                        <label for="facebook_gt"> {{"client_registration.facebook" | translate}}</label>
+                        <!-- <div *ngIf="submitted && f.facebook.errors" class="invalid-feedback"> -->
+                          <!-- <div *ngIf="f.facebook.errors.required">Facebook is required</div> -->
+                          <!-- <div *ngIf="f.facebook.errors.required">{{"client_registration.facebook_is_required" | translate}}</div> -->
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="whatsapp_gt" placeholder="Whatsapp" formControlName="whatsapp" [ngClass]="{'is-invalid': submitted && f.whatsapp.errors}">
+                        <label for="whatsapp_gt">{{"client_registration.whatsapp" | translate}}</label>
+                         <!-- <div *ngIf="submitted && f.whatsapp.errors" class="invalid-feedback"> -->
+                        <!-- <div *ngIf="f.whatsapp.errors.required">Whatsapp is required</div> -->
+                        <!-- <div *ngIf="f.whatsapp.errors.required">{{"client_registration.whatsapp_is_required" | translate}}</div> -->
+                      <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="messanger_gt" placeholder="Messanger" [ngClass]="{'is-invalid': submitted && f.messenger.errors}" formControlName="messenger">
+                        <label for="messanger_gt">{{"client_registration.messanger" | translate}}</label>
+                        <!-- <div *ngIf="submitted && f.messenger.errors" class="invalid-feedback"> -->
+                          <!-- <div *ngIf="f.messenger.errors.required">Messenger is required</div> -->
+                          <!-- <div *ngIf="f.messenger.errors.required">{{"client_registration.messenger_is_required" | translate}}</div> -->
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="wechat_gt" placeholder="Wechat"  formControlName="wechat"  [ngClass]="{'is-invalid': submitted && f.wechat.errors}">
+                        <label for="wechat_gt">{{"client_registration.wechat" | translate}}</label>
+                        <!-- <div *ngIf="submitted && f.wechat.errors" class="invalid-feedback"> -->
+                          <!-- <div *ngIf="f.wechat.errors.required">Wechat is required</div> -->
+                          <!-- <div *ngIf="f.wechat.errors.required">{{"client_registration.wechat_is_required" | translate}}</div> -->
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="input-group">
+
+                        <div class="image-crop-view">
+                          <img class="mt-3 mr-3" [src]="croppedImage ? croppedImage : 'assets/images/person.png'"
+                            [width]="120" [height]="120">
+                          <button class="btn btn-secondary" type="button" (click)="open(modalCropper)"
+                            id="button-addon1">{{"client_registration.upload_image" | translate}} </button>
+                        </div>
+                      </div>
+                      <div *ngIf="submitted && !dataImg" style="color: #dc3545;">
+                        <span>{{"client_registration.image_is_required" | translate}}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <textarea #addressSearch class="form-control" placeholder="Office Address" id="office_address"
+                          style="height: 100px" formControlName="office_address"
+                          [ngClass]="{ 'is-invalid': submitted && f.office_address.errors }"></textarea>
+                        <label for="office_address">{{"realtor_registration.office_address" | translate}} </label>
+                        <div *ngIf="submitted && f.office_address.errors" class="invalid-feedback">
+                          <div *ngIf="f.office_address.errors.required">
+                            {{"realtor_registration.office_address_is_required" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="area-tags mt-10 mb-20">
+                      <h5 class="cc-bold mb-20">{{"JoinUs.i_want_you_to_help_me_in" | translate}}</h5>
+                      
+                      <!-- <div class="multi-select">   -->
+                       <angular2-multiselect class="form-control multi-select"  [settings]="settings" [data]="fsaData"
+                        formControlName="fsa">
+                      </angular2-multiselect>
+                    <!-- </div> -->
+
+
+
+                      <div *ngIf="submitted && regisrtationForm.value.fsa == '' "
+                        style="width: 100%;margin-top: .25rem;font-size: .875em;color: #dc3545;">
+                        <div>{{"realtor_registration.fsa_is_required" | translate}}</div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input disabled type="text" class="form-control" id="phone_gt" placeholder="Account No."
+                          onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                          formControlName="account_no" minlength="9">
+                        <label for="phone_gt">{{"realtor_registration.account_no" | translate}}*</label>
+                        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                          <div *ngIf="f.phone.errors.required"> {{"realtor_registration.phone_is_required" | translate}}
+                          </div>
+                            <div *ngIf="f.phone.errors.minlength">
+                            {{"realtor_registration.please_enter_10_digit_phone_no" | translate}}
+                          </div>
+                        </div> 
+                      </div>
+                    </div>
+                  </div> -->
+                  <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                          <select class="select form-control" formControlName="shown_On_Map">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <label for="phone_gt">{{"realtor_registration.Shown_On_Map" | translate}}*</label>
+                        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                          <div *ngIf="f.phone.errors.required"> {{"realtor_registration.Shown_On_Map_is_required" | translate}}
+                          </div>
+                            <div *ngIf="f.phone.errors.minlength">
+                            {{"realtor_registration.please_enter_10_digit_phone_no" | translate}}
+                          </div>
+                        </div> 
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="phone_gt" placeholder="Text Number"
+                        onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                          formControlName="text_no" minlength="4" [ngClass]="{ 'is-invalid': submitted && f.text_no.errors }">
+                        <label for="phone_gt">{{"realtor_registration.text_no" | translate}}*</label>
+                        <div *ngIf="submitted && f.text_no.errors" class="invalid-feedback">
+                          <div *ngIf="f.text_no.errors.required"> {{"realtor_registration.text_no_is_required" | translate}}
+                          </div>
+                            <!-- <div *ngIf="f.phone.errors.minlength">
+                            {{"realtor_registration.please_enter_10_digit_phone_no" | translate}}
+                          </div> -->
+                        </div> 
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="name_gt" placeholder="Brokerage Street Address*"                          formControlName="brokeraege_street_address" [ngClass]="{ 'is-invalid': submitted && f.brokeraege_street_address.errors }">
+                        <label for="estate_brokeraege_gt">
+                          {{"realtor_registration.brokeraege_street_address" | translate}}</label>
+                        <div *ngIf="submitted && f.brokeraege_street_address.errors" class="invalid-feedback">
+                          <div *ngIf="f.brokeraege_street_address.errors.required">
+                            {{"realtor_registration.brokeraege_street_address_is_required" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input #addressSearch1 type="text" class="form-control" id="name_gt" placeholder="Brokerage City*"
+                          onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                          formControlName="brokeraege_city" [ngClass]="{ 'is-invalid': submitted && f.brokeraege_city.errors }">
+                        <label for="estate_brokeraege_gt">
+                          {{"realtor_registration.brokeraege_city" | translate}}</label>
+                        <div *ngIf="submitted && f.brokeraege_city.errors" class="invalid-feedback">
+                          <div *ngIf="f.brokeraege_city.errors.required">
+                            {{"realtor_registration.brokeraege_city_is_required" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="name_gt" placeholder="Brokerage Province*"
+                          onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                          formControlName="brokeraege_province" [ngClass]="{ 'is-invalid': submitted && f.brokeraege_province.errors }">
+                        <label for="estate_brokeraege_gt">
+                          {{"realtor_registration.brokeraege_province" | translate}}</label>
+                        <div *ngIf="submitted && f.brokeraege_province.errors" class="invalid-feedback">
+                          <div *ngIf="f.brokeraege_province.errors.required">
+                            {{"realtor_registration.brokeraege_province_is_required" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="name_gt" placeholder="Brokerage Postal Code*"
+                        onKeyPress="if(this.value.length==15) return false;"
+                          formControlName="brokeraege_postal_code" [ngClass]="{ 'is-invalid': submitted && f.brokeraege_postal_code.errors }">
+                        <label for="estate_brokeraege_gt">
+                          {{"realtor_registration.brokeraege_postal_code" | translate}}</label>
+                        <div *ngIf="submitted && f.brokeraege_postal_code.errors" class="invalid-feedback">
+                          <div *ngIf="f.brokeraege_postal_code.errors.required">
+                            {{"realtor_registration.brokeraege_postal_code_is_required" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+              
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-btn-group mt-40">
+                      <div class="btn-row-flex">
+                        <div class="flex-item">
+                          <a routerLink="/" class="btn btn-transparent"><span class="fal fa-chevron-left"></span>
+                            <span>{{"realtor_registration.back" | translate}}</span></a>
+                        </div>
+                        <div class="flex-item">
+                          <button
+
+                            class="btn btn-blue-fill">{{updateData?.length ? 'Upload' : "realtor_registration.complete_signup" | translate}}</button>
+                          <!-- <button
+                            class="btn btn-blue-fill">{{"realtor_registration.complete_signup" | translate}}</button> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ************************* MODAL ******************************* -->
+<ng-template #modalCropper let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Upload & Crop</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center image-coropp-popup">
+    <input style="padding-top: 16px;    padding-left: 19px;" accept="image/*"  (change)="fileChangeEvent($event)" type="file"
+      class="form-control" placeholder="" aria-describedby="button-addon1">
+    <image-cropper style="width: 120px;height: 120px;" [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true" [aspectRatio]="4 / 4" format="png" (imageCropped)="imageCropped($event)"
+      (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+    <!-- <img-cropper  [settings]="cropperSettings"></img-cropper><br> -->
+    <img class="mt-3 mr-3" [src]="croppedImage ? croppedImage :'assets/images/person.png'" [width]="100"
+      [height]="100">
+
+    <!-- <img *ngIf="data?.image" class="rounded-circle mt-3" [src]="data?.image" [width]="100" [height]="100"> -->
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-rounded btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

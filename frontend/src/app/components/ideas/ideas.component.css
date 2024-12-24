@@ -1,0 +1,85 @@
+.agreement-banner.line-banner {
+    background-color: #004E98;
+  }
+  
+  .agreement-banner h1:after {
+    bottom: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.34);
+    width: 102px;
+    position: absolute;
+    content: "";
+    margin: 0 auto;
+    text-align: center;
+    left: calc(50% - 50px);
+  }
+  
+  .agreement-banner .privacy-hero h1 {
+    color: #fff;
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .agreement-banner .banner-row {
+    padding-bottom: 23px;
+    padding-top: 23px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .agreement-banner.hero-banner {
+    margin-top: -22px;
+  }
+  
+  .agreement-banner.hero-banner h1 {
+    color: white;
+  }
+  
+  .agreement-banner.hero-banner p {
+    margin-bottom: 87px;
+  }
+  
+  .agreement-banner .card-text {
+    padding: 1em 0;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .agreement-condition-dtl h4 {
+    font-size: 22px;
+    color: #1CC9FF;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+ .agreement-condition-dtl h4:after {
+    bottom: 0;
+    height: 1px;
+    background: rgb(36 202 255);
+    width: 60px;
+    position: absolute;
+    content: "";
+    left: 0;
+  }
+  .agreement-condition-dtl .services {
+    border-left: 8px solid;
+    border-right: 8px solid;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    padding: 20px;
+    border-color: #004e98;
+  }
+  
+  .agreement-condition-dtl .services .source_content {
+    font-size: 16px;
+  }
+  
+  .agreement-condition-dtl p,
+  .agreement-condition-dtl ul li {
+    margin-bottom: 1rem;
+  }

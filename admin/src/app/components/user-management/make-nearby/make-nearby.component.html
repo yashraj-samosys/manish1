@@ -1,0 +1,104 @@
+<section>
+    <div class="container">
+        <div class="breadcrumb">
+            <h1>Add Near by Agent </h1>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <header class="ml-3 mb-2">Please search for nearby agents and add them.</header>
+                    <input id="email" placeholder="Search" [formControl]="searchControl"
+                        (keyup)="applyFilter($event.target.value)" class="form-control form-control-rounded"
+                        type="text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h2 class="m-3 pt-3 pl-5">Agents</h2>
+                </div>
+            </div>
+            <!-- <div class="col-md-4 text-left">
+                <button (click)="reset()" type="button" class="btn btn-primary btn-rounded m-1">Reset</button>
+            </div> -->
+            <div class="col-md-12">
+                <div class="card o-hidden">
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <ngx-datatable *ngIf="filtered?.length" style="height: 500px; box-shadow: none"
+                        class="material fullscreen" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                        [rowHeight]="60" [scrollbarV]="true" [rows]="filtered">
+                        <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
+                            <ng-template ngx-datatable-header-template>
+                                S.No
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex"
+                                let-row="row">
+                                {{rowIndex +1}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Title" prop="profile_img" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Profile
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row" #img01 (error)="img01.src = './assets/images/avatar.jpg'">
+                                <img [src]="row.profile_img" >
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Title" prop="name" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Name
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.first_name}} {{row.last_name && row.last_name != undefined && row.last_name != 'undefined' && row.last_name != 'null' ? row.last_name : ''}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Email" prop="email" [minWidth]="50" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Email
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.email}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="false" [minWidth]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Action
+                            </ng-template>
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowIndex="rowIndex">
+                            <button (click)="add(row)" type="button" class="btn btn-primary btn-rounded m-1" 
+                                    [disabled]="row.activeStatus === 1">
+                              {{ row.activeStatus === 1 ? 'added' : 'add' }}
+                            </button>
+                          </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                        <div class="col-md-12 text-center pt-5 mt-5 mr-3 pr-3" *ngIf="!filtered?.length">
+                            <div class="displayFlex">
+                                <div>
+                                    <img src="../assets/images/nosearch.png"><br><br>
+                                    <!-- <h5><b>Please search for nearby agents and add them.</b></h5> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="container1">
+                            <!-- <h2>Agents</h2> -->
+                            <div *ngIf="MoviesList.length" cdkDropList [cdkDropListData]="MoviesList" class="movie-list" (cdkDropListDropped)="onDrop($event)">
+                                <div class="movie-block text-center m-1" *ngFor="let moviesList of MoviesList" cdkDrag><b>{{moviesList.fullname}}</b>
+                                    <button (click)="deleteNearBy(moviesList.id)" type="button"
+                                    class="btn btn-primary btn-rounded">Delete</button>
+                                </div>
+                            </div>
+                            <div *ngIf="!MoviesList.length"class="movie-list">
+                                <h4 class="m-3">Please search for nearby agents and add them.</h4>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            </div>
+    </div>
+</section>

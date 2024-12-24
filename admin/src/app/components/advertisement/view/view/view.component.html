@@ -1,0 +1,94 @@
+<section>
+    <div class="container">
+        <div class="d-sm-flex mb-5">
+            <span class="m-auto"></span>
+            <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" [routerLink]="['/advertisement/list']">Back
+                To
+                List</button>
+        </div>
+
+        <div id="print-area">
+            <div class="row mb-5 viewblock">
+                <div class="col-md-4">
+                    <div class="card mb-4 o-hidden">
+                        <img [class]="data?.panelType == 1 ? 'imgHeight card-img-top program-img' : 'card-img-top program-img'"
+                            [src]="data?.profile_img" alt="">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-4 o-hidden">
+                        <table class=" program-img table table-striped mb-0 table-bordered">
+                            <tbody>
+                                <!-- <tr>
+                                    <td>Image</td>
+                                    <td>{{data?.profile_img}}</td>
+                                </tr> -->
+                                <tr>
+                                    <td>StartDate</td>
+                                    <td>{{data?.StartDate | date:'dd-MM-yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>EndDate</td>
+                                    <td>{{data?.EndDate | date:'dd-MM-yyyy'}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td> Type</td>
+                                    <td>{{data?.Type == 1 ? "admin" : data?.Type == 2 ? "Client Realtor" : data?.Type == 3 ?
+                                        "Partner Realtor" : data?.Type == 4 ? "Public User & Landing Page": '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ClickCount</td>
+                                    <td>{{0}}</td>
+                                </tr>
+                                <tr>
+                                    <td>PanelType</td>
+                                    <td>{{data?.panelType == 1 ? "Advert panel-1" : data?.panelType == 2 ? "Advert
+                                        panel-2": data?.panelType==3 ? "Advert panel-3": ''}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Link</td>
+                                    <td><a href={{data?.Link}} target="_blank">{{data?.Link}}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="card-body m-auto">
+                            <p><span class="font-weight-bold">Advertisement Details</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4 o-hidden">
+                        <table class=" table table-striped mb-0 table-bordered">
+                            <tbody>
+                                <tr class="font-weight-bold">
+                                    <td>FSA</td>
+                                    <td>FSA NAME</td>
+                                </tr>
+                                <tr *ngFor="let item of agentFsa">
+                                    <td>{{item.fsa_code}}</td>
+                                    <td>{{item.fsa_name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="card-body m-auto">
+                            <p><span class="font-weight-bold">FSA Details</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->

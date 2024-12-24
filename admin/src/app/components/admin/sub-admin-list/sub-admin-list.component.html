@@ -1,0 +1,194 @@
+<section *ngIf="user_type == 1" >
+    <div class="container">
+        <div class="breadcrumb">
+            <h1>Sub Admin</h1>
+            <ul>
+                <li>List</li>
+            </ul>
+        </div>
+
+        <div class="separator-breadcrumb border-top"></div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input id="email" placeholder="Search" [formControl]="search"
+                        (keyup)="applyFilter($event.target.value)" class="form-control form-control-rounded"
+                        type="email">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select (change)=statusFilter($event) [formControl]="statusfilter"
+                    class="form-control form-control-rounded">
+                    <option value=1 [selected]="true">Active</option>
+                    <option value=0>Inactive</option>
+                </select>
+            </div>
+            <div class="col-md-4 text-right">
+                <button (click)="reset()" type="button" class="btn btn-primary btn-rounded m-1">Reset</button>
+                <button [routerLink]="['/admin/addeditsubadmin/0']" type="button"
+                    class="btn btn-primary btn-rounded m-1">Add
+                    Sub Admin</button>
+            </div>
+            <div class="col-md-12">
+                <div class="card  o-hidden">
+
+                    <ngx-datatable  style="height: 450px; box-shadow: none"
+                        class="material fullscreen" [columnMode]="'force'" [headerHeight]="50"
+                        [rowHeight]="60" [scrollbarV]="true" [rows]="filtered">
+                        <ngx-datatable-column name="S.No" prop="id" [minWidth]="70" [maxWidth]="50" >
+                            <ng-template ngx-datatable-header-template>
+                                S.No
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex"
+                                let-row="row">
+                                {{rowIndex+1}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Title" prop="profile_img" [minWidth]="90" [width]="40" >
+                            <ng-template ngx-datatable-header-template>
+                                Profile
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                <img style="width: 50px;height:50px;" [src]="row.profile_img" alt="" #img7 (error)="img7.src = './assets/images/avatar.jpg'">
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Name" prop="user_name" [minWidth]="70" [width]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Name
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.first_name}} {{(row.last_name != undefined && row.last_name != 'undefined' &&
+                                row.last_name != null && row.last_name != 'null' && row.last_name != '' ) ?
+                                row.last_name : ''}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Email" prop="email" [minWidth]="70" [width]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Email
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.email}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Mobile" prop="mobile" [minWidth]="100" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Mobile
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                +{{row.country_code_id}}{{row.mobile}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+                        <!-- <ngx-datatable-column name="Status" prop="status" [minWidth]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Status
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                <label class="switch switch-primary mr-3">
+                                    <input type="checkbox" [checked]="row.status">
+                                    <span (click)="changeStatus(row.id, row.status)" class="slider"></span>
+                                </label>
+                            </ng-template>
+                        </ngx-datatable-column> -->
+
+
+                        <ngx-datatable-column *ngIf="this.filterStatus != 2" name="Status" prop="status" [minWidth]="100"
+                            [width]="30">
+                            <ng-template ngx-datatable-header-template>
+                                Status
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                <label (click)="changeStatus(row)" class="switch switch-primary mr-3">
+                             <input  [disabled]="true"  type="checkbox" [checked]="statusfilter.value == '1' ? true : false">
+                                    <span class="slider"></span>
+                                </label>
+
+
+                                <!-- <label (click)="changeStatus(row)" class="switch switch-primary mr-3">
+                                    <input [disabled]="true"  type="checkbox" [checked]="userStatus.value == '1' ? true : false">
+                                    <span class="slider"></span>
+                                </label> -->
+
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <!-- <ngx-datatable-column [sortable]="false" name="Action" prop="action" [minWidth]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Action
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                <i mat-button [matMenuTriggerFor]="menu" class="i-Gear-2 settingIcon"></i>
+                                <mat-menu #menu="matMenu">
+                                    <ul class="actions">
+                                        <li>
+                                            <i (click)="edit(row.id)" triggers="mouseenter:mouseleave"
+                                                popoverClass='toolBgclr' matTooltip="Edit" class="i-Edit editIcon"></i>
+                                        </li>
+                                        <li>
+                                            <i triggers="mouseenter:mouseleave" matTooltip="View" (click)="view(row.id)"
+                                                class="i-Eye viewIcon"></i>
+                                        </li>
+                                        <li>
+                                            <i triggers="mouseenter:mouseleave" (click)="confirm(modalConfirm,row.id)"
+                                                ngbPopover="Delete" class="i-Close dltIcon"></i>
+                                        </li>
+                                    </ul>
+                                </mat-menu>
+                            </ng-template>
+                        </ngx-datatable-column> -->
+
+                        <ngx-datatable-column [sortable]="false" [minWidth]="220" [width]="40">
+                            <ng-template ngx-datatable-header-template>
+                                Action
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row"
+                                let-rowIndex="rowIndex">
+                                <button (click)="view(row.id)" type="button"
+                                    class="btn btn-primary btn-rounded m-1">View</button>
+                                <button (click)="edit(row.id)" type="button"
+                                    class="btn btn-primary btn-rounded m-1">Edit</button>
+                                <button *ngIf="row.status == 0" (click)="Delete(row.id,rowIndex)" type="button"
+                                    class="btn btn-danger btn-rounded m-1">Delete</button>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                    </ngx-datatable>
+                    <div class="col-md-12 text-center" *ngIf="!filtered?.length">
+                        <img src="../assets/images/nosearch.png"><br><br>
+                        <h5><b>No data found!</b></h5>
+                    </div>
+                    <mat-paginator #paginator [length]="total" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                        [pageSizeOptions]="[20, 50, 100, 200, 300, 400, 500]" (page)="getsubAdminList($event)">
+                    </mat-paginator>
+
+                </div>
+                <!-- <div class="col-md-12 text-center" *ngIf="!filtered?.length">
+                    <img src="../assets/images/nosearch.png"><br><br>
+                    <h5><b>No data found!</b></h5>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<ng-template #modalConfirm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Delete Sub Admin</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure you want to delete ?</strong></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded"
+            (click)="modal.dismiss('cancel')">No</button>
+        <button type="button" ngbAutofocus (click)="modal.close('Ok')" type="button"
+            class="btn btn-primary btn-rounded m-1">Yes</button>
+    </div>
+</ng-template>

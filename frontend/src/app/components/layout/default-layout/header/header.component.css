@@ -1,0 +1,29 @@
+nav.navbar.navbar-expand-lg.navbar-light {
+    position: fixed;
+    width: 100%;
+}
+
+header.rn-header .navbar .navbar-collapse{
+	width: 100%;
+}
+div#navbarNavAltMarkup {
+    flex-basis: inherit !important;
+    width: auto;
+    flex-grow: inherit;
+}
+.logout-btn{
+    cursor: pointer;
+}
+.navbarlogin-btn button {
+    padding: 4px 8px;
+    margin-left: 14px;
+    font-size: 15px;
+    border-radius: 26px;
+    line-height: 21px;
+    font-weight: 500;
+}
+@media(max-width:991px) {
+header.rn-header .navbar--right .rn-signin-dropdown .nav-link {
+    display: block;
+}
+}

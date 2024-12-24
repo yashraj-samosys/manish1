@@ -1,0 +1,338 @@
+<section>
+    <div class="container">
+        <div class="d-sm-flex ">
+            <span class="m-auto"></span>
+            <!-- <div *ngIf="id !=1"> -->
+            <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" [disabled]="!previousFsaButton"
+                (click)="pervious(data?.id)">Previous FSA</button>
+            <!-- </div> -->
+            <button *ngIf="pinMap == 0" class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3"
+                (click)="openSnackBar('Click on map to pin your location', '')">Mark Location</button>
+            <button *ngIf="pinMap == 1" class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3"
+                (click)="dismissSnackBar('', '')">Cancel Mark Location</button>
+
+            <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" [routerLink]="['/fsa/list']">Back
+                To
+                List</button>
+
+            <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" [disabled]="!nextFsabutton "
+                (click)="next(data?.id)">Next FSA</button>
+        </div>
+
+        <div>
+            <div class="row mt-3 mb-5">
+                <div class="col-md-6 card">
+
+                    <div id="print-area">
+                        <div class="row mb-5 viewblock">
+                            <div class="col-md-12">
+                                <div class=" mb-4 o-hidden">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12 p-0" style="display:flex;">
+                                                <div class="row-dtl" style="width:100%; display: flex;">
+                                                    <div class="col-md-3">
+                                                        <span class="font-weight-bold" style="width: 75px;">FSA Name:
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-7 p-0">
+                                                        <span *ngIf="hidden == false">{{data?.fsa_name}}</span>
+
+                                                        <form [formGroup]="fsaForm" (ngSubmit)="editForm()"
+                                                            style="width: 100%;" *ngIf="hidden == true">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <!-- <h2 class="balance">FSA</h2> -->
+                                                                    <div class="form-group">
+                                                                        <!-- <label>FSA Name</label> -->
+                                                                        <input class="form-control"
+                                                                            placeholder="FSA Name"
+                                                                            formControlName="fsaname" type="text">
+                                                                        <div *ngIf="fsaForm.controls['fsaname'].errors && (!fsaForm.controls['fsaname'].pristine || Submitted ||fsaForm.controls['fsaname'].touched )"
+                                                                            class="error-msg">
+                                                                            <div
+                                                                                [hidden]="!fsaForm.controls['fsaname'].errors.required">
+                                                                                FSA
+                                                                                Name
+                                                                                is required.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="col-md-2">
+
+                                                        </div> -->
+                                                            </div>
+
+                                                        </form>
+
+                                                    </div>
+
+
+                                                    <div class="col-md-2 text-right">
+                                                        <i triggers="mouseenter:mouseleave"
+                                                            style="width: 20px;font-size: 20px;cursor: pointer;"
+                                                            popoverClass='toolBgclr' ngbPopover="Edit"
+                                                            class="i-Edit editIcon" *ngIf="hidden == false"
+                                                            (click)="edit()"></i>
+                                                        <button *ngIf="hidden == true" [disabled]="!fsaForm.valid"
+                                                            class="btn btn-primary btn-rounded m-1"
+                                                            (click)="FSAnameSubmit()" type="submit">Save</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <p><span class="font-weight-bold">Code: </span><span
+                                                        style="    margin-left: 15%;">{{data?.fsa_code}}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <span class="font-weight-bold" style="width: 75px;">Neighbourhood:
+                                                </span>
+                                            </div>
+                                            <div class="col-md-7 p-0">
+                                                <span
+                                                    *ngIf="hidden01 == false">{{dataNeighborhood?.nieghborhood}}</span>
+
+                                                <form [formGroup]="fsaForm" (ngSubmit)="editForm()" style="width: 100%;"
+                                                    *ngIf="hidden01 == true">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+
+                                                            <div class="form-group">
+
+                                                                <input class="form-control" placeholder="nieghborhood"
+                                                                    formControlName="address" type="text">
+                                                                <div *ngIf="fsaForm.controls['address'].errors && (!fsaForm.controls['address'].pristine || Submitted ||fsaForm.controls['address'].touched )"
+                                                                    class="error-msg">
+                                                                    <div
+                                                                        [hidden]="!fsaForm.controls['address'].errors.required">
+                                                                        Neighborhood
+                                                                        is
+                                                                        required.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="col-md-2">
+
+                                                    </div> -->
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+                                            <div class="col-md-2 text-right">
+                                                <i triggers="mouseenter:mouseleave"
+                                                    style="width: 20px;font-size: 20px;cursor: pointer;"
+                                                    popoverClass='toolBgclr' ngbPopover="Edit" class="i-Edit editIcon"
+                                                    *ngIf="hidden01 == false" (click)="edit01()"></i>
+                                                <button *ngIf="hidden01 == true" [disabled]="!fsaForm.valid"
+                                                    class="btn btn-primary btn-rounded m-1"
+                                                    (click)="NeighborhoodSubmit()" type="submit">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <agm-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" [zoom]=6>
+                        <agm-marker [latitude]="lat" [longitude]="lng" [label]="'A'">
+                        </agm-marker>
+                        <agm-data-layer [geoJson]="geoJson" (layerClick)="eventLayer($event)" [style]="styleFunc">
+                        </agm-data-layer>
+                    </agm-map>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div>
+            <!-- <iframe [src]="Fsaurl" width="100%" height="600px" style="border:0;    padding-bottom: 5%;"
+                allowfullscreen="" loading="lazy"></iframe> -->
+
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="breadcrumb">
+            <h1>{{data?.fsa_code}} Default Agent/Partner Agent</h1>
+            <ul>
+                <li>List</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- <div class="col-md-4"> -->
+                <div class="form-group">
+                    <input id="email" placeholder="Search" (keyup)="applyFilter($event.target.value)"
+                        class="form-control form-control-rounded" type="text">
+                </div>
+                <!-- </div> -->
+                <!-- <div class="form-group">
+                    <input id="email" placeholder="Search" [formControl]="searchControl"
+                        class="form-control form-control-rounded" type="text">
+                </div> -->
+            </div>
+            <div class="col-md-8 text-right">
+                <button (click)="export()" type="button" class="btn btn-primary btn-rounded m-1">Export</button>
+            </div>
+            <div class="col-md-12">
+
+                <div class="card o-hidden view-page-dt">
+                    <ngx-datatable style="height: 500px; box-shadow: none" class="material fullscreen hideFsa"
+                        [columnMode]="'force'" [headerHeight]="50" [rowHeight]="60" [scrollbarV]="true"
+                        [rows]="filtered">
+
+                        <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50" >
+                            <ng-template ngx-datatable-header-template>
+                                S.No
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex"
+                            let-row="row">
+                            {{rowIndex + 1}}
+                        </ng-template>
+                        </ngx-datatable-column>
+                                <ngx-datatable-column name="Title" prop="profile_img" [minWidth]="50" [width]="70">
+                                    <ng-template ngx-datatable-header-template>
+                                        Profile
+                                    </ng-template>
+                                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                        <img style="height: 47px; width: 50px; "
+                                        #img03 (error)="img03.src = './assets/images/avatar.jpg'"
+                                        [src]="row.profile_img">
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Title" prop="first_name" [minWidth]="50" [width]="70">
+                                    <ng-template ngx-datatable-header-template>
+                                        Name
+                                    </ng-template>
+                                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                        {{row.first_name}} {{row.last_name && row.last_name != 'undefined' &&
+                                        row.last_name != undefined && row.last_name != 'null' && row.last_name != null ?
+                                        row.last_name : ''}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Email" prop="email" [minWidth]="50" [width]="70">
+                                    <ng-template ngx-datatable-header-template>
+                                        Email
+                                    </ng-template>
+                                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                        {{row.email}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Email" prop="user_type" [minWidth]="50" [width]="70">
+                                    <ng-template ngx-datatable-header-template>
+                                        Type
+                                    </ng-template>
+                                    <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                        <span
+                                            *ngIf="row.activate_status == 1 && row.is_default_agent == 1 && row.user_type == 2">Default
+                                            Agent</span>
+                                        <span
+                                            *ngIf="(( row.activate_status == 0 && row.is_default_agent == 1 && row.user_type == 2  ) || (row.activate_status == 0 && row.is_default_agent == 0 && row.user_type == 3))">Partner
+                                            Agent</span>
+                                        <span
+                                            *ngIf="(( row.activate_status == 0 && row.is_default_agent == 0 && row.user_type == 2  ) || (row.activate_status == 0 && row.is_default_agent == 0 && row.agent_type == 1) || (row.activate_status == 0 && row.is_default_agent == 1 && row.agent_type == 1))">Client
+                                            Agent</span>
+
+                                    </ng-template> -->
+
+                                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                        <span
+                                            *ngIf="row.activate_status == 1 && row.is_default_agent == 1 && row.user_type == 2">Default
+                                            Agent</span>
+                                        <span
+                                            *ngIf="(( row.agent_type == 0 && row.activate_status == 0 && row.is_default_agent == 1 && row.user_type == 2  ) || (row.agent_type == 0 && row.activate_status == 0 && row.is_default_agent == 0 && row.user_type == 3))">Partner
+                                            Agent</span>
+                                        <span
+                                            *ngIf="(( row.agent_type == 1 && row.activate_status == 0 && row.is_default_agent == 0 && row.user_type == 2  ) || (row.activate_status == 0 && row.is_default_agent == 1 && row.agent_type == 1 && row.user_type == 2))">Client
+                                            Agent</span>
+
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="weight" prop="mobile" [minWidth]="50" [width]="50">
+                                    <ng-template ngx-datatable-header-template>
+                                        Mobile
+                                    </ng-template>
+                                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                        +{{row.phonecode}}{{row.mobile}}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Status" prop="status" [minWidth]="30" [width]="60">
+                                    <ng-template ngx-datatable-header-template>
+                                        Status
+                                    </ng-template>
+                                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                        <label *ngIf="row.activate_status == 1" class="switch switch-primary mr-3"
+                                            (click)="changeStatus(id,row)">
+                                            <input [disabled]="row.activate_status == 1" type="checkbox"
+                                                [checked]="row.activate_status == 1 && row.user_type == 2 && row.is_default_agent == 1">
+                                            <span class="slider"></span>
+                                        </label>
+                                        <label *ngIf="row.activate_status == 0" class="switch switch-primary mr-3"
+                                            (click)="changeStatus(id,row,2)">
+                                            <input [disabled]="row.activate_status == 0" type="checkbox"
+                                                [checked]="row.activate_status == 1">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+
+
+                                <!-- <ngx-datatable-column name="weight" prop="account_number" [minWidth]="50" [width]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Account
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.account_number}}
+                            </ng-template>
+                        </ngx-datatable-column> -->
+                                <ngx-datatable-column [sortable]="false" [minWidth]="50">
+                                    <ng-template ngx-datatable-header-template>
+                                        Action
+                                    </ng-template>
+                                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row"
+                                        let-rowIndex="rowIndex">
+                                        <button (click)="view(row.id,row.user_type)" type="button"
+                                            class="btn btn-primary btn-rounded m-1">View</button>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                    </ngx-datatable>
+                    <div class="col-md-12 text-center" *ngIf="!filtered?.length" style="padding-top: 0px">
+                        <div class="displayFlex">
+                            <div>
+                                <img src="../assets/images/nosearch.png"><br><br>
+                                <h5><b>No data found!</b></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <mat-paginator  #paginator
+                    [length]="total"
+                    [pageIndex]="pageIndex"
+                    [pageSize]="pageSize"
+                    [pageSizeOptions]="[10, 20, 50, 100, 200, 300, 400, 500]"
+                     (page)="getFSAActiveDefaultAgent($event)">
+                    </mat-paginator>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,302 @@
+<section>
+    <div class="container">
+        <div class="breadcrumb">
+            <h1>FSA</h1>
+            <ul>
+                <li>List</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input id="email" placeholder="Search" [formControl]="searchControl"
+                        class="form-control form-control-rounded" type="text">
+                </div>
+                <!-- <button (click)="reset()">Reset</button> -->
+            </div>
+            <div class="col-md-8 text-right">
+                <button (click)="searchFilter()" type="button" class="btn btn-primary m-1" style="float:left"><i
+                        class="i-Magnifi-Glass1"></i> </button>
+
+
+
+                <button type="button" class="btn btn-primary btn-rounded m-1" (click)="open(mymodal)">Add FSA</button>
+
+
+
+                <ng-template #mymodal let-modal style="width:auto;height:auto">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Add FSA</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal_dismiss()">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="width:auto;height:auto">
+
+                        <form [formGroup]="addFsa">
+
+
+
+                            <div class="form-group">
+                                <label>FSA Code</label>
+                                <input type="text" onkeyup="this.value = this.value.trim().toUpperCase();" id="n1"
+                                    maxlength="{{validations_cnfg.m3}}" minlength="3" placeholder="FSA Code"
+                                    class="form-control" formControlName="fsa_code" required>
+                                <div *ngIf="addFsa.controls['fsa_code'].errors && (!addFsa.controls['fsa_code'].pristine || submitted ||addFsa.controls['fsa_code'].touched )"
+                                    class="error-msg">
+                                    <div [hidden]="!addFsa.controls['fsa_code'].errors.required">FSA code is
+                                        required
+                                    </div>
+                                    <div [hidden]="!addFsa.controls['fsa_code'].errors.minlength">FSA code is
+                                        invalid
+                                    </div>
+                                    <div [hidden]="!addFsa.controls['fsa_code'].errors.maxlength">FSA code is
+                                        invalid
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>FSA Name</label>
+                                <input onkeypress='if(this.value.length > 100) return false;'
+                                    maxlength="{{validations_cnfg.m100}}" type="text" placeholder="FSA Name"
+                                    class="form-control" formControlName="fsa_name" required>
+                                <div *ngIf="addFsa.controls['fsa_name'].errors && (!addFsa.controls['fsa_name'].pristine || submitted ||addFsa.controls['fsa_name'].touched )"
+                                    class="error-msg">
+                                    <div [hidden]="!addFsa.controls['fsa_name'].errors.required">FSA name is
+                                        required
+                                    </div>
+                                    <div [hidden]="!addFsa.controls['fsa_name'].errors.maxlength">FSA name is
+                                        too large
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Neighbourhood Name </label>
+                                <input maxlength="{{validations_cnfg.m100}}"
+                                    onkeypress='if(this.value.length > 100) return false;' type="text"
+                                    placeholder="Neighborhood Name" class="form-control" formControlName="nieghborhood"
+                                    required>
+                                <div *ngIf="addFsa.controls['nieghborhood'].errors && (!addFsa.controls['nieghborhood'].pristine || submitted ||addFsa.controls['nieghborhood'].touched )"
+                                    class="error-msg">
+                                    <div [hidden]="!addFsa.controls['nieghborhood'].errors.required">Neighbourhood name
+                                        is
+                                        required
+                                    </div>
+                                    <div [hidden]="!addFsa.controls['nieghborhood'].errors.maxlength">Neighbourhood name
+                                        is
+                                        too large
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" (click)="submitFsa()">Add</button>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </ng-template>
+
+
+
+
+                <button (click)="reset()" type="button" class="btn btn-primary btn-rounded m-1">Reset</button>
+                <button (click)="export()" type="button" class="btn btn-primary btn-rounded m-1">Export</button>
+            </div>
+            <div class="col-md-12">
+                <div class="card o-hidden">
+                    <ngx-datatable #table *ngIf="filtered?.length" style="height: 500px; box-shadow: none"
+                        class="material fullscreen hideFsa" [columnMode]="'force'" [headerHeight]="50" [rowHeight]="60"
+                        [scrollbarV]="true" [rows]="filtered">
+                        <!-- <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="50">
+                            <ng-template ngx-datatable-header-template>
+                                S.No
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex"
+                                let-row="row">
+                                {{rowIndex +1}}
+                            </ng-template>
+                        </ngx-datatable-column> -->
+
+                        <ngx-datatable-column name="S.No" [sortable]="false" [width]="10" [minWidth]="70" [maxWidth]="100">
+                            <ng-template ngx-datatable-header-template>
+                                S.No
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex"
+                                let-row="row">
+                                {{row.id}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="Title" prop="name" [minWidth]="70" [maxWidth]="100" [width]="10">
+                            <ng-template ngx-datatable-header-template>
+                                FSA
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.fsa_code}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Title" prop="name" [minWidth]="100" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                FSA Name
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.fsa_name}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="Title" prop="name" [minWidth]="120" [width]="70">
+                            <ng-template ngx-datatable-header-template>
+                                Default Agent
+                            </ng-template>
+                            <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{ row?.agent.length > 0 ? row?.agent[0].first_name + ' ' + row?.agent[0].last_name :
+                                "-" }}
+                            </ng-template> -->
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{ row?.agent.length > 0 ? row?.agent[0].first_name + ' ' + (row?.agent[0].last_name == NULL ? '' : row?.agent[0].last_name) :
+                                "-" }}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="Title" prop="name" [minWidth]="150">
+                            <ng-template ngx-datatable-header-template>
+                                Neighbourhood Name
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row?.nieghborhood ? row?.nieghborhood : '-'}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+                        <ngx-datatable-column name="Status" prop="status" [minWidth]="100" [width]="30">
+                            <ng-template ngx-datatable-header-template>Status</ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                <label class="switch switch-primary mr-3">
+                                    <input (click)="changeStatus(row.id, row.status)" type="checkbox"
+                                        [checked]="row.status">
+                                    <span class="slider"></span>
+                                </label>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="false" [minWidth]="150" [width]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Action
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row"
+                                let-rowIndex="rowIndex">
+                                <button (click)="view(row.id)" type="button"
+                                    class="btn btn-primary btn-rounded m-1">View</button>
+
+                                <button type="button" class="btn btn-primary btn-rounded m-1"
+                                    (click)="open1(mymodal1,row.fsa_code)">Edit</button>
+                                <ng-template #mymodal1 let-modal style="width:auto;height:auto">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="modal-basic-title">Edit FSA</h4>
+                                        <button type="button" class="close" aria-label="Close"
+                                            (click)="modal_dismiss()">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="width:auto;height:auto">
+
+                                        <form [formGroup]="editFsa">
+
+
+
+                                            <div class="form-group">
+                                                <label>FSA Code</label>
+                                                <input maxlength="{{validations_cnfg.m3}}" type="text" disabled
+                                                    placeholder="FSA Code" class="form-control"
+                                                    formControlName="fsa_code">
+                                                <!-- <input type="text" onkeyup="this.value = this.value.trim().toUpperCase();"  maxlength="3" minlength="3" placeholder="FSA Code" class="form-control" formControlName="fsa_code"> -->
+                                                <div *ngIf="editFsa.controls['fsa_code'].errors && (!editFsa.controls['fsa_code'].pristine || submitted ||editFsa.controls['fsa_code'].touched )"
+                                                    class="error-msg">
+                                                    <div [hidden]="!editFsa.controls['fsa_code'].errors.required">FSA
+                                                        codeis
+                                                        required
+                                                    </div>
+                                                    <div [hidden]="!editFsa.controls['fsa_code'].errors.minlength">FSA
+                                                        code is
+                                                        invalid
+                                                    </div>
+                                                    <div [hidden]="!editFsa.controls['fsa_code'].errors.maxlength">FSA
+                                                        code is
+                                                        invalid
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>FSA Name</label>
+                                                <input onkeypress='if(this.value.length > 100) return false;'
+                                                    maxlength="{{validations_cnfg.m100}}" type="text"
+                                                    placeholder="FSA Name" class="form-control"
+                                                    formControlName="fsa_name">
+                                                <div *ngIf="editFsa.controls['fsa_name'].errors && (!editFsa.controls['fsa_code'].pristine || submitted ||editFsa.controls['fsa_name'].touched )"
+                                                    class="error-msg">
+                                                    <div [hidden]="!editFsa.controls['fsa_name'].errors.required">FSA
+                                                        name is
+                                                        required
+                                                    </div>
+                                                    <div [hidden]="!editFsa.controls['fsa_name'].errors.maxlength">FSA
+                                                        name is
+                                                        too large
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Neighborhood Name </label>
+                                                <input onkeypress='if(this.value.length > 100) return false;'
+                                                    maxlength="{{validations_cnfg.m100}}" type="text"
+                                                    placeholder="Neighborhood Name" class="form-control"
+                                                    formControlName="nieghborhood">
+                                                <div *ngIf="editFsa.controls['nieghborhood'].errors && (!editFsa.controls['nieghborhood'].pristine || submitted ||editFsa.controls['nieghborhood'].touched )"
+                                                    class="error-msg">
+                                                    <div [hidden]="!editFsa.controls['nieghborhood'].errors.required">
+                                                        Neighborhood name is
+                                                        required
+                                                    </div>
+                                                    <div [hidden]="!editFsa.controls['nieghborhood'].errors.maxlength">
+                                                        FSA
+                                                        name is
+                                                        too large
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary"
+                                                (click)="editFsaAdmin(row.id,row.fsa_code)">Update</button>
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                </ng-template>
+
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+                    </ngx-datatable>
+
+                    <mat-paginator #paginator [length]="total" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                        [pageSizeOptions]="[10, 20, 50, 100, 200, 300, 400, 500]" (page)="getAgentList($event)">
+                    </mat-paginator>
+
+
+                </div>
+                <div class="col-md-12 text-center" *ngIf="!filtered?.length">
+                    <div class="displayFlex" style="padding-top: 37px">
+                        <div>
+                            <img src="../assets/images/nosearch.png"><br><br>
+                            <h5><b>No data found!</b></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,71 @@
+.actions {
+  list-style      : none;
+  padding         : 0;
+  margin          : 0;
+  background-color: transparent;
+}
+
+.actions li {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.settingIcon {
+  cursor   : pointer;
+  color    : #663399;
+  font-size: 25px;
+}
+
+.editIcon {
+  cursor   : pointer;
+  color    : #663399;
+  font-size: 25px;
+}
+
+.dltIcon {
+  cursor   : pointer;
+  color    : #a71d1d;
+  font-size: 25px;
+}
+
+.viewIcon {
+  cursor   : pointer;
+  color    : #663399;
+  font-size: 25px;
+}
+
+.mat-menu-panel {
+  min-width: 50px !important;
+}
+
+.activeIcon {
+  cursor   : pointer;
+  color    : #2ea512;
+  font-size: 25px;
+}
+
+.deactivateIcon {
+  cursor   : pointer;
+  font-size: 25px;
+}
+
+.removeIcon delete-icon.ng-star-inserted {
+  display: none !important;
+}
+
+::ng-deep .datatable-footer.datatable-footer.ng-star-inserted {
+
+  display: none;
+}
+
+::ng-deep .empty-row ng-star-inserted{
+  display: none;
+}
+
+.material{
+  color: white;
+}
+.col-md-12.text-center.ng-star-inserted {
+  position: absolute;
+  top: 200px;
+}

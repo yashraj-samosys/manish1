@@ -1,0 +1,96 @@
+<section *ngIf="user_type == 1" >
+    <div class="container">
+        <div class="breadcrumb">
+            <h1>Admin</h1>
+            <ul>
+                <li>List</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row">
+            <!-- <div class="col-md-4">
+                <div class="form-group">
+                    <input id="email" placeholder="Search" [formControl]="searchControl"
+                        (keyup)="applyFilter($event.target.value)" class="form-control form-control-rounded"
+                        type="text">
+                </div>
+            </div> -->
+            <div class="col-md-12">
+                <div class="card o-hidden">
+                    <ngx-datatable *ngIf="filtered?.length" style="height: 500px; box-shadow: none"
+                        class="material fullscreen hideFsa" [columnMode]="'force'" [headerHeight]="50" [rowHeight]="60"
+                        [scrollbarV]="true" [rows]="filtered">
+                        <ngx-datatable-column name="S.No" [sortable]="false" [maxWidth]="70">
+                            <ng-template ngx-datatable-header-template>
+                                S.No
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex"
+                                let-row="row">
+                                {{rowIndex +1}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Title" prop="profile_img" [minWidth]="70" [width]="60">
+                            <ng-template ngx-datatable-header-template>
+                                Profile
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                <img style="width: 50px;height:50px;" [src]="row.profile_img"  #img07 (error)="img07.src = './assets/images/avatar.jpg'">
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Title" prop="name" [minWidth]="70" [width]="60">
+                            <ng-template ngx-datatable-header-template>
+                                Name
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.first_name}} {{row.last_name && row.last_name != undefined && row.last_name !=
+                                'undefined' && row.last_name != 'null' ? row.last_name : ''}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Email" prop="email" [minWidth]="70" [width]="60">
+                            <ng-template ngx-datatable-header-template>
+                                Email
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.email}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="mobile" prop="mobile" [minWidth]="70" [width]="60">
+                            <ng-template ngx-datatable-header-template>
+                                Mobile
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                {{row.mobile}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column [sortable]="false" [minWidth]="50">
+                            <ng-template ngx-datatable-header-template>
+                                Action
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-value="value" let-row="row"
+                                let-rowIndex="rowIndex">
+                                <button (click)="view(row.id)" type="button"
+                                class="btn btn-primary btn-rounded m-1">View</button>
+                                <button (click)="edit()" type="button"
+                                class="btn btn-primary btn-rounded m-1">Edit</button>
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+
+
+
+                    </ngx-datatable>
+                </div>
+                <div class="col-md-12 text-center" *ngIf="!filtered?.length">
+                    <div class="displayFlex">
+                        <div>
+                            <img src="../assets/images/nosearch.png"><br><br>
+                            <h5><b>No data found!</b></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

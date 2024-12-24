@@ -1,0 +1,184 @@
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+</style>
+<div class="rn-gt-wrapper">
+  <div class="container-fluid px-0">
+    <div class="row gt-row--main">
+      <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-xs-12 gt-col--left">
+        <div class="gt-content--left">
+          <div class="gt-contents--main">
+            <div class="gt-contents--inner u-fancy-scrollbar">
+              <h3 class="title--large cc-book mb-40" style="line-height:40px"> {{"consumer_registration.welcome_to" | translate }}</h3>
+              <p class="cc-book mb-30"> {{"consumer_registration.this_website" | translate }}.</p>
+              <p class="cc-book mb-30">{{"consumer_registration.the_Realtors" | translate }}</p>
+              <p class="cc-book mb-30"> {{"consumer_registration.MyReferral" | translate}}</p>
+
+              <!-- <h3 class="title--large cc-book mb-40"> {{"consumer_registration.you_have_been_Invited_to_join_My_Referral_Network" | translate }}</h3> -->
+              <!-- <p class="cc-book mb-30"> {{"consumer_registration.your_friend_in_Real_estate" | translate }}.</p> -->
+              <!-- <p class="cc-book mb-30">{{"consumer_registration.all_you_have_to_do_is" | translate }}: <br> {{"consumer_registration.fill_in_all_the_information_required" | translate }}.</p> -->
+              <!-- <p class="cc-book mb-30"> {{"consumer_registration.welcome_from_the_my_referral_network_team" | translate}}</p> -->
+            </div>
+          </div>
+          <div class="bg-collage" style="background-image: url('assets/images/collage-img.png');"></div>
+        </div>
+      </div>
+      <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-xs-12 gt-col--right">
+        <form [formGroup]="regisrtationForm" (ngSubmit)="onLogin()">
+
+          <div class="gt-content--right">
+            <div class="gt-contents--main">
+              <div class="gt-contents--inner u-fancy-scrollbar">
+                <h3 class="title--large cc-book text-center mb-30">{{"consumer_registration.free_public_signup" |
+                  translate}}</h3>
+                <div class="row gt-form--row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="name_gt" placeholder="Name*" formControlName="name" 
+                        maxLength={{myValidation.maxlength_fifty}}
+                          onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                          [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                        <label for="name_gt">{{"consumer_registration.name" | translate}} <span class="text-red">*
+                          </span></label>
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                          <div *ngIf="f.name.errors.required">{{"consumer_registration.name_is_require" | translate}}
+                          </div>
+                          <div *ngIf="f.name.errors.pattern">{{"consumer_registration.invalid_name" | translate}}</div>
+                          <div *ngIf="regisrtationForm.controls['name'].errors.maxlength">{{"tolong.name" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Phone" formControlName="mobile"
+                        maxLength={{myValidation.mobileMaxlength}}
+                          onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                          [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }">
+                        <label for="phone_gt">{{"consumer_registration.phone" | translate}}<span class="text-red">*
+                          </span></label>
+                        <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                          <div *ngIf="f.mobile.errors.required">{{"consumer_registration.phone_is_required" |
+                            translate}}</div>
+                          <div *ngIf="regisrtationForm.controls['mobile'].errors.minlength">{{"create_request.please_enter_8_to_15_digit_phone_no" |
+                            translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['mobile'].errors.pattern">Invalid phone number</div>
+                            <div *ngIf="regisrtationForm.controls['mobile'].errors.maxlength">{{"create_request.please_enter_8_to_15_digit_phone_no" |
+                              translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="email" class="form-control" id="email_gt" placeholder="Email" onKeyPress="return event.charCode != 32"
+                          formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                          maxlength={{myValidation.m50}}>
+                        <label for="phone_gt">{{"consumer_registration.email" | translate}}<span class="text-red">*
+                          </span></label>
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                          <div *ngIf="f.email.errors.required">{{"consumer_registration.email_is_require" | translate}}
+                          </div>
+                          <div *ngIf="f.email.errors.pattern || f.email.errors.email "> {{"consumer_registration.email_pattern_is_wrong" |
+                            translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['email'].errors.maxlength">{{"tolong.Email" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="password" class="form-control" id="password_gt" placeholder="Password"
+                          formControlName="password" [type]="showHidePass ? 'password': 'text'" maxlength={{myValidation.m30}}
+                          [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <a href="javascript:void(0);" (click)="showHidePassword()" id="show"><span
+                            [ngClass]="showHidePass ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                        <label for="password_gt">{{"consumer_registration.password" | translate}}<span class="text-red">*
+                        </span></label>
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                          <div *ngIf="f.password.errors.required">{{"consumer_registration.password_is_required" |
+                            translate}}</div>
+                          <div *ngIf="f.password.errors.minlength">
+                            {{"consumer_registration.password_must_be_at_least_6_characters" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['password'].errors.maxlength">{{"tolong.Password" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="password" class="form-control" id="password_confirm_gt" maxlength={{myValidation.m30}}
+                          placeholder="Password Confirm" formControlName="cpassword"
+                          [type]="showHidePass1 ? 'password': 'text'"
+                          [ngClass]="{ 'is-invalid': submitted && f.cpassword.errors }" />
+                        <a href="javascript:void(0);" (click)="showHidePassword1()" id="show"><span
+                            [ngClass]=" showHidePass1 ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                        <label for="password_confirm_gt">{{"consumer_registration.password_confirm" | translate}}<span
+                            class="text-red">*
+                          </span></label>
+                        <div *ngIf="submitted && f.cpassword.errors" class="invalid-feedback">
+                          <div *ngIf="f.cpassword.errors.required">
+                            {{"consumer_registration.confirm_password_is_required" | translate}}</div>
+                          <div *ngIf="f.cpassword.errors.mustMatch">{{"consumer_registration.passwords_must_match" |
+                            translate}}</div>
+                           
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-check-custom">
+                        <input type="checkbox" name="" id="terms_text_gt" name="terms_text_gt" class="check-item-custom" (change)="onchange()"
+                          formControlName="accept" [ngClass]="{ 'is-invalid': submitted && f.accept.errors }">
+                        <label style="cursor: pointer;" for="terms_text_gt" class="check-label-custom">
+                          {{"consumer_registration.i_have_reviewed_and_read_the_User_agreement_and_agree_to_the" |
+                          translate}} <a href="/terms-conditions" target="_blank">
+                            {{"consumer_registration.terms_conditions" | translate}}</a>
+                          {{"consumer_registration.of_the_site" | translate}} <a href="/user-agreement"
+                            target="_blank">{{"consumer_registration.user_agreement" | translate}}</a>
+                          {{"consumer_registration.and_use_of_my_personal_information" | translate}}
+                        </label>
+                        <div *ngIf="submitted && f.accept.errors" class="invalid-feedback">
+                          <div *ngIf="f.accept.errors.required">{{"consumer_registration.please_accept_terms_conditions"
+                            | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-btn-group mt-40">
+                      <div class="btn-row-flex">
+                        <div class="flex-item">
+                          <a routerLink="/home" class="btn btn-transparent"><span class="fal fa-chevron-left"></span>
+                            <span>{{"consumer_registration.back" | translate}}</span></a>
+                        </div>
+                        <div class="flex-item">
+                          <button class="btn btn-blue-fill">{{"consumer_registration.complete_signup" |
+                            translate}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

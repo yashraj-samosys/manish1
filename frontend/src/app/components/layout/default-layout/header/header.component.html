@@ -1,0 +1,115 @@
+<app-loader></app-loader>
+<header class="rn-header sticky" id="header-stickey">
+    <nav class="navbar navbar-expand-lg navbar-light" data-aos="fade-up" data-aos-delay="200">
+      <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/" aria-label="Referral Network"><img loading="lazy" alt="Referral Network" src="./assets/images/rn-logo.png" width="120"></a>
+       
+        <div class="navbar--right">
+          
+          <div class="dropdown rn-signin-dropdown" *ngIf="auth?.login == false" >
+            <a class="nav-link dropdown-toggle" href="" role="button" id="signinMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="rn-avatar"><span><img loading="lazy" alt="Profile Image" src="./assets/images/person.png"></span></span>   <span class="mob-arrow">Sign In</span> 
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="signinMenuLink">
+              <li><a class="dropdown-item" routerLink="/login"> {{"header.Public_sign_in" | translate }}</a></li>
+              <li><a class="dropdown-item" routerLink="/login/realtor">{{"header.Realtor_sign_in" | translate }}</a></li>
+              <li><a class="dropdown-item" routerLink="/login/client">{{"header.Client_sign_in" | translate }}</a></li>
+            </ul>
+          </div>
+
+
+          <div *ngIf="auth.login == true"  class="dropdown rn-signin-dropdown profile-mob">
+       
+
+            <span class="rn-avatar"><span><img  loading="lazy" alt="Edit Profile" class="nav-link" [src]="apiUrl.editProfile ? apiUrl.editProfile :'./assets/images/img-l1.png'" #img01 (error)="img01.src = './assets/images/person.png'" ></span></span>
+            <a class="nav-link dropdown-toggle" href="" role="button" id="profileMenuLink" data-bs-toggle="dropdown" aria-expanded="false">{{apiUrl?.nameProfile }} </a>
+            <ul class="dropdown-menu" aria-labelledby="profileMenuLink">
+              <li><a class="dropdown-item" routerLink="/edit-profile">{{"header.profile" | translate}}</a></li>
+              <!-- <li><a class="dropdown-item" *ngIf="auth.user_type == '2'" routerLink="/request/0/0">{{"header.request" | translate}}</a></li> -->
+              <li><a class="dropdown-item" *ngIf="auth.user_type != 4" routerLink="/request/0/0">{{"header.request" | translate}}</a></li>
+              <li><a class="dropdown-item" *ngIf="auth.user_type == '4'" routerLink="/my-request">{{"header.request" | translate}}</a></li>
+              <li><a class="dropdown-item logout-btn"(click)="Logout()">{{"header.logout" | translate}}</a></li>
+            </ul>
+          </div>         
+
+          <div class="dropdown rn-lang-dropdown">
+
+            <a class="nav-link dropdown-toggle" href="" role="button" id="languageMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="rn-lang--selected"><span>EN</span></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="languageMenuLink">
+              <li class="active" (click)="useLanguage('en')" id="englishId">EN</li>
+              <li class="active"  (click)="useLanguage('fr')" id="FranchId"> FR</li>
+            </ul>
+          </div>
+          <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><i class="fal fa-search"></i></span>
+          </button> -->
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="rn-search">
+           <!--  <div *ngIf="auth.login == true"  class="rn-search--item">
+              <span class="fal fa-search search-icon"></span>
+              <div class="input-group">
+                <input type="text"   class="rn-form-control" placeholder="Search by city">
+              </div>
+            </div>
+            <div *ngIf="auth.login == true"  class="rn-search--item">
+              <span class="fal fa-search search-icon"></span>
+              <div class="input-group">
+                <input type="text" name="" class="rn-form-control" placeholder="Search by realtor">
+              </div>
+            </div> -->
+          </div>
+          <div class="navbar-nav">
+            <div class="navbarlogin-btn">
+            <button  (click)="registrationN(1)" *ngIf="auth.login == false && (b == 'home' || b == '' || b == '/')" class="btn btn-blue-fill">{{"header.Public_signup" | translate }}</button>
+            <button (click)="registrationN(2)"   *ngIf="auth.login == false && (b == 'home' || b == '' || b == '/')" class="btn btn-blue-fill" >{{"header.Realtor_signup" | translate }}</button>
+            <button (click)="registrationN(4)"  *ngIf="auth.login == false && (b == 'home' || b == '' || b == '/')" class="btn btn-blue-fill" >{{"header.Client_signup" | translate }}</button> 
+            </div>
+            <div class="dropdown">
+              <!-- <a class="nav-link dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                CAD
+              </a> -->
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </div>
+            <div *ngIf="auth?.login == false"  class="dropdown rn-signin-dropdown">
+              <span class="rn-avatar"><span><img loading="lazy" alt="Profile Image" src="./assets/images/person.png"></span></span>
+              <a class="nav-link dropdown-toggle" href="" role="button" id="publicSigninMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+               {{"header.sign_In" |  translate}}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="publicSigninMenuLink">
+                <li><a class="dropdown-item" routerLink="/login">{{"header.Public_sign_in" |  translate }}</a></li>
+                <li><a class="dropdown-item" routerLink="/login/realtor"> {{ "header.Realtor_sign_in" | translate }}</a></li>
+                <li><a class="dropdown-item" routerLink="/login/client">{{"header.Client_sign_in" | translate}}</a></li>
+              </ul>
+            </div>
+            <div *ngIf="auth.login == true"  class="dropdown rn-signin-dropdown">
+              <!-- <span class="rn-avatar"><span><img loading="lazy" alt="Profile Image"   class="nav-link dropdown-toggle"src="{{auth.ProfileData?.profile_img}}"></span></span> -->
+              <span class="rn-avatar"><span><img loading="lazy" alt="Profile Image"  class="nav-link" [src]="apiUrl.editProfile ? apiUrl.editProfile :'./assets/images/img-l1.png'" #img01 (error)="img01.src = './assets/images/person.png'" ></span></span>
+              <!-- <span class="rn-avatar"><span><img loading="lazy" alt="Profile Image"  class="nav-link dropdown-toggle" [src]="apiUrl.editProfile"></span></span> -->
+              <!-- <a class="nav-link dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+               {{auth?.ProfileData?.first_name}} {{auth?.ProfileData?.last_name}} 
+              </a> -->
+               <a class="nav-link dropdown-toggle" href="" role="button" id="headerProfileMenuLink" data-bs-toggle="dropdown" aria-expanded="false">{{apiUrl?.nameProfile }} </a>
+              <ul class="dropdown-menu" aria-labelledby="headerProfileMenuLink">
+                <li><a class="dropdown-item" routerLink="/edit-profile">{{"header.profile" | translate}}</a></li>
+                <!-- <li><a class="dropdown-item" *ngIf="auth.user_type == '2'" routerLink="/request/0/0">{{"header.request" | translate}}</a></li> -->
+                <li><a class="dropdown-item" *ngIf="auth.user_type != 4" routerLink="/request/0/0">{{"header.request" | translate}}</a></li>
+                <li><a class="dropdown-item" *ngIf="auth.user_type == '4'" routerLink="/my-request">{{"header.request" | translate}}</a></li>
+                <li><a class="dropdown-item logout-btn"(click)="Logout()">{{"header.logout" | translate}}</a></li>
+              </ul>
+            </div>
+            <div class="lang-select lang-inner">
+              <span class="active" (click)="useLanguage('en')" id="englishId">EN</span>
+              <span (click)="useLanguage('fr')" id="FranchId"> FR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>

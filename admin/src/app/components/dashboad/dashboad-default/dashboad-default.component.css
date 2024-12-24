@@ -1,0 +1,69 @@
+.counts {
+    cursor: pointer;
+}
+.counts:focus {
+    outline: 0 !important;
+}
+.card-icon-bg .card-body .content {
+    max-width: 140px;
+}
+.filePdf {
+    width: 170px;
+    height: auto;
+}
+.program-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.program-img span {
+    display: inline-block;
+}
+.abc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.bio {
+    border-top: 1px solid #dee2e6;
+    padding: 15px 15px 10px;
+}
+.readMore {
+    cursor: pointer;
+    color: #385aeb;
+    display: inline-block;
+}
+
+.title h2 {
+    margin: 0;
+    color: #673499;
+}
+.title p {
+    color: #878584;
+}
+.about {
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 10px;
+}
+.about span {
+    padding: 0 5px 0 0;
+    border-bottom: 3px solid #673499;
+    font-weight: 500;
+    display: inline;
+    font-size: 16px;
+}
+.about::before {
+    content: "";
+}
+
+.aboutInner tbody tr td:first-child {
+    width: 220px;
+    color: #000;
+    padding-bottom: 5px;
+    vertical-align: top;
+}
+
+.aboutInner tbody tr td:nth-child(2) {
+    color: #000;
+    padding-bottom: 5px;
+}

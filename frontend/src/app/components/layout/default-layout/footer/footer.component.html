@@ -1,0 +1,41 @@
+<footer class="ce-footer">
+    <div class="ce-inner">
+      <div class="row ce-row--main">
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 col-left">
+          <div class="cef-contents">
+            <div class="cef-logo">
+              <a ><img src="./assets/images/rn-logo.png" alt="" style="width: 224px;"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 col-middle">
+          <div class="cef-navs">
+            <ul class="list-inline">
+              <li><a  routerLink="/meet-referal" aria-label="Meet Referrals"> {{"footer.meet_refferals" | translate}}</a></li>
+              <li><a routerLink="/ideas" aria-label="Ideas & How to">{{"footer.ideas_how_to" | translate}}</a></li>
+              <li><a routerLink="/about-us" aria-label="About Us">{{"footer.about_us" | translate}}</a></li>
+              <li><a routerLink="/contact-us" aria-label="Contact Us">{{"footer.contact_us" | translate}}</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 col-right">
+          <div class="cef-contents">
+            <div class="social-navs">
+              <a href="https://x.com/Myreferralnet" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.facebook.com/profile.php?id=100077963492790" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+              <a href="https://www.instagram.com/myreferralnetwork/?hl=en" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <!-- <h6 class="mb-20">{{"footer.redcar" | translate}}</h6> -->
+            <div *ngFor="let data of footerdata " >
+            <h6 class="mb-20"> {{data.address}} </h6>
+            <h6 class="mb-2"><a href="mailto:{{data.email}}" aria-label="Email"></a> {{data.email}} </h6>
+            <h6 class="mb-2"><a href="tel:+1 {{ data.phone_no}}" aria-label="Phone"> </a> +1 {{ data.phone_no}} </h6>
+          </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+    <script src="assets/js/jquery-3.4.1.min.js"></script> 
+<script src="assets/js/swiper-bundle.min.js"></script> 
+<script src="assets/js/script.js"></script>
+  </footer>

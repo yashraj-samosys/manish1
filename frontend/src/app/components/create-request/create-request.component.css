@@ -1,0 +1,36 @@
+/* Chrome, Safari, Edge, Opera */
+
+::ng-deep .cuppa-dropdown .dropdown-list{ left: unset !important;    top: 660px !important; }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.verifyBtn{
+  padding: 3px;font-size: 14px;width: 100%;height: 58px
+}
+
+.btn_request_form_dual{
+  display: inline-block;
+    margin-left: 18%;
+}
+.text_request_form_dual{
+  display: inline-block;
+  margin-left: 37%;
+}
+.multi-select-m angular2-multiselect{
+  padding: 0;
+  height: auto;
+  }
+  .form-control{
+    background-color: #ffffff;
+  }
+  .form-control.disabled {
+    background-color: rgb(153 153 153 / 10%);
+}

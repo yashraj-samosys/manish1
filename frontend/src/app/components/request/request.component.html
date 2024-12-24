@@ -1,0 +1,597 @@
+<!--  <div style="position: relative;
+    display: block;
+    margin: 66px 0 0 0;
+    padding: 0;
+    padding-right: var(--bs-gutter-x,.75rem);
+    padding-left: var(--bs-gutter-x,.75rem);
+    left: 0;
+    right: 0;
+    z-index: 800;">
+
+    <div>
+      <h5>New Request</h5>
+
+    <div class="row" style="width:100%;" *ngFor="let s of NewRequestData;">
+    	<div style="display:inline-block;width: 12%;">
+    		<img style="width:100px;height: 100px;" src="{{s.profile_img}}">
+    	</div>
+    	<div  style="display:inline-block;width: 20%">{{s.name}}</div>
+    	<div style="display:inline-block;width: 40%;">
+    	<button (click)="acceptRequest(s)">Accept</button>
+    	<button style="margin-left:2%;" (click)="cancleRequest(s)">Cancle</button>
+    		
+    	</div>
+    	
+    </div>
+   </div>
+
+    <div>
+      <h5>Cancled Request</h5>
+
+    <div class="row" style="width:100%;" *ngFor="let s of CancledRequestData;">
+      <div style="display:inline-block;width: 12%;">
+         <img style="width:100px;height: 100px;" src="{{s.profile_img}}">
+      </div>
+      <div  style="display:inline-block;width: 20%">{{s.name}}</div>
+      <div style="display:inline-block;width: 40%;">
+      <button >Cancled</button>
+         
+      </div>
+      
+    </div>
+   </div>
+
+  </div>
+ -->
+
+
+
+ <style type="text/css">
+  .user-request .nav {
+    margin-top: 3em;
+  }
+
+  .request-card-wrap .card-body {
+    display: flex;
+    padding: 5px;
+  }
+
+  .request-card-wrap .profile-img img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .profile-btn .btn {
+    margin-right: 5px;
+  }
+
+  .request-card-wrap .profile-dtl {
+    width: calc(100% - 80px);
+    padding-left: 10px;
+  }
+
+  .request-card-wrap .profile-dtl .card-title {
+    font-size: 17px;
+    width: 100%;
+    height: 40px;
+
+  }
+
+  .request-card-wrap .card-deck.request-card-wrap {
+    margin-top: 2em;
+  }
+
+  .user-request .nav-tabs .nav-item.show .nav-link,
+  .user-request .nav-tabs .nav-link.active {
+    background-color: transparent;
+    border-color: #004e98 #004e98 #fff;
+  }
+
+  .card-deck.request-card-wrap {
+    padding-top: 2em;
+  }
+
+  .request-card-wrap .card {
+    margin-bottom: 1em;
+  }
+
+  .request-card-wrap .card {
+    margin-bottom: 1em;
+  }
+
+  .card-deck.request-card-wrap .col-box {
+    width: 25%;
+  }
+
+  @media(max-width: 1199px) {
+    .card-deck.request-card-wrap .col-box {
+      width: 33.33%;
+    }
+  }
+
+  @media(max-width: 991px) {
+    .card-deck.request-card-wrap .col-box {
+      width: 50%;
+    }
+  }
+
+  @media(max-width: 767px) {
+    .card-deck.request-card-wrap .col-box {
+      width: 100%;
+    }
+
+    .user-request .nav {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+
+  @media(max-width: 540px) {
+    .user-request .nav {
+      border: none;
+    }
+
+    .user-request .nav li {
+      width: 100%;
+    }
+
+    .user-request .nav li button {
+      width: 100%;
+      border: 1px solid #dfdfdf;
+    }
+
+    .user-request .nav-tabs .nav-item.show .nav-link,
+    .user-request .nav-tabs .nav-link.active {
+      background-color: transparent;
+      border-color: #004e98 #004e98 #004e98;
+      background: #004e98;
+      color: #fff;
+    }
+  }
+</style>
+
+<div class="rn-gt-wrapper">
+  <button [routerLink]="['/home']" class="btn btn-blue-fill p-2 m-3"
+    style="float: right;">{{"request.loginBackButtonName" | translate}}</button>
+  <div class="user-request pt-60 pb-60 pt-md-60 pt-xs-40">
+    <div class="container">
+      <div class="row tab-wrap-w">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+          <h1 class="mb-0">{{"request.request" | translate}}</h1>
+          <!-- <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> -->
+        </div>
+        <ul class="nav nav-tabs" id="requestTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button (click)="getRequest()" class="nav-link active" id="newrequrest-tab" data-bs-toggle="tab"
+              data-bs-target="#newrequrest" type="button" role="tab" aria-controls="newrequrest" aria-selected="true"> {{"request.new_request" |
+              translate}}</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button (click)="getAcceptedRequest()" class="nav-link" id="acceptedrequest-tab" data-bs-toggle="tab"
+              data-bs-target="#acceptedrequest" type="button" role="tab" aria-controls="acceptedrequest"
+              aria-selected="false">{{"request.accepted_request" | translate}}</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button (click)="getReferRequest()" class="nav-link" id="referrequest-tab" data-bs-toggle="tab"
+              data-bs-target="#referrequest" type="button" role="tab" aria-controls="referrequest"
+              aria-selected="false">{{"request.referrals_sent" | translate}}</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button (click)="receivedrequest()" class="nav-link" id="receivedrequest-tab" data-bs-toggle="tab"
+              data-bs-target="#receivedrequest" type="button" role="tab" aria-controls="receivedrequest"
+              aria-selected="false">{{"request.received_request" | translate}}</button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="Usertype == '2' && agent == '1'" >
+            <button (click)="myAgentsrequest()" class="nav-link" id="receivedrequest-tab" data-bs-toggle="tab"
+              data-bs-target="#myAgentData" type="button" role="tab" aria-controls="receivedrequest"
+              aria-selected="false">{{"request.my_Agents" | translate}}</button>
+          </li>
+
+          <!-- <li class="nav-item" role="presentation" *ngIf="usertype != 1">
+            <button (click)="myClients()" class="nav-link" id="myclientrequest-tab" data-bs-toggle="tab"
+              data-bs-target="#myClientData" type="button" role="tab" aria-controls="myclientrequest"
+              aria-selected="false">{{"request.my_clients" | translate}}</button>
+          </li> -->
+
+
+          
+          <!-- <li class="nav-item" role="presentation">
+            <button (click)="getCancledRequest()" class="nav-link" id="cancelrequest-tab" data-bs-toggle="tab" data-bs-target="#cancelrequest"
+              type="button" role="tab" aria-controls="cancelrequest" aria-selected="false">{{"request.cancel_request" |
+              translate}}</button>
+          </li> -->
+          <!-- <li class="nav-item" role="presentation">
+            <button class="nav-link" id="completedrequest-tab" data-bs-toggle="tab" data-bs-target="#completedrequest"
+              type="button" role="tab" aria-controls="completedrequest"
+              aria-selected="false">{{"request.completed_request" | translate}}</button>
+          </li> -->
+        </ul>
+        <!-- Tab 1 details -->
+        <div class="tab-content" id="requestTabContent">
+          <div class="tab-pane fade show active" id="newrequrest" role="tabpanel" aria-labelledby="home-tab">
+            <div class="card-deck request-card-wrap">
+              <div class="row">
+                <div class="col-box" *ngFor="let s of RequestData;">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="profile-img">
+                        <img style="cursor: pointer;" (click)="open(mymodal,s)" src="{{s.profile_img}}"
+                          class="circle mx-auto d-block"  #img01 (error)="img01.src = './assets/images/person.png'"  alt="...">
+                      </div>
+                      <div class="profile-dtl">
+                        <p class="text-danger" *ngIf="s.status == 2"> Declined Request</p>
+                        <p class="text-success" *ngIf="s.available == 1 && s.status != 2"> New Request</p>
+
+                        <h5 style="cursor: pointer;" (click)="open(mymodal,s)" class="card-title">{{s.first_name}}
+                          {{s.last_name}}</h5>
+
+                        <p>{{s.created_at | date}}</p>
+                        <!-- <div class="profile-btn" *ngIf="s.status != 2 && s.refer_client == 1"> -->
+                        <div class="profile-btn" *ngIf="s.status != 2">
+                          <button *ngIf="s.available != 1" type="button" (click)="acceptRequest(s)"
+                            class="btn btn-sm btn-success">Accept</button>
+                          <button (click)="cancleRequest(s)" *ngIf="s.available != 1" type="button" class="btn btn-sm btn-danger">Cancel</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="RequestData?.length == 0">
+                  {{"request.no_data_found" | translate}}
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2 details -->
+          <div class="tab-pane fade" id="acceptedrequest" role="tabpanel" aria-labelledby="acceptedrequest">
+            <div class="card-deck request-card-wrap">
+              <div class="row">
+                <div class="col-box" *ngFor="let s of AcceptedRequestData;">
+                  <div class="card">
+                    <div class="card-body" style="cursor: pointer;" (click)="open(mymodal,s)">
+                      <div class="profile-img">
+                        <img src="{{s.profile_img}}" #img01 (error)="img01.src = './assets/images/person.png'"
+                          class="circle mx-auto d-block" alt="...">
+                      </div>
+                      <div class="profile-dtl">
+                        <h5 class="card-title">{{s.name}}</h5>
+                        <p>{{s.created_at | date}}</p>
+                        <!--  <div class="status-text">
+                                         <span style=""> <b> Status : </b></span> <span class="text-danger"> Cancel </span> 
+                                      </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="AcceptedRequestData?.length == 0">
+                  <!-- No data found? -->
+                  {{"request.no_data_found" | translate}}
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <!-- Tab 2 details -->
+
+          <div class="tab-pane fade" id="referrequest" role="tabpanel" aria-labelledby="referrequest">
+            <div class="card-deck request-card-wrap">
+              <div class="row">
+                <div class="col-box" *ngFor="let s of NewRequestRefer;">
+                  <div class="card">
+                    <div class="card-body" style="cursor: pointer;" (click)="open(mymodal2,s)">
+                      <div class="profile-img">
+                        <img src="" #img01 (error)="img01.src = './assets/images/person.png'"
+                          class="circle mx-auto d-block" alt="...">
+                      </div>
+                      <div class="profile-dtl">
+                        <!-- <p class="text-danger" *ngIf="s.status == 2"> Declined Request</p>
+                        <p class="text-success" *ngIf="s.status == 1"> Accepted Request</p> -->
+
+                        <h5 class="card-title">{{s.name}}</h5>
+
+                        <!-- <p>{{s.created_at | date}}</p> -->
+                        <!-- <div class="profile-btn" *ngIf="s.status == 0"> -->
+                        <p class="text-danger" *ngIf="s.status == 2"> Declined Request</p>
+                        <p class="text-primary" *ngIf="s.status == 0"> New Request</p>
+                        <p class="text-success" *ngIf="s.status == 1"> Accepted Request</p>
+                        <p>{{s.created_at | date}}</p>
+                          <!-- <button type="button" (click)="acceptRequest(s)"
+                            class="btn btn-sm btn-success">Accept</button>
+                          <button (click)="cancleRequest(s)" type="button" class="btn btn-sm btn-danger">Cancel</button> -->
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="NewRequestRefer?.length == 0">
+                  {{"request.no_data_found" | translate}}
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="receivedrequest" role="tabpanel" aria-labelledby="receivedrequest">
+            <div class="card-deck request-card-wrap">
+              <div class="row">
+                <div class="col-box" *ngFor="let s of receivedrequestData;">
+                  <div class="card">
+                    <div class="card-body" style="cursor: pointer;" (click)="open(mymodal3,s)">
+                      <div class="profile-img">
+                        <img #img01 (error)="img01.src = './assets/images/person.png'" src=""
+                          class="circle mx-auto d-block" alt="...">
+                      </div>
+                      <div class="profile-dtl">
+                        <h5 class="card-title">{{s?.clientName}}</h5>
+                        <p class="text-danger" *ngIf="s.status == 2"> Declined Request</p>
+                        <p class="text-primary" *ngIf="s.status == 0"> New Request</p>
+                        <p class="text-success" *ngIf="s.status == 1"> Accepted Request</p>
+                        <p>{{s.created_at | date}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="receivedrequestData?.length == 0">
+                  {{"request.no_data_found" | translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div class="tab-pane fade" id="cancelrequest" role="tabpanel" aria-labelledby="cancelrequest">
+            <div class="card-deck request-card-wrap">
+              <div class="row">
+                <div class="col-box" *ngFor="let s of CancledRequestData;">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="profile-img">
+                        <img style="cursor: pointer;" style="cursor: pointer;" (click)="open(mymodal,s)"
+                          src="{{s.profile_img}}" class="circle mx-auto d-block" alt="..." #img01 (error)="img01.src = './assets/images/person.png'">
+                      </div>
+                      <div class="profile-dtl">
+                        <h5 style="cursor: pointer;" (click)="open(mymodal,s)" class="card-title">{{s.name}}</h5>
+                        <p>{{s.created_at | date}}</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="CancledRequestData?.length == 0">
+                  {{"request.no_data_found" | translate}}
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <!-- Tab 3 details -->
+          <div class="tab-pane fade" id="completedrequest" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="card-deck request-card-wrap">
+              <div class="row">
+                <div class="col-box" *ngFor="let s of CompletedRequestData;">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="profile-img">
+                        <img style="cursor: pointer;" (click)="open(mymodal,s)" src="{{s.profile_img}}" #img01 (error)="img01.src = './assets/images/person.png'"
+                          class="circle mx-auto d-block" alt="...">
+                      </div>
+                      <div class="profile-dtl">
+                        <h5 style="cursor: pointer;" (click)="open(mymodal,s)" class="card-title">{{s.name}}</h5>
+                        <p>{{s.created_at | date}}</p>
+                        <!--  <div class="status-text">
+                                         <span style=""> <b> Status : </b></span> <span class="text-danger"> Cancel </span> 
+                                      </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="CompletedRequestData?.length == 0">
+                  <!-- No data found -->
+                  {{"request.no_data_found" | translate}}
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <!-- new tab-------4444444---------------------- -->
+
+          <div class="tab-pane fade" id="myAgentData" role="tabpanel" aria-labelledby="myAgentData">
+            <div class="card-deck request-card-wrap">
+              <div class="row">
+                <div class="col-box" *ngFor="let s of AddAgentData;">
+                  <div class="card">
+                    <div class="card-body" style="cursor: pointer;" (click)="open(mymodal1,s)">
+                      <div class="profile-img">
+                        <img src={{s.profile_img}} #img01 (error)="img01.src = './assets/images/person.png'"
+                          class="circle mx-auto d-block" alt="...">
+                      </div>
+                      <div class="profile-dtl">
+                        <h5 class="card-title">{{s.first_name}} {{s.last_name}}</h5>
+                        <p>{{s.FSAData[0].created_date  | date}}</p>
+                        <!--  <div class="status-text">
+                                         <span style=""> <b> Status : </b></span> <span class="text-danger"> Cancel </span> 
+                                      </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="AddAgentData?.length == 0">
+                  <!-- No data found -->
+                  {{"request.no_data_found" | translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="tab-pane fade" id="myClientData" role="tabpanel" aria-labelledby="myClientData">
+            <div class="card-deck request-card-wrap">
+              <div class="row">
+                <div class="col-box" *ngFor="let s of addClientData;">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="profile-img">
+                        <img style="cursor: pointer;" (click)="open(mymodal1,s)" src={{s.profile_img}}
+                          class="circle mx-auto d-block" alt="...">
+                      </div>
+                      <div class="profile-dtl">
+                        <h5 style="cursor: pointer;" (click)="open(mymodal1,s)" class="card-title">{{s.first_name}} {{s.last_name}}</h5>
+                        <p>{{s.created_date | date}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="addClientData?.length == 0">
+                  {{"request.no_data_found" | translate}}
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"> {{"request.user_details" | translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+     <p >{{"request.name" | translate}} : {{userDetails?.name}} </p><br>
+    <p>{{"request.email" | translate}}: {{userDetails?.email}} </p><br>
+    <!-- <p>{{"request.estate_brokeraege" | translate}} : {{userDetails?.estate_brokeraege}} </p><br> -->
+   
+    <p >{{"request.phone" | translate}} : {{userDetails?.phone}} </p><br>
+   
+    <p >{{"request.Message" | translate}} : {{userDetails?.message}} </p><br>
+    <p >{{"request.request_date" | translate}} : {{userDetails?.created_at | date }} </p><br>
+    <p >{{"request.status" | translate}}: <span *ngIf="userDetails?.status == 0">{{"request.new_request" | translate}}
+      </span>
+      <span *ngIf="userDetails?.status == 1"> {{"request.accepted" | translate}}</span>
+      <span *ngIf="userDetails?.status == 2"> {{"request.cancled" | translate}} </span>
+      <span *ngIf="userDetails?.status == 3"> {{"request.completed" | translate}} </span>
+    </p><br>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"> {{"request.Ok" |
+      translate}}</button>
+  </div>
+</ng-template>
+
+
+
+
+
+
+
+<ng-template #mymodal1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"> {{"request.user_details" | translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+    <p >{{"request.name" | translate}} : {{userDetails?.first_name}} {{userDetails?.last_name}} </p> <br>
+    
+    <p>{{"request.email" | translate}}: {{userDetails?.email}} </p><br>
+ 
+    <p >{{"request.phone" | translate}} : {{userDetails?.mobile}} </p><br>
+
+    <p >{{"request.Brokerage_Name" | translate}} : {{userDetails.brokerageName !='null'? userDetails.brokerageName:'N/A'}} </p><br>
+    
+    <p >{{"request.FSA_name" | translate}} : {{userDetails.FSAData[0].fsa_code}} - {{userDetails.FSAData[0].nieghborhood}} </p> <br>
+
+   <br>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"> {{"request.Ok" |
+      translate}}</button>
+  </div>
+</ng-template>
+
+
+<ng-template #mymodal2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"> {{"request.user_details" | translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p >{{"request.name" | translate}} : {{userDetails?.name}} </p><br>
+    <p>{{"request.email" | translate}}: {{userDetails?.email}} </p><br>
+    <p >{{"request.phone" | translate}} : {{userDetails?.phone}} </p><br>
+    <p >{{"request.Message" | translate}} : {{userDetails?.message}} </p><br>
+
+    <p >{{"request.receivingName" | translate}} : {{userDetails?.receivingAgent?.name}}</p><br>
+    <p >{{"request.receivingEmail" | translate}} : {{userDetails?.receivingAgent?.email}}</p><br>
+    <p >{{"request.receivingPhone" | translate}} : {{userDetails?.receivingAgent?.mobile}}</p><br>
+    <p >{{"request.fsa" | translate}} : {{userDetails?.fsaData[0]?.fsa_code}} </p><br>
+
+    <p >{{"request.request_date" | translate}} : {{userDetails?.created_at | date }} </p><br>
+    <p >{{"request.status" | translate}}: <span *ngIf="userDetails?.status == 0">{{"request.new_request" | translate}}
+      </span>
+      <span *ngIf="userDetails?.status == 1"> {{"request.accepted" | translate}}</span>
+      <span *ngIf="userDetails?.status == 2"> {{"request.cancled" | translate}} </span>
+      <span *ngIf="userDetails?.status == 3"> {{"request.completed" | translate}} </span>
+    </p><br>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"> {{"request.Ok" |
+      translate}}</button>
+  </div>
+</ng-template>
+
+
+<ng-template #mymodal3 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"> {{"request.user_details" | translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p >{{"request.name" | translate}} : {{userDetails?.clientName}} </p><br>
+    <p>{{"request.email" | translate}}: {{userDetails?.clientEmail}} </p><br>
+    <p >{{"request.phone" | translate}} : {{userDetails?.clientPhone}} </p><br>
+    <p >{{"request.Message" | translate}} : {{userDetails?.message}} </p><br>
+
+    <p >{{"request.referringName" | translate}} : {{userDetails?.name}}</p><br>
+    <p >{{"request.referringEmail" | translate}} : {{userDetails?.email}}</p><br>
+    <p >{{"request.referringPhone" | translate}} : {{userDetails?.mobile}}</p><br>
+    <p >{{"request.fsa" | translate}} : {{userDetails?.fsaData[0]?.fsa_code}} </p><br>
+
+    <p >{{"request.request_date" | translate}} : {{userDetails?.created_at | date }} </p><br>
+    <p >{{"request.status" | translate}}: <span *ngIf="userDetails?.status == 0">{{"request.new_request" | translate}}
+      </span>
+      <span *ngIf="userDetails?.status == 1"> {{"request.accepted" | translate}}</span>
+      <span *ngIf="userDetails?.status == 2"> {{"request.cancled" | translate}} </span>
+      <span *ngIf="userDetails?.status == 3"> {{"request.completed" | translate}} </span>
+    </p><br>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')"> {{"request.Ok" |
+      translate}}</button>
+  </div>
+</ng-template>

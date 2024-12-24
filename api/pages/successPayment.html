@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Success </title>
+ 
+</head>
+<body>
+  <script>
+    let url;
+    const currentDomain = window.location.hostname;
+    if (currentDomain.includes('myreferralnetwork')) {
+      url = 'https://myreferralnetwork.ca/';
+    } else if(currentDomain.includes('localhost')) {
+      url = 'http://localhost:4200/';
+    } else {
+      url = 'http://172.105.20.144:3001/';
+    }
+    window.url = url;
+  </script>
+  <!-- <p>You have successfully paid $10 for year , You can close this page or <a href="http://103.15.67.78:3085/">Click here</a> to visit website</p> -->
+  <!-- <p>You have successfully paid $10 for year , You can close this page or <a href="http://172.105.20.144:3001/">Click here</a> to visit website</p> -->
+  <!-- <p>You have successfully paid $10 for year , You can close this page or <a href="http://localhost:4200/">Click here</a> to visit website</p> -->
+  <p>You have successfully paid $10 for year , You can close this page or <a id="redirectLink" href="#">Click here</a> to visit website</p>
+  <script>
+    // After the page is loaded, update the href attribute of the anchor tag to use the global 'url'
+    document.getElementById('redirectLink').href = window.url;
+  </script>
+</body>
+</html>

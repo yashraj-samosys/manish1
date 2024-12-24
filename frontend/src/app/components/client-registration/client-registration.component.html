@@ -1,0 +1,1610 @@
+<div class="rn-gt-wrapper">
+  <div class="container-fluid px-0">
+    <div class="row gt-row--main">
+      <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-xs-12 gt-col--left">
+        <div class="gt-content--left">
+          <div class="gt-contents--main">
+            <div class="gt-contents--inner u-fancy-scrollbar">
+
+              <h3 class="title--large cc-book mb-40" style="line-height:40px"> {{"client_registration.welcome_to_my_referral_network" |
+                translate}}</h3>
+              <p class="cc-book mb-30" > {{"client_registration.this_website_is_free_to_use" | translate}}</p>
+              <p class="cc-book mb-30"> {{"client_registration.the_realtors_on_this" | translate}}</p>
+              <p class="cc-book mb-30"> {{"client_registration.my_referral_network_team" | translate}}</p>
+            </div>
+          </div>
+          <div class="bg-collage" style="background-image: url('assets/images/collage-img.png');"></div>
+        </div>
+      </div>
+      <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-xs-12 gt-col--right">
+        <div class="gt-content--right regisrtationFormwrap">
+          <form [formGroup]="regisrtationForm" (ngSubmit)="submitRequest()">
+            <div class="gt-contents--main">
+              <div class="gt-contents--inner u-fancy-scrollbar">
+                <!-- <h3 class="title--large cc-book text-center mb-30">{{"realtor_registration.this_is_your_request" | translate}}</h3> -->
+                <h3 class="title--large cc-book text-center mb-30" style="line-height:40px">
+                  {{"client_registration.welcome_to_my_refferal_network_confirmation_of_information" | translate}}
+                  {{"client_registration.and_service_areas" | translate}} .</h3>
+                <p style="  color: red;">* {{"realtor_registration.required_fields" | translate}}</p>
+                <div class="row gt-form--row">
+
+                  <!-- name -->
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="name_gt" placeholder="Name*"  maxlength={{myValidation.maxlength_fifty}}
+                          onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                          formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                        <label for="name_gt">{{"realtor_registration.name" | translate}}<span class="text-red">*
+                          </span></label>
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                          <div *ngIf="f.name.errors.required">{{"realtor_registration.name_is_require" | translate}}
+                          </div>
+                          <div *ngIf="regisrtationForm.controls['name'].errors.pattern ">{{"realtor_registration.invalid_name" | translate}}</div>
+                        
+                          <div *ngIf="regisrtationForm.controls['name'].errors.maxlength">{{"tolong.name" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- phone -->
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="phone_gt" placeholder="Phone*" maxlength={{myValidation.mobileMaxlength}}
+                          onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                          formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                        <label for="phone_gt">{{"realtor_registration.phone" | translate}}<span class="text-red">*
+                          </span></label>
+                        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                          <div *ngIf="f.phone.errors.required"> {{"realtor_registration.phone_is_required" | translate}}
+                          </div>
+                            
+                        <div *ngIf="f.phone.errors.pattern" >
+                          {{"realtor_registration.Valid_PhoneNo" | translate}}
+                        </div>
+                          <div *ngIf="f.phone.errors.minlength">
+                            {{"realtor_registration.please_enter_8_to_15_digit_phone_no" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['phone'].errors.maxlength"> {{"realtor_registration.please_enter_8_to_15_digit_phone_no" | translate}}</div>
+                       
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Text -->
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="text_line_gt" placeholder="Text*"
+                        maxlength={{myValidation.maxlength_twenty_five}}
+                        onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode == 32) )'
+                        formControlName="text" [ngClass]="{ 'is-invalid': submitted && f.text.errors }">
+                        <label for="text_line_gt">{{"realtor_registration.text" | translate}} <span class="text-red">*
+                          </span></label>
+                        <div *ngIf="submitted && f.text.errors" class="invalid-feedback">
+                          <div *ngIf="f.text.errors.required">{{"realtor_registration.text_is_required" | translate}}
+                          </div>
+                          <div *ngIf="f.text.errors.pattern">{{"new.Invalid_text" | translate}}</div>
+                          <div *ngIf="f.text.errors.minlength">{{"new.Text_MinLength" | translate}}</div>
+                          <div *ngIf="regisrtationForm.controls['text'].errors.maxlength">{{"tolong.Text" | translate}}</div>     
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="email" class="form-control" maxlength={{myValidation.m50}} id="email_gt" placeholder="Email*"  onKeyPress="return event.charCode != 32" 
+                          formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                        <label for="email_gt">{{"realtor_registration.email" | translate}}<span class="text-red">*
+                          </span></label>
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                          <div *ngIf="f.email.errors.required">{{"realtor_registration.email_is_require" | translate}}
+                          </div>
+                          <div *ngIf="f.email.errors.pattern || f.email.errors.email">
+                            {{"realtor_registration.email_pattern_is_wrong" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['email'].errors.maxlength">{{"tolong.Email" | translate}}</div>
+                        </div>
+             
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="title_gt" placeholder="Title*"
+                          maxlength={{myValidation.maxlength_fifty}}
+                          onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                          formControlName="title" [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                        <label for="title_gt">{{"realtor_registration.title" | translate}}<span class="text-red">*
+                          </span></label>
+                        <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                          <div *ngIf="f.title.errors.required">{{"realtor_registration.title_is_require" | translate}}
+                          </div>
+                          <div *ngIf="f.title.errors.pattern">{{"realtor_registration.invalid_title" | translate}}</div>
+                          <div *ngIf="regisrtationForm.controls['title'].errors.maxlength">{{"tolong.title" | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control"  placeholder="Brokerage Name*"
+                          onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                          formControlName="estate_brokeraege" maxlength={{myValidation.maxlength_fifty}}
+                          [ngClass]="{ 'is-invalid': submitted && f.estate_brokeraege.errors }">
+                        <label for="brokerage_phone_gt">{{"realtor_registration.brokerage_name" | translate}} <span
+                            class="text-red">* </span></label>
+                        <div *ngIf="submitted && f.estate_brokeraege.errors" class="invalid-feedback">
+                          <div *ngIf="f.estate_brokeraege.errors.required">
+                            {{"realtor_registration.brokerage_name_is_required" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['estate_brokeraege'].errors.maxlength">{{"tolong.BName" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['estate_brokeraege'].errors.pattern">{{"tolong.BNameInvalid" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <textarea #addressSearch class="form-control" placeholder="Brokerage Street Address"
+                          id="office_address" formControlName="office_address"
+                          maxlength={{myValidation.maxlength_two_hundred}} (keydown.enter)="$event.preventDefault()"
+                          [ngClass]="{ 'is-invalid': submitted && f.office_address.errors }"
+                          style="height:70px"></textarea>
+                        <label for="office_address">{{"realtor_registration.brokeraege_street_address" |
+                          translate}}<span class="text-red">* </span></label>
+                        <div *ngIf="submitted && f.office_address.errors" class="invalid-feedback">
+                          <div *ngIf="f.office_address.errors.required">
+                            {{"realtor_registration.brokeraege_street_address_is_required" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['office_address'].errors.maxlength ">{{"tolong.BStreet" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['office_address'].errors.pattern || regisrtationForm.controls['office_address'].errors.minlength">{{"tolong.InvalidAddress" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control"  placeholder="Brokerage City*"
+                                 maxlength={{myValidation.maxlength_fifty}}
+                                 minlength={{myValidation.m2}}
+                                 formControlName="brokerage_city"
+                                 onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+
+                          [ngClass]="{ 'is-invalid': submitted && f.brokerage_city.errors }">
+                        <label for="brokerage_phone_gt">{{"realtor_registration.brokeraege_city" | translate}}<span
+                            class="text-red">* </span></label>
+                        <div *ngIf="submitted && f.brokerage_city.errors" class="invalid-feedback">
+                          <div *ngIf="f.brokerage_city.errors.required">
+                            {{"realtor_registration.brokeraege_city_is_required" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['brokerage_city'].errors.pattern">{{"new.Invalid_City" | translate}}</div>
+                             <div *ngIf="regisrtationForm.controls['brokerage_city'].errors.minlength">{{"new.Brokerage_Minlength" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['brokerage_city'].errors.maxlength">{{"tolong.BCity" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control"   
+                        maxlength={{myValidation.maxlength_fifty}}
+                        minlength={{myValidation.m2}}
+                        onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode == 32) )'
+
+                          placeholder="Brokerage Province*" formControlName="brokerage_province"
+                          [ngClass]="{ 'is-invalid': submitted && f.brokerage_province.errors }">
+                        <label for="brokerage_phone_gt">{{"realtor_registration.brokeraege_province" | translate}}<span
+                            class="text-red">* </span></label>
+                        <div *ngIf="submitted && f.brokerage_province.errors" class="invalid-feedback">
+                          <div *ngIf="f.brokerage_province.errors.required">
+                            {{"realtor_registration.brokeraege_province_is_required" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['brokerage_province'].errors.maxlength">{{"tolong.BProvince" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['brokerage_province'].errors.pattern">{{"new.Province" | translate}}</div>
+                            <div *ngIf="regisrtationForm.controls['brokerage_province'].errors.minlength">{{"new.Province_Minlength" | translate}}</div> 
+                        </div> 
+                       
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" 
+                        onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57)|| (event.charCode == 32) )'
+
+                        maxlength={{myValidation.mobileMaxlength}}
+                        minlength={{myValidation.m2}}
+                          placeholder="Brokerage Postal Code*" formControlName="brokerage_postal_code"
+                          [ngClass]="{ 'is-invalid': submitted && f.brokerage_postal_code.errors }">
+                        <label for="brokerage_phone_gt">{{"realtor_registration.brokeraege_postal_code" |
+                          translate}}<span class="text-red">* </span></label>
+                        <div *ngIf="submitted && f.brokerage_postal_code.errors" class="invalid-feedback">
+                          <div *ngIf="f.brokerage_postal_code.errors.required">
+                            {{"realtor_registration.brokeraege_postal_code_is_required" | translate}}</div>
+                  <div *ngIf="regisrtationForm.controls['brokerage_postal_code'].errors.maxlength">{{"tolong.BPostal" | translate}}</div> 
+                  <div *ngIf="regisrtationForm.controls['brokerage_postal_code'].errors.pattern">{{"new.Postal" | translate}}</div>
+                  <div *ngIf="regisrtationForm.controls['brokerage_postal_code'].errors.minlength">{{"new.Postal_Minlength" | translate}}</div> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" 
+                          formControlName="brokerage_phone"
+                           maxlength={{myValidation.mobileMaxlength}}
+                          onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                          [ngClass]="{ 'is-invalid': submitted && f.brokerage_phone.errors }"
+                          placeholder="Brokerage Phone*">
+                        <label for="brokerage_phone_gt">{{"realtor_registration.brokerage_phone" | translate}}<span
+                            class="text-red">* </span></label>
+                        <div *ngIf="submitted && f.brokerage_phone.errors" class="invalid-feedback">
+                          <div *ngIf="f.brokerage_phone.errors.required">
+                            {{"realtor_registration.brokerage_phone_is_required" | translate}}</div>
+                          <div *ngIf="f.brokerage_phone.errors.minlength">
+                            {{"realtor_registration.please_enter_8_to_15_digit_phone_no" | translate}}
+                          </div>
+                          <div *ngIf="regisrtationForm.controls['brokerage_phone'].errors.pattern" >
+                         {{"realtor_registration.Valid_PhoneNo" | translate}}</div>
+                        <div *ngIf="regisrtationForm.controls['brokerage_phone'].errors.maxlength">
+                          {{"realtor_registration.please_enter_8_to_15_digit_phone_no" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row upload-file-row">
+
+
+                    <div class="col-md-3">
+                      <div class="form-group mb-20">
+                        <div class="input-group">
+                          <div class="image-crop-view">
+                            <img class="imgview" [src]="croppedImage ? croppedImage : 'assets/images/person.png'">
+                            <button style="width: 128px;bottom: 0;" class="btn btn-secondary" type="button"
+                              (click)="openModal(modalCropper)" id="button-addon1">{{"client_registration.upload_image" |
+                              translate}} </button>
+                          </div>
+                          <span class="text-red">* </span>
+                        </div>
+                        <div *ngIf="submitted && !dataImg" style=" font-size: .875em; color: #dc3545;">
+                          <span>{{"client_registration.image_is_required" | translate}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="top-bottom--row col-md-9">
+                      <div class="col-auto btn-left-col">
+                        <div class="col-auto btn-col-1">
+                          <a class="btn-blue-fill" (click)="submitRequest()"
+                            style="width: 150px; cursor: pointer; display: block; text-align: center; margin-top: 64px; float: right;">{{"realtor_registration.save"
+                            | translate}}
+                          </a>
+                        </div>
+                        <!-- <div class="col-auto btn-col-1">
+                          <a class="btn btn-blue-fill" (click)="submitRequest()">Update and save </a>
+                        </div>
+                        <div class="col-auto btn-col-2">
+                          <a routerLink="/realtor-registration" class="btn btn-success">Verify</a>
+                        </div>
+
+                        <div class="col-auto btn-col-3">
+                          <a routerLink="/realtor-registration" class="btn btn-danger"
+                            title="DELETE PROFILE I AM NO LONGER AN AGENT">Delete Profile
+                          </a>
+                        </div>
+                        <div class="col-auto btn-col-4">
+                          <a routerLink="/realtor-registration" class="btn btn-info" style="color:#ffffff"
+                            title="Opt Out I DON’T WANT REFERRALS">Opt
+                            Out I
+                            don't want Referrals </a>
+                        </div> -->
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group mb-20">
+                  <div class="form-floating link-btn-field">
+                    <button class="btn btn-secondary" type="button" id="button-addon1"><i
+                        class="fa fa-globe"></i></button>
+                    <input type="text" class="form-control" placeholder="Brokerage Phone*" 
+                      formControlName="website" [ngClass]="{ 'is-invalid': submitted && f.website.errors }" 
+                      maxlength={{myValidation.maxlength_one_hund_fifty}}
+                      aria-label="Example text with button addon" aria-describedby="button-addon1"
+                      style="padding-left: 45px;">
+                    <label for="website">{{"realtor_registration.personal_Website" | translate}}<span class="text-red">*
+                      </span></label>
+                    <div *ngIf="submitted && f.website.errors" class="invalid-feedback">
+                      <div *ngIf="f.website.errors.required">
+                        {{"realtor_registration.weblink_is_required" | translate}}</div>
+                      <div *ngIf="f.website.errors.pattern"> {{"realtor_registration.invalid_website" | translate}}
+                      </div>
+                      <div *ngIf="regisrtationForm.controls['website'].errors.maxlength">
+                       {{"tolong.Website" | translate}}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <textarea onKeyPress="if(this.value.replace(/ /g, '').length == 20) return false;"
+                        class="form-control" placeholder="Short Bio" id="short_bio" formControlName="shortBio"
+                        [ngClass]="{'is-invalid': submitted && f.shortBio.errors }" style="height: 80px"></textarea>
+                      <label for="short_bio">{{"realtor_registration.short_bio" | translate}} <span class="text-red">*
+                        </span></label>
+                      <div *ngIf="submitted && f.shortBio.errors" class="invalid-feedback">
+                        <div *ngIf="f.shortBio.errors.required">
+                          {{"realtor_registration.short_Bio_is_required" | translate}}</div>
+                          <div *ngIf="f.shortBio.errors.pattern">
+                            {{"tolong.short_Bio_is_required" | translate}}</div>
+                            <div *ngIf="f.shortBio.errors.minlength">
+                              {{"new.ShortMinLength" | translate}}</div>
+                          <div *ngIf="regisrtationForm.controls['shortBio'].errors.maxlength">
+                            {{"tolong.ShortBio" | translate}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <textarea class="form-control" formControlName="longBio" placeholder="Long Bio" id="long_bio"
+                        style="height: 120px"   maxlength={{myValidation.two_thousand}}></textarea>
+                      <label for="long_bio">{{"realtor_registration.long_bio" | translate}}</label>
+                      
+                      <div *ngIf="regisrtationForm.controls['longBio'].errors && (!regisrtationForm.controls['longBio'].pristine || submitted ||regisrtationForm.controls['longBio'].touched )"
+                      class="error-msg">
+                  
+                      <div [hidden]="!regisrtationForm.controls['longBio'].errors.pattern" style="font-size: 12px; color: #dc3545">{{"new.long_bio_invalid" | translate}}</div>
+                       
+                  </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <input type="password" class="form-control" id="password_gt" placeholder="Password"
+                        formControlName="password" [type]="showHidePass ? 'password': 'text'"
+                        maxlength={{myValidation.m30}}
+                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                      <a href="javascript:void(0);" (click)="showHidePassword()" id="show"><span
+                          style="margin-right: 40px;"
+                          [ngClass]="showHidePass ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                      <label for="password_gt">{{"realtor_registration.password" | translate}}<span class="text-red">*
+                        </span></label>
+                      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">
+                          {{"realtor_registration.password_is_required" | translate}}</div>
+                        <div *ngIf="f.password.errors.minlength">
+                          {{"realtor_registration.password_must_be_at_least_6_characters" | translate}}</div>
+                          <div *ngIf="regisrtationForm.controls['password'].errors.maxlength">
+                            {{"tolong.Password" | translate}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row gt-form--row">
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="facebook_gt" placeholder="Facebook"maxlength="{{myValidation.m25}}"
+                          formControlName="facebook" [ngClass]="{'is-invalid': submitted && f.facebook.errors}">
+                        <label for="facebook_gt"> {{"client_registration.facebook" | translate}}</label>
+                        <div *ngIf="submitted && f.facebook.errors" class="invalid-feedback">
+                          <div *ngIf="f.facebook.errors.maxlength">{{"tolong.Facebook" | translate}}</div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="whatsapp_gt" placeholder="Whatsapp" maxlength="{{myValidation.m25}}"
+                          formControlName="whatsapp" [ngClass]="{'is-invalid': submitted && f.whatsapp.errors}">
+                        <label for="whatsapp_gt">{{"client_registration.whatsapp" | translate}}</label>
+                        <div *ngIf="submitted && f.whatsapp.errors" class="invalid-feedback">
+                          <div *ngIf="f.whatsapp.errors.maxlength"> {{"tolong.Whatsapp" | translate}}</div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row gt-form--row">
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="messanger_gt" placeholder="Messanger"maxlength="{{myValidation.m25}}"
+                          [ngClass]="{'is-invalid': submitted && f.messenger.errors}" formControlName="messenger">
+                        <label for="messanger_gt">{{"client_registration.messanger" | translate}}</label>
+                        <div *ngIf="submitted && f.messenger.errors" class="invalid-feedback">
+                          <div *ngIf="f.messenger.errors.maxlength">{{"tolong.Messange" | translate}}</div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="wechat_gt" placeholder="Wechat" maxlength="{{myValidation.m25}}"
+                          formControlName="wechat" [ngClass]="{'is-invalid': submitted && f.wechat.errors}">
+                        <label for="wechat_gt">{{"client_registration.wechat" | translate}}</label>
+                        <div *ngIf="submitted && f.wechat.errors" class="invalid-feedback">
+                          <div *ngIf="f.wechat.errors.maxlength">{{"tolong.Wechat" | translate}}</div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h5 style="line-height:30px">{{"realtor_registration.enter_all_the_fsa_areas" | translate}}</h5>
+
+                <div class="fasFormWrap" style="background:#ffffff">
+
+                  <div class="mb-2 row">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 1:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} <span class="text-red">* </span> </label>
+                    </div>
+                    <div class="col-auto">
+                      <input style="margin-right: 0;" type="text" onkeyup="this.value = this.value.toUpperCase();"
+                      maxlength={{myValidation.documentSize}} 
+                      formControlName="fsa1"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n1', 'FSA Code Not Exist', 'remove')"
+                        class="form-control fas-input" placeholder="FSA"
+                        [ngClass]="{'is-invalid': submitted && f.fsa1.errors }">
+                      <div *ngIf="submitted && f.fsa1.errors" class="invalid-feedback">
+                        <div style="font-size: 12px; color: #dc3545" *ngIf="f.fsa1.errors.required">
+                          {{"realtor_registration.fsa_is_required" | translate}}</div>  
+                          <div *ngIf="regisrtationForm.controls['fsa1'].errors.maxlength" >
+                            {{"tolong.FSA" | translate}}</div>
+                            <div style="font-size: 12px; color: #dc3545" *ngIf="f.fsa1.errors.pattern || f.fsa1.errors.minlength">{{"new.FSA_Invalid" | translate}}</div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n1" disabled class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 2:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3" minlength="3"
+                        formControlName="fsa2"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n2', 'FSA Code Not Exist', 'remove')"
+                        class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa2.errors }" [ngClass]="{'is-invalid': submitted && f.fsa2.errors }">
+                        <div *ngIf="regisrtationForm.controls['fsa2'].errors && (!regisrtationForm.controls['fsa2'].pristine || submitted ||regisrtationForm.controls['fsa2'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa2'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa2'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}  </div>
+                                </div>
+
+                                <!-- <div *ngIf="submitted && f.fsa1.errors" class="invalid-feedback">
+                                  <div style="font-size: 12px; color: #dc3545" *ngIf="f.fsa1.errors.required">
+                                    {{"realtor_registration.fsa_is_required" | translate}}</div>  
+                                    <div *ngIf="regisrtationForm.controls['fsa1'].errors.maxlength">
+                                      {{"tolong.FSA" | translate}}</div>
+                                      <div style="font-size: 12px; color: #dc3545" *ngIf="f.fsa1.errors.pattern">{{"new.FSA_Invalid" | translate}}</div>
+                                </div> -->
+
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n2" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 3:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n3', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa3" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa3.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa3'].errors && (!regisrtationForm.controls['fsa3'].pristine || submitted ||regisrtationForm.controls['fsa3'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa3'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa3'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n3" disabled class="form-control">
+
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 4:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n4', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa4" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa4.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa4'].errors && (!regisrtationForm.controls['fsa4'].pristine || submitted ||regisrtationForm.controls['fsa4'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa4'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa4'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n4" disabled class="form-control">
+
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 5:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n5', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa5" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa5.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa5'].errors && (!regisrtationForm.controls['fsa5'].pristine || submitted ||regisrtationForm.controls['fsa5'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa5'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa5'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n5" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 6:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n6', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa6" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa6.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa6'].errors && (!regisrtationForm.controls['fsa6'].pristine || submitted ||regisrtationForm.controls['fsa6'].touched )"
+                                    class="error-msg">
+
+                                    <div [hidden]="!regisrtationForm.controls['fsa6'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa6'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n6" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 7:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n7', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa7" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa7.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa7'].errors && (!regisrtationForm.controls['fsa7'].pristine || submitted ||regisrtationForm.controls['fsa7'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa7'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa7'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n7" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 8:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n8', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa8" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa8.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa8'].errors && (!regisrtationForm.controls['fsa8'].pristine || submitted ||regisrtationForm.controls['fsa8'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa8'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa8'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n8" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 9:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n9', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa9" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa9.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa9'].errors && (!regisrtationForm.controls['fsa9'].pristine || submitted ||regisrtationForm.controls['fsa9'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa9'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa9'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n9" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 10:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n10', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa10" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa10.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa10'].errors && (!regisrtationForm.controls['fsa10'].pristine || submitted ||regisrtationForm.controls['fsa10'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa10'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa10'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n10" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 11:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n11', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa11" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa11.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa11'].errors && (!regisrtationForm.controls['fsa11'].pristine || submitted ||regisrtationForm.controls['fsa11'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa11'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa11'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n11" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 12:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n12', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa12" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa12.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa12'].errors && (!regisrtationForm.controls['fsa12'].pristine || submitted ||regisrtationForm.controls['fsa12'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa12'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa12'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n12" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 13:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n13', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa13" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa13.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa13'].errors && (!regisrtationForm.controls['fsa13'].pristine || submitted ||regisrtationForm.controls['fsa13'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa13'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa13'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n13" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 14:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n14', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa14" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa14.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa14'].errors && (!regisrtationForm.controls['fsa14'].pristine || submitted ||regisrtationForm.controls['fsa14'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa14'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa14'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n14" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 15:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n15', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa15" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa15.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa15'].errors && (!regisrtationForm.controls['fsa15'].pristine || submitted ||regisrtationForm.controls['fsa15'].touched )"
+                                    class="error-msg">
+                                    <!-- <div [hidden]="!regisrtationForm.controls['fsa15'].errors.pattern" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div> -->
+
+                                    <div [hidden]="!regisrtationForm.controls['fsa15'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa15'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n15" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 16:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n16', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa16" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa16.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa16'].errors && (!regisrtationForm.controls['fsa16'].pristine || submitted ||regisrtationForm.controls['fsa16'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa16'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa16'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n16" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 17:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n17', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa17" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa17.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa17'].errors && (!regisrtationForm.controls['fsa17'].pristine || submitted ||regisrtationForm.controls['fsa17'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa17'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa17'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n17" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 18:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n18', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa18" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa18.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa18'].errors && (!regisrtationForm.controls['fsa18'].pristine || submitted ||regisrtationForm.controls['fsa18'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa18'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa18'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n18" disabled class="form-control">
+
+                    </div>
+                  </div>
+
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 19:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}} </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n19', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa19" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa19.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa19'].errors && (!regisrtationForm.controls['fsa19'].pristine || submitted ||regisrtationForm.controls['fsa19'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa19'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa19'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n19" disabled class="form-control">
+
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 20:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n20', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa20" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa20.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa20'].errors && (!regisrtationForm.controls['fsa20'].pristine || submitted ||regisrtationForm.controls['fsa20'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa20'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa20'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n20" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 21:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n21', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa21" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa21.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa21'].errors && (!regisrtationForm.controls['fsa21'].pristine || submitted ||regisrtationForm.controls['fsa21'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa21'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa21'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n21" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 22:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n22', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa22" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa22.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa22'].errors && (!regisrtationForm.controls['fsa22'].pristine || submitted ||regisrtationForm.controls['fsa22'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa22'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa22'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n22" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 23:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n23', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa23" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa23.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa23'].errors && (!regisrtationForm.controls['fsa23'].pristine || submitted ||regisrtationForm.controls['fsa23'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa23'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa23'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n23" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 24:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n24', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa24" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa24.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa24'].errors && (!regisrtationForm.controls['fsa24'].pristine || submitted ||regisrtationForm.controls['fsa24'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa24'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa24'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n24" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 25:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n25', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa25" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa25.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa25'].errors && (!regisrtationForm.controls['fsa25'].pristine || submitted ||regisrtationForm.controls['fsa25'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa25'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa25'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n25" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 26:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n26', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa26" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa26.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa26'].errors && (!regisrtationForm.controls['fsa26'].pristine || submitted ||regisrtationForm.controls['fsa26'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa26'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa26'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n26" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 27:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n27', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa27" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa27.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa27'].errors && (!regisrtationForm.controls['fsa27'].pristine || submitted ||regisrtationForm.controls['fsa27'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa27'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa27'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n27" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 28:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n28', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa28" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa28.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa28'].errors && (!regisrtationForm.controls['fsa28'].pristine || submitted ||regisrtationForm.controls['fsa28'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa28'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa28'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n28" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 29:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n29', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa29" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa29.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa29'].errors && (!regisrtationForm.controls['fsa29'].pristine || submitted ||regisrtationForm.controls['fsa29'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa29'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa29'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n29" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 30:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n30', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa30" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa30.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa30'].errors && (!regisrtationForm.controls['fsa30'].pristine || submitted ||regisrtationForm.controls['fsa30'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa30'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa30'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n30" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 31:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n31', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa31" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa31.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa31'].errors && (!regisrtationForm.controls['fsa31'].pristine || submitted ||regisrtationForm.controls['fsa31'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa31'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa31'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n31" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 32:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n32', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa32" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa32.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa32'].errors && (!regisrtationForm.controls['fsa32'].pristine || submitted ||regisrtationForm.controls['fsa32'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa32'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa32'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n32" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 33:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n33', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa33" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa33.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa33'].errors && (!regisrtationForm.controls['fsa33'].pristine || submitted ||regisrtationForm.controls['fsa33'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa33'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa33'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n33" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 34:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n34', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa34" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa34.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa34'].errors && (!regisrtationForm.controls['fsa34'].pristine || submitted ||regisrtationForm.controls['fsa34'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa34'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa34'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n34" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 35:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n35', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa35" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa35.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa35'].errors && (!regisrtationForm.controls['fsa35'].pristine || submitted ||regisrtationForm.controls['fsa35'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa35'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa35'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n35" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 36:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n36', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa36" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa36.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa36'].errors && (!regisrtationForm.controls['fsa36'].pristine || submitted ||regisrtationForm.controls['fsa36'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa36'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa36'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n36" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 37:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n37', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa37" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa37.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa37'].errors && (!regisrtationForm.controls['fsa37'].pristine || submitted ||regisrtationForm.controls['fsa37'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa37'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa37'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n37" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 38:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n38', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa38" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa38.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa38'].errors && (!regisrtationForm.controls['fsa38'].pristine || submitted ||regisrtationForm.controls['fsa38'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa38'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa38'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n38" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 39:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n39', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa39" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa39.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa39'].errors && (!regisrtationForm.controls['fsa39'].pristine || submitted ||regisrtationForm.controls['fsa39'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa39'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa39'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n39" disabled class="form-control">
+                    </div>
+                  </div>
+                  <div class="mb-2 row  ">
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label col-width"> <b>FSA Area 40:</b> &nbsp;
+                        {{"realtor_registration.fsa" | translate}}
+                      </label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="3"
+                        (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n40', 'FSA Code Not Exist', 'remove')"
+                        formControlName="fsa40" class="form-control fas-input" placeholder="FSA" [ngClass]="{'is-invalid': submitted && f.fsa40.errors }">
+                          <div *ngIf="regisrtationForm.controls['fsa40'].errors && (!regisrtationForm.controls['fsa40'].pristine || submitted ||regisrtationForm.controls['fsa40'].touched )"
+                                    class="error-msg">
+                                
+                                    <div [hidden]="!regisrtationForm.controls['fsa40'].errors.minlength" style="font-size: 12px; color: #dc3545">{{"new.FSA_Invalid" | translate}}</div>
+                                    <div [hidden]="!regisrtationForm.controls['fsa40'].errors.maxlength" style="font-size: 12px; color: #dc3545">{{"tolong.FSA" | translate}}
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-auto">
+                      <label for="staticEmail" class="col-form-label"> - </label>
+                    </div>
+                    <div class="col col-auto-fill">
+                      <input type="text" id="n40" disabled class="form-control">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-check-custom">
+                      <input type="checkbox" name="" (change)="onchange()" formControlName="accept1" id="info_text_gt"
+                        class="check-item-custom" name="info_text_gt"
+                        [ngClass]="{'is-invalid':submitted && f.accept1.errors}">
+                      <label style="cursor: pointer;" for="info_text_gt"
+                        class="check-label-custom">{{"client_registration.the_above" | translate}}</label>
+                      <div *ngIf="submitted && f.accept1.errors" class="invalid-feedback">
+                        <div *ngIf="f.accept1.errors.required">
+                          {{"client_registration.this_Field_is_required" | translate}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-check-custom">
+                      <input type="checkbox" name="" id="terms_text_gt" (change)="onchange()" formControlName="accept2"
+                        [ngClass]="{'is-invalid':submitted && f.accept2.errors}" name="terms_text_gt"
+                        class="check-item-custom">
+                      <label style="cursor: pointer;" for="terms_text_gt" class="check-label-custom">
+                        {{"client_registration.i_have_reviewed" | translate}}
+                        <a routerLink="/terms-conditions" target="_blank">{{"client_registration.terms_Conditions" |
+                          translate}} </a>
+                        {{"client_registration.the_site" | translate}}
+                        <a routerLink="/user-agreement" target="_blank">{{"client_registration.user_agreement" |
+                          translate}} </a> {{"client_registration.and_use_of_my" | translate}}
+                      </label>
+                      <div *ngIf="submitted && f.accept2.errors" class="invalid-feedback">
+                        <div *ngIf="f.accept2.errors.required">
+                          {{"client_registration.please_accept_tearms_conditions_is_required" | translate}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 termsConditions-mob">
+                  <div class="form-group mb-20">
+                    <div class="form-check-custom">
+                      <input type="checkbox" name="" id="terms_text_gt" (change)="onchange()" formControlName="accept2"
+                        [ngClass]="{'is-invalid':submitted && f.accept2.errors}" name="terms_text_gt"
+                        class="check-item-custom">
+                      <label style="cursor: pointer;" for="terms_text_gt" class="check-label-custom">
+                        {{"client_registration.i_have_reviewed" | translate}}
+                        <a routerLink="/terms-conditions" >{{"client_registration.terms_Conditions" |
+                          translate}} </a>
+                        {{"client_registration.the_site" | translate}}
+                        <a routerLink="/user-agreement">{{"client_registration.user_agreement" |
+                          translate}} </a> {{"client_registration.and_use_of_my" | translate}}
+                      </label>
+                      <div *ngIf="submitted && f.accept2.errors" class="invalid-feedback">
+                        <div *ngIf="f.accept2.errors.required">
+                          {{"client_registration.please_accept_tearms_conditions_is_required" | translate}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+
+
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-btn-group mt-40">
+                    <div class="btn-row-flex">
+                    </div>
+                    <div class="row mt-10 btn-bottom">
+
+                      <div class="btn-col btn-back">
+                        <a routerLink="/home" class="btn btn-transparent"><span class="fal fa-chevron-left"></span>
+                          <span>{{"realtor_registration.back" | translate}}</span></a>
+                      </div>
+
+                      <div class="btn-col bottom-single-btn">
+                        <a (click)="submitRequest()" class="btn btn-blue-fill "
+                          style="width: 115px; display: block; text-align: center; float: right;">{{"realtor_registration.save"
+                          | translate}}</a>
+                      </div>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #modalCropper let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Upload & Crop</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center image-coropp-popup">
+    <input style="padding-top: 16px; padding-left: 19px;" accept="image/*" (change)="fileChangeEvent($event)"
+      type="file" class="form-control" placeholder="" aria-describedby="button-addon1">
+    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
+      format="png" (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"></image-cropper>
+    <img class="mt-3 mr-3" [src]="croppedImage ? croppedImage :'assets/images/person.png'" [width]="100" [height]="100">
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-rounded btn-outline-dark"
+      (click)="modal.close('Save click')">{{"realtor_registration.save" | translate}}</button>
+  </div>
+</ng-template>

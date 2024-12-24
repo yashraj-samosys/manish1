@@ -1,0 +1,152 @@
+<section>
+    <div class="container">
+        <div class="d-sm-flex mb-5">
+            <span class="m-auto"></span>
+            <button  class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3"
+                [routerLink]="['/request/list-request']">Back
+                To
+                List</button>
+        </div>
+        <div id="print-area">
+            <div class="row mb-5 viewblock">
+                <div class="col-md-4">
+                    <div class="card mb-4 o-hidden">
+                        <!-- <div class="program-img">
+                            <img class="card-img-top program-img" [src]="data?.profile_img" alt="">
+                        </div> -->
+                        <!-- <div class="card-body">
+                            <p><span class="font-weight-bold">Name: </span>{{data?.first_name}}
+                                {{data?.last_name}}</p>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-md-8 offset-2">
+                    <div class="card mb-4 o-hidden">
+                        <div class="card-body">
+                            <p><span class="font-weight-bold">Details</span></p>
+                        </div>
+                        <table class=" table table-striped mb-0 table-bordered detailTable">
+                            <tbody>
+                                <tr>
+                                    <td>User Name</td>
+                                    <td>{{data?.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Agent Name</td>
+                                    <td>{{data?.first_name}} {{data?.last_name && data?.last_name != null && data?.last_name != 'null' && data?.last_name != undefined && data?.last_name != 'undefined' ? data?.last_name : ''}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{data?.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile</td>
+                                    <td>+{{data?.phone}}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>Office_address</td>
+                                    <td>{{data?.office_address}}</td>
+                                </tr> -->
+                                <tr>
+                                    <td>Message</td>
+                                    <td>{{data?.message}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td *ngIf="data?.status == 0" > New Request</td>
+                                    <td *ngIf="data?.status == 1" > Accept</td>
+                                    <td *ngIf="data?.status == 2" > Declined</td>
+                                    <td *ngIf="data?.status == 3" >Request From Submitted</td>
+                                    <td *ngIf="data?.status == 4" >Fourteen day has completed</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>Address</td>
+                                    <td>{{data?.address}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Shown On Map</td>
+                                    <td>{{data?.shownOnMap}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Broker Phone No</td>
+                                    <td>+{{data?.phonecode}}{{data?.brokerPhoneNo}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Text No</td>
+                                    <td>+{{data?.phonecode}}{{data?.textNo}}</td>
+                                </tr> 
+                                <tr>
+                                    <td>Whatsapp</td>
+                                    <td>{{data?.whatsapp}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Messenger</td>
+                                    <td>{{data?.messenger}}</td>
+                                </tr>
+                                 <tr>
+                                    <td>Wechat</td>
+                                    <td>{{data?.wechat}}</td>
+                                </tr> 
+                                <tr>
+                                    <td>Brokerage Name</td>
+                                    <td>{{data?.brokerageName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Brokerage Street Address</td>
+                                    <td>{{data?.BrokerageStreetAddress}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Brokerage City</td>
+                                    <td>{{data?.BrokerageCity}}</td>
+                                </tr>
+                                 <tr>
+                                    <td>Brokerage Province</td>
+                                    <td>{{data?.BrokerageProvince}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Brokerage Postal Code</td>
+                                    <td>{{data?.BrokeragePostalCode}}</td>
+                                </tr> -->
+                                <!-- <tr>
+                                    <td>FSA Code</td>
+                                    <td>{{agentFsa?.fsa_code}}</td>
+                                </tr>
+                                <tr>
+                                    <td>FSA Name</td>
+                                    <td>{{agentFsa?.fsa_name}}</td>
+                                </tr> -->
+                                <!-- <tr>
+                                    <td>Biography</td>
+                                    <td *ngIf="this.data?.bio != undefined">
+                                        {{ common.textTruncate(this.data?.bio, 20) }}
+                                        <span class="readMore" (click)="common.readMore()"
+                                            *ngIf="20 < this.data?.bio.length">{{
+                                            !isMore ?
+                                            'Read More' : 'Read Less' }}</span>
+                                    </td>
+                                    <td *ngIf="this.data?.bio == undefined"></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+                    <div class="card mb-4 o-hidden">
+                        <div class="card-body">
+                            <p><span class="font-weight-bold">Bio</span></p>
+                        </div>
+                        <div class="bio">
+                            {{this.data?.bio}}
+                            {{ textTruncate(this.data?.bio, 20) }}
+                            <span class="readMore" (click)="readMore()" *ngIf="20 < this.data?.bio.length">{{ !isMore ?
+                                'Read More' : 'Read Less' }}</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+

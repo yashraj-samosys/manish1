@@ -1,0 +1,32 @@
+::ng-deep .adv_img {
+// position: relative 
+position: relative;
+padding: 25%!important;
+}
+::ng-deep .adv_img img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+::ng-deep .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell{
+    text-align: center ;
+}
+
+
+::ng-deep .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+    text-align: center ;
+}
+::ng-deep .ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {
+  
+    text-align: center;
+}
+
+::ng-deep .mat-paginator-page-size-select {
+    margin: 6px 4px 0 4px;
+    width: 40px !important;
+}

@@ -1,0 +1,101 @@
+<section class="mb-4">
+    <div class="container">
+
+
+        <div class="breadcrumb">
+            <h1>Content </h1>
+            <ul>
+                <li id="demo"> Footer Text</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+
+
+        <div class="row">
+            <div class="card  o-hidden" id="cardhidden1">
+                <div class="card-body" id="cardbody1">
+                    <form [formGroup]="addfooterForm">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                    <label>Email</label>
+                                    <input maxlength="{{validations_cnfg.m50}}"
+                                        onkeypress="if(this.value.length==50) return false; return event.charCode != 32"
+                                        class="form-control" type="email" placeholder="Email" formControlName="email">
+                                    <div *ngIf="addfooterForm.controls['email'].errors && (!addfooterForm.controls['email'].pristine || submitted ||addfooterForm.controls['email'].touched )"
+                                        class="error-msg">
+                                        <div [hidden]="!addfooterForm.controls['email'].errors.required">Email is
+                                            required.</div>
+                                            <div *ngIf="f.email.errors.pattern || f.email.errors.email">Email is invalid</div>
+
+                                        <div [hidden]="!addfooterForm.controls['email'].errors.maxlength">Email is too
+                                            large.
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <label>Mobile</label>
+                                    <input
+                                        onkeypress="if(this.value.length==50) return false; return event.charCode >= 48 && event.charCode <= 57"
+                                        id="Mobile" type="tel" maxlength="{{validations_cnfg.m15}}" class="form-control"
+                                        placeholder="Mobile" formControlName="phone_no">
+
+                                    <div *ngIf="addfooterForm.controls['phone_no'].errors && (!addfooterForm.controls['phone_no'].pristine || submitted ||addfooterForm.controls['phone_no'].touched )"
+                                        class="error-msg">
+                                        <div [hidden]="!addfooterForm.controls['phone_no'].errors.required">Mobile No is
+                                            required.</div>
+                                        <div [hidden]="!addfooterForm.controls['phone_no'].errors.minlength">Mobile
+                                            should
+                                            be 10 digit.
+                                        </div>
+                                        <div [hidden]="!addfooterForm.controls['phone_no'].errors.maxlength">Mobile
+                                            should
+                                            be 10 digit.
+                                        </div>
+                                        <!-- <div [hidden]="!addfooterForm.controls['phone_no'].errors.pattern">Invalid
+                                            Mobile Number
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Address </label>
+                                    <!-- <input
+                                        onkeypress="if(this.value.length==50) return false; return event.charCode != 32"
+                                        maxlength="{{validations_cnfg.m200}}" autocorrect="off" autocapitalize="off"
+                                        spellcheck="off" formControlName="address" type="text" class="form-control"
+                                        placeholder="Address"> -->
+                                        <input
+                                        onkeypress="return this.value.length < 50"
+                                        maxlength="{{validations_cnfg.m200}}" autocorrect="off" autocapitalize="off"
+                                        spellcheck="off" formControlName="address" type="text" class="form-control"
+                                        placeholder="Address">
+
+                                    <div *ngIf="addfooterForm.controls['address'].errors && (!addfooterForm.controls['address'].pristine || submitted ||addfooterForm.controls['address'].touched )"
+                                        class="error-msg">
+                                        <div [hidden]="!addfooterForm.controls['address'].errors.required">Address is
+                                            required.</div>
+                                        <div [hidden]="!addfooterForm.controls['address'].errors.maxlength">Address is
+                                            too large.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="footerbtn" type="submit" class="btn btn-primary btn-rounded m-1"
+                            (click)="Onadd()">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

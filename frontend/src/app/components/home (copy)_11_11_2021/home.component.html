@@ -1,0 +1,700 @@
+
+<div class="rn-title-bar">
+  <div class="rn-title--inner">
+    <div class="rn-title--main">
+      <!-- <h6 class="mb-0">
+        Choose a local Real Estate Agent that is recommended by other Real
+        Estate Agents for the Neighbourhood you want advice for.
+      </h6> -->
+      <h6 class="mb-0">{{"home.heading" | translate}}</h6>
+    </div>
+    <div class="rn-content--main">
+      <a *ngIf="Usertype == '2' || Usertype == '3'" class="btn btn-link"><i class="fal fa-heart"></i></a>
+      <!-- <a *ngIf="Usertype == '2' || Usertype == '3'" class="btn-white-outlined" (click)="pay(paymentModel)"><span>Add My Own Network</span></a> -->
+      <a *ngIf=" (Usertype == '2' && is_default_agent == '1') || Usertype == '3' " class="btn-white-outlined" (click)="Clientagent()"><span>Create My Own
+          Network</span></a>
+      <a *ngIf="Usertype == '2' && is_default_agent == '0' && changeNetWork == 1" (click)="changeMap(2)" style="cursor: pointer;"
+        class="btn-white-outlined"><span>Change to my network</span></a>
+      <a *ngIf="Usertype == '2' && is_default_agent == '0' && changeNetWork == 2" (click)="changeMap(1)" style="cursor: pointer;"
+        class="btn-white-outlined"><span>Change to public network</span></a>
+      <a (click)="openSnackBar('Click on map to pin your location', '')" *ngIf="Usertype == '2' || Usertype == '3'"
+        class="btn-white-outlined"><span class="fal fa-map-marker-alt"></span> <span>Pin Map</span></a>
+    </div>
+  </div>
+</div>
+<div class="map-area--wrapper">
+  <div class="map-area--sidebar expanded">
+    <div class="sidebar--header">
+      <!-- <i class="fal fa-times"></i> -->
+      <span>
+        <!-- {{ "home.neighbourhood_name" | translate }} -->
+      </span>
+    </div>
+    <div class="sidebar--body u-fancy-scrollbar">
+      <div class="grid-lists--nostyled">
+        <div class="gl-item" *ngFor="let agentData of GetNeighbourhoodAgentData; let z = index">
+          <div class="gl-box">
+            <div class="gl-photo">
+              <div class="{{
+                              userId == null || Usertype == '4' ? 'photo-action' : ''
+                            }}">
+                <a *ngIf="userId == null" routerLink="/login">Request Me </a>
+                <a *ngIf="
+                                userId != null &&
+                                Usertype == '4' &&
+                                ( agentData?.expireDateStatus == true || agentData?.requestShowStatus == false )
+
+                              " routerLink="/create-request/{{ agentData?.agent_id }}">Request Me </a>
+                <a *ngIf="
+                                userId != null &&
+                                Usertype == '4' &&
+                                 (agentData?.expireDateStatus == false) 
+                                 
+                              ">Requested
+                </a>
+              </div>
+              <span><img src="{{ agentData?.profile_img }}" alt="" /></span>
+            </div>
+            <div class="gl-body">
+              <h6>{{ agentData?.first_name }} {{ agentData?.last_name }}</h6>
+              <!-- <div class="gl-content">
+                                    <p>{{agentData.shortBio}}</p>
+                                 </div> -->
+
+              <div *ngIf="z == 0" class="gl-content">
+                <p style="max-height: fit-content">{{ agentData?.shortBio }}</p>
+              </div>
+              <div class="gl-content">
+                <p *ngIf="z != 0" style="max-height: fit-content">
+                  {{
+                  readMore[z]
+                  ? agentData?.bio
+                  : (agentData?.shortBio | slice: 0:20)
+                  }}
+                  <span *ngIf="!readMore">...</span>
+                  <a class="readMore" (click)="readMore[z] = !readMore[z]"
+                    *ngIf="2 < this.agentData?.shortBio?.length">{{ readMore[z] ? "Read Less" : "Read More" }}</a>
+                </p>
+              </div>
+              <div>
+                <span class="span-0 m-0">{{agentData?.brokerageName == 'null' ? '' : agentData?.brokerageName}}</span>
+                <span class="m-0" style="font-size: 13px; padding-left: 10px !important;">{{agentData?.brokerPhoneNo  == 'null' ? '' : agentData?.brokerPhoneNo}}</span>
+               <p class="p-0 m-0">{{agentData?.BrokerageStreetAddress == 'null' ? '' : agentData?.BrokerageStreetAddress}}</p>
+              </div>
+              <!-- <div>{{agentData.expireDateStatus}}</div> -->
+
+              <div class="gl-footer">
+                <div class="social-icons">
+                  <a href="{{ agentData.facebook }}" target="_blank"><i class="fab fa-facebook"></i></a>
+                  <a href="{{ agentData.whatsapp }}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                  <a href="{{ agentData.messenger }}" target="_blank"><i class="fab fa-facebook-messenger"></i></a>
+                  <a href="{{ agentData.wechat }}" target="_blank"><i class="fab fa-weixin"></i></a>
+                  <a  href="//{{ agentData.website}}" target="_blank"><i class="fas fa-globe"></i></a>
+                </div>
+                <!-- <div class="neighbourhood-dtl" (click)="clickNeighbourhoodEvent(agentData,z,'NeighbourhoodId1_')" id="NeighbourhoodId1_{{z}}"> -->
+                  <div class="neighbourhood-dtl" title=" {{ agentData.address }}" id="NeighbourhoodId1_{{ z }}">
+                  {{ agentData.address }}
+                </div>
+              </div>
+              <!-- <div>{{ agentData.start_date | date}}</div>
+                <div>{{agentData.end_date | date}}</div>
+                 <div>{{agentData.expireDateStatus}}</div>
+                 <div>{{agentData.name}}</div> -->
+              <!-- <a class="link-ic-btn"><i class="fal fa-heart"></i></a> -->
+              <div class="link-ic-btn" *ngIf=" (agentData?.statusDataRequest == 1  && agentData?.expireDateStatus == false && agentData?.is_favorite == 0 ) ">
+                <i class="fas fa-heart" style="color: red;"></i>
+              </div>
+              <div class="link-ic-btn" (click)="makeFav(agentData,'blue',z,'GetNeighbourhoodAgent')" *ngIf=" agentData?.is_favorite == 1">
+                <i class="fas fa-heart" style="color: red;"></i>
+              </div>
+
+              <div class="link-ic-btn" (click)="makeFav(agentData,'red',z,'GetNeighbourhoodAgent')" *ngIf="agentData?.statusDataRequest != 1 && agentData?.expireDateStatus != false  && agentData?.is_favorite == 0">
+                <i class="fal fa-heart" ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showResult == 0">No agents found</div>
+      </div>
+      <div class="bg-list-section bg-gray-light">
+        <div class="sidebar--header">
+          <span> {{ "home.near_by_agents" | translate }}</span>
+        </div>
+        <div class="grid-lists--nostyled withbg">
+          <div *ngIf="Agent?.length == 0">No agents found</div>
+          <div *ngFor="let agentData of Agent; let z = index" class="gl-item">
+            <div class="gl-box">
+              <div class="gl-photo">
+                <div class="{{
+                                userId == null || Usertype == '4' ? 'photo-action' : ''
+                              }}">
+                  <!-- <a routerLink="/create-request/{{agentData.id}}">Request Me</a> -->
+                  <a *ngIf="userId == null" routerLink="/login">Request Me </a>
+
+                  <a *ngIf="
+                                  userId != null &&
+                                  Usertype == '4' && (agentData?.expireDateStatus == true || agentData?.requestShowStatus == false )
+                                " routerLink="/create-request/{{ agentData.id }}">Request Me </a>
+                  <a *ngIf="
+                                  userId != null &&
+                                  Usertype == '4' &&
+                                  (agentData?.expireDateStatus == false)
+                                ">Requested</a>
+                </div>
+                <span><img src="{{ agentData.profile_img }}" alt="" />
+
+                </span>
+              </div>
+              <div class="gl-body">
+                <h6>{{ agentData?.first_name }} {{ agentData?.last_name }}</h6>
+                <!-- <p>{{agentData?.brokerageName}}</p>
+                <p>{{agentData?.brokerPhoneNo}}</p>
+               <p>{{agentData?.BrokerageStreetAddress}}</p> -->
+
+
+                <div *ngIf="z == 0" class="gl-content">
+                  <p style="max-height: fit-content">
+                    {{ agentData?.bio }}                  
+                  </p>               
+                </div> 
+
+                 <div class="gl-content">
+                  <p *ngIf="z != 0" style="max-height: fit-content">
+                    {{
+                    readMore[z]
+                    ? agentData?.bio
+                    : (agentData?.shortBio | slice: 0:20)
+                    }}
+                    <span *ngIf="!readMore">...</span>
+                    <a style="cursor: pointer;" class="readMore" (click)="readMore[z] = !readMore[z]"
+                      *ngIf="2 < this.agentData?.shortBio?.length">{{ readMore[z] ? "Read Less" : "Read More" }}</a>
+                  </p>
+                </div> 
+
+                <div class="gl-footer">
+                  <!-- <div class="neighbourhood-dtl" (click)="clickNeighbourhoodEvent(agentData,z,'NeighbourhoodId_')" id="NeighbourhoodId_{{z}}"> -->
+                  <div class="neighbourhood-dtl" title=" {{ agentData.address }}" id="NeighbourhoodId_{{ z }}">
+                    {{ agentData.address }}
+                  </div>
+                </div>
+                <!-- <div>{{ agentData.start_date | date}}</div>
+                <div>{{agentData.end_date | date}}</div>
+                 <div>{{agentData.expireDateStatus}}</div>
+                 <div>{{agentData.name}}</div> -->
+                <a class="link-ic-btn"><i class="fal fa-heart"></i></a>
+                <!-- <div class="link-ic-btn" *ngIf="agentData.statusDataRequest == 0"></div> -->
+                <!-- <div class="link-ic-btn"
+                  *ngIf="agentData?.statusDataRequest == 1 && agentData?.expireDateStatus == false "> <i
+                    class="fal fa-heart" style="color: red;"></i> </div> -->
+
+                    <div class="link-ic-btn" *ngIf=" (agentData?.statusDataRequest == 1  && agentData?.expireDateStatus == false && agentData?.is_favorite == 0 ) ">
+                      <i class="fas fa-heart" style="color: red;"></i>
+                    </div>
+                    <div class="link-ic-btn" (click)="makeFav(agentData,'blue',z,'near_by_agents')" *ngIf=" agentData?.is_favorite == 1">
+                      <i class="fas fa-heart" style="color: red;"></i>
+                    </div>
+      
+                    <div class="link-ic-btn" (click)="makeFav(agentData,'red',z,'near_by_agents')" *ngIf="agentData?.statusDataRequest != 1 && agentData?.expireDateStatus != false  && agentData?.is_favorite == 0">
+                      <i class="fal fa-heart" ></i>
+                    </div>
+                <!-- <div class="link-ic-btn" *ngIf="agentData.statusDataRequest == 2"> </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="map-contents--main">
+    <div class="mac-content--left">
+      <div *ngIf="advertisment.length" class="adv-grid">
+        <div *ngFor="let items of advertisment"
+          [class]="items.panelType == 1 ? 'dummy-img large adv-grid--item item--large' : 'dummy01 adv-grid--item item--small'">
+          <div class="adv-box">
+            <span style="cursor: pointer;" (click)="updateAdvertismentCount(items.id,items.click_count,items.Link)">
+              <img [src]="items.profile_img" alt="" />
+            </span>
+          </div>
+          <!-- <div class="adv-grid--item item--large">
+                        <div class="adv-box">
+                          <span><img src="assets/images/adv-l1.png" alt="" /></span>
+                        </div>
+                      </div>
+                      <div class="adv-grid--item item--small">
+                        <div class="adv-box">
+                          <span><img src="assets/images/adv-l2.png" alt="" /></span>
+                        </div>
+                      </div>
+                      <div class="adv-grid--item item--small">
+                        <div class="adv-box">
+                          <span><img src="assets/images/adv-l3.png" alt="" /></span>
+                        </div>
+                      </div> -->
+        </div>
+      </div>
+      <div *ngIf="!advertisment.length" class="adv-grid">
+        <div class="adv-grid--item item--small" *ngIf="!advertisment.length">
+          <div class="adv-box">
+            <span>No Advertisment Found!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mac-content--right">
+      <div class="map-div">
+        <div class="map-search">
+          <div class="map-search-form">
+            <div class="map-search-row">
+              <div id="popupMainID" class="map-search-box search-field">
+                <input class="search-field-inp" (keyup)="clearInput($event)" #addressSearch autocomplete="off"
+                  id="searchTextField" name="search" placeholder="Search by City" autocomplete="off" />
+                <input class="search-field-inp" name="search" placeholder="Search by  Realtor" id="realtorId" value=""
+                  (keyup)="filter('', $event)" autocomplete="off" />
+              </div>
+              <button id="search-submit" (click)="openPopup()" class="search-submit">
+                <span id="search-repl" class="fal fa-search search-icon"></span>
+              </button>
+              <div class="searchBoxResult" *ngIf="ResultData?.length > 0">
+                <ul id="UserListIdPopup">
+                  <li class="popupUlLiClass" *ngFor="let s of ResultData" (click)="searchfilter(s)">
+                    <img style="width: 30px; height: 30px; display: inline-block" src="{{ s.profile_img }}" />
+                    <h4 style="display: inline-block">
+                      {{ s.first_name }} {{ s.last_name }}
+                    </h4>
+                  </li>
+                </ul>
+              </div>
+              <div class="searchBoxResult" *ngIf="ResultData?.length == 0 && agentFilterControl.length > 0">
+                <ul id="UserListIdPopup">
+                  <li class="popupUlLiClass">
+                    <h4 style="display: inline-block">
+                      No result found
+                    </h4>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22962.969975650245!2d-77.8874007614401!3d43.99305077005489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d675b24186c3fb%3A0x5b6d9b94264026bb!2sColborne%2C%20ON%20K0K%201S0%2C%20Canada!5e0!3m2!1sen!2sin!4v1620636314034!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+        <!-- <agm-map  #gm [latitude]="lat"  [maxZoom]="10"  [minZoom]="4" [zoom]="zoom" [scrollwheel]="false" [draggable]="true"  [longitude]="lng" (zoomChange)="zoomChange($event)"> -->
+          
+        <agm-map sd *ngIf="Usertype == '2' && changeNetWork == 2" #gm [latitude]="lat" (zoomChange)="layerINOut($event)"
+          [maxZoom]="100" [minZoom]="3" (mapReady)="mapReady($event)" [zoom]="zoom" [scrollwheel]="false" [draggable]="true" [longitude]="lng"
+          [usePanning]="true" (zoomChange)="zoomChange($event)">
+          <!-- //client map markers -->
+          <agm-marker *ngFor="let s of getCenterLocationData" [agmFitBounds]="true" [latitude]="s.lat"
+            [longitude]="s.lng" [iconUrl]="
+                  s.stype != undefined
+                    ? {
+                        url: './assets/images/currentmap.png',
+                        scaledSize: { height: 30, width: 30 }
+                      }
+                    : showMarker == 1
+                    ? $any(icon)
+                    : {
+                        url: s?.userData.profile_img ,
+                        scaledSize: s?.userData.user_type == 2 ? { height: 40, width: 40 } :  { height: 20, width: 20 }
+                      }
+                " (markerClick)="openAgentPopup(infoWindow, gm, s, $event)">
+            <agm-info-window [disableAutoPan]="false" #infoWindow>
+              <div>
+                <div class="rn-map--popover">
+                  <div class="rn-map--inner">
+                    <div class="rnp-head">
+                      <h6 class="rnp-title"></h6>
+                    </div>
+                    <div class="rnp-body">
+                      <div class="rnp-body--inner">
+                        <div class="rnp-readMore">
+                          <div class="rnp-image">
+                            <div class="social-icons">
+                              <ul class="list-inline">
+                                <li>
+                                  <a href="{{ agentData?.userData?.facebook}}" target="_blank"><i class="fab fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                  <a  href="{{ agentData?.userData?.messenger}}" target="_blank"><i class="fab fa-facebook-messenger"></i></a>
+                                </li>
+                                <li>
+                                  <a  href="{{ agentData?.userData?.whatsapp}}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                </li>
+                                <li>
+                                  <a  href="{{ agentData?.userData?.wechat}}" target="_blank"><i class="fab fa-weixin"></i></a>
+                                </li>
+                                <li>
+                                  <a  href="//{{ agentData?.userData?.website}}" target="_blank"><i class="fas fa-globe"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+                            <span><img src="{{ agentData?.userData?.profile_img }}" alt="" /></span>
+                          </div>
+                          <div class="rnpd-contents">
+                            <h6 class="rnpd-title">
+                              {{ agentData?.userData?.first_name }}
+                              {{ agentData?.userData?.last_name }}
+                            </h6>
+                            <!-- <p>
+                              <a *ngIf="userId == null" routerLink="/login">Request Me</a>
+                              <a *ngIf="
+                                              userId != null &&
+                                              Usertype == '4' &&
+                                              agentData.requestShowStatus == false
+                                            " routerLink="/create-request/{{ agentData?.id }}">Request Me</a>
+                              <a *ngIf="
+                                              userId != null &&
+                                              Usertype == '4' &&
+                                              Usertype == '4' && agentData.requestShowStatus == true
+                                            ">Requested</a>
+                            </p> -->
+                          </div>
+                        </div>
+                        <div class="rnp-bullet-points">
+                          <ul class="list-inline">
+                            <li data-fa-icon="&#xf277;">
+                              <span>
+                                {{
+                                agentData?.userData?.user_type == 2
+                                ? "Neighbourhood Agent"
+                                : "Partner Agent"
+                                }}
+                              </span>
+                            </li>
+                            <!-- <li data-fa-icon="&#xf007;">
+                              <span>{{ agentData?.userData?.brokerageName ? ' ': " 1" }}</span>
+                            </li>
+                            <li data-fa-icon="&#xf095;"> 
+                              <span>{{agentData?.userData?.brokerPhoneNo}}</span>
+                             </li>
+                            <li data-fa-icon="&#xf2bb;">
+                              <span>{{agentData?.userData?.BrokerageStreetAddress}}</span>
+                            </li> -->
+                            <li data-fa-icon="&#xf3c5;">
+                              <span>{{agentData?.fsa_code}} - {{ agentData?.agent_fsa_address }}</span>
+                            </li>
+                            <li *ngIf="Usertype == '2' || Usertype == '3'" data-fa-icon="&#xf0e0;">
+                              <!-- <span>{{ agentData?.userData?.email }}</span> -->
+                              <h6 class="mb-2"><a href="mailto:{{ agentData?.userData?.email }}">{{ agentData?.userData?.email }}</a></h6>
+                            </li>
+                            <li *ngIf="Usertype == '2' || Usertype == '3'" data-fa-icon="&#xf095;">
+                              <!-- <span>+1 {{ agentData?.userData?.mobile }}</span> -->
+                              <h6 class="mb-2"><a href="tel:+1{{ agentData?.userData?.mobile }}">+1 {{ agentData?.userData?.mobile }}</a></h6>
+                            </li>
+                            <br />
+                            <!-- <li ><div class="">
+                                                <a *ngIf="userId == null" routerLink="/login">Request Me</a>
+                                                 <a *ngIf="userId != null" routerLink="/create-request/{{agentData.id}}">Request Me</a>
+                                             </div></li> -->
+                          </ul>
+                          <div style="text-align:right;">
+                            <button type="button" (click)="DeleteAgent(agentData,agentData?.userData?.id, gm)" class="btn btn-danger"
+                              *ngIf="Usertype == '2'">Delete</button>
+                          </div>
+                          
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <!-- <a (click)="onClickInfoView({id:m.id})" class="btn btn-attention pull-right">Daje <i class="fa fa-angle-double-right"></i></a> -->
+              </div>
+            </agm-info-window>
+          </agm-marker>
+
+          <agm-data-layer [geoJson]="geoJson" (layerClick)="eventLayer($event)" [style]="styleFunc">
+          </agm-data-layer>
+          <!-- <agm-kml-layer [url]="kmljson"> </agm-kml-layer>                    -->
+        </agm-map>
+
+        <agm-map *ngIf="changeNetWork == 1" #gm [latitude]="lat" (zoomChange)="layerINOut($event)" [maxZoom]="100"
+          [minZoom]="3" [zoom]="zoom" (mapReady)="mapReady($event)" [scrollwheel]="false" [draggable]="true" [longitude]="lng" [usePanning]="true"
+          (zoomChange)="zoomChange($event)">
+          <!-- //public map markers -->
+          <div>
+            <agm-marker *ngFor="let s of getCenterLocationData" [agmFitBounds]="true" [latitude]="s?.lat"
+              [longitude]="s?.lng" [iconUrl]="
+              s?.stype != undefined
+                ? {
+                    url: './assets/images/currentmap.png',
+                    scaledSize: { height: 30, width: 30 }
+                  }
+                : showMarker == 1                                   
+                ? $any(icon)
+                : {
+                    url: s?.userData.profile_img ,
+                    scaledSize: s?.userData.user_type == 2 ? { height: 40, width: 40 } :  { height: 20, width: 20 }
+                  }
+            " (markerClick)="openAgentPopup(infoWindow, gm, s, $event)">
+              <agm-info-window [disableAutoPan]="false" #infoWindow>
+                <div>
+                  <div class="rn-map--popover">
+                    <div class="rn-map--inner">
+                      <div class="rnp-head" *ngIf="agentData != undefined">
+                        <!-- <h6 class="rnp-title" *ngIf="Usertype == '3'">
+                          Change to My Own Agent
+                        </h6> -->
+
+                        <h6>
+                          <a style="cursor: pointer;" *ngIf="Usertype == '3'"  (click)="gotoBecomeClient()"><span>Change to My Own Agent</span></a>
+                        </h6>
+                        <h6 class="rnp-title" *ngIf="Usertype != '3'"></h6>
+                      </div>
+                      <div class="rnp-body" *ngIf="agentData != undefined">
+                        <div class="rnp-body--inner">
+                          <div class="rnp-readMore">
+                            <div class="rnp-image">
+                              <div class="social-icons">
+                                <ul class="list-inline">
+                                  <li>
+                                    <a href="{{ agentData?.userData?.facebook}}" target="_blank"><i class="fab fa-facebook"></i></a>
+                                  </li>
+                                  <li>
+                                    <a  href="{{ agentData?.userData?.messenger}}" target="_blank"><i class="fab fa-facebook-messenger"></i></a>
+                                  </li>
+                                  <li>
+                                    <a  href="{{ agentData?.userData?.whatsapp}}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                  </li>
+                                  <li>
+                                    <a  href="{{ agentData?.userData?.wechat}}" target="_blank"><i class="fab fa-weixin"></i> </a>
+                                  </li>
+                                  <li>
+                                    <a  href="//{{ agentData?.userData?.website}}" target="_blank"><i class="fas fa-globe"></i></a>
+                                  </li>
+                                  </ul>
+                              </div>
+                              <span><img src="{{ agentData?.userData?.profile_img }}" alt="" /></span>
+                            </div>
+                            <div class="rnpd-contents">
+                              <h6 class="rnpd-title">
+                                {{ agentData?.userData?.first_name }}
+                                {{ agentData?.userData?.last_name }}
+                              </h6>
+                              <p>
+                                <!-- <a *ngIf="userId == null" routerLink="/login">Request Me</a>
+                                <a *ngIf="
+                                          userId != null &&
+                                          Usertype == '4' &&
+                                          agentData?.userData.requestShowStatus == false
+                                        " routerLink="/create-request/{{ agentData?.userData?.id }}">Request Me</a>
+                                <a *ngIf="
+                                          userId != null &&
+                                          Usertype == '4' &&
+                                          Usertype == '4' && agentData?.userData.requestShowStatus == true
+                                        ">Requested</a>
+                              </p> -->
+
+                              <p>
+                                <a *ngIf="userId == null" routerLink="/login">Request Me</a>
+                                <a *ngIf="
+                                          userId != null &&
+                                          Usertype == '4' &&
+                                          requestStatus == false
+                                        " routerLink="/create-request/{{ agentData?.userData?.id }}">Request Me</a>
+                                <a *ngIf="
+                                          userId != null &&
+                                          Usertype == '4' &&
+                                          requestStatus == true
+                                        ">Requested</a>
+                              </p>
+                              <!-- <div *ngIf="Usertype == '4'" class="link-ic-btn" (click)="makeFav(agentData,'red')" >
+                                <i class="fal fa-heart" ></i>
+                              </div> -->
+                            </div>
+                          </div>
+                          <div class="rnp-bullet-points">
+                            <ul class="list-inline">
+                              <li data-fa-icon="&#xf277;">
+                                <span>
+                                  {{
+                                  agentData?.userData?.user_type == 2
+                                  ? "Neighbourhood Agent"
+                                  : "Partner Agent"
+                                  }}
+                                </span>
+                              </li>
+                              <!-- <li data-fa-icon="&#xf007;">
+                                <span>{{ agentData?.userData?.brokerageName }}</span>
+                              </li>
+                              <li data-fa-icon="&#xf095;"> 
+                                <span>{{agentData?.userData?.brokerPhoneNo}}</span>
+                               </li>
+                              <li data-fa-icon="&#xf2bb;">
+                                <span>{{agentData?.userData?.BrokerageStreetAddress}}</span>
+                              </li> -->
+                              <li data-fa-icon="&#xf3c5;">
+                                <span>{{agentData?.fsa_code}} - {{ agentData?.agent_fsa_address }}</span>
+                              </li>
+                              <li *ngIf="Usertype == '2' || Usertype == '3'" data-fa-icon="&#xf0e0;">
+                                <!-- <span>{{ agentData?.userData?.email }}</span> -->
+                                <span class="mb-2"><a href="mailto:{{ agentData?.userData?.email }}">{{ agentData?.userData?.email }}</a></span>
+                              </li>
+                              <li *ngIf="Usertype == '2' || Usertype == '3'" data-fa-icon="&#xf095;">
+                                <!-- <span>+1 {{ agentData?.userData?.mobile }}</span>
+                                 -->
+                                 <h6 class="mb-2"><a href="tel:+1{{ agentData?.userData?.mobile }}">+1 {{ agentData?.userData?.mobile }}</a></h6>
+                              </li>
+                              <br />
+                              <!-- <li ><div class="">
+                                            <a *ngIf="userId == null" routerLink="/login">Request Me</a>
+                                             <a *ngIf="userId != null" routerLink="/create-request/{{agentData.id}}">Request Me</a>
+                                         </div></li> -->
+                            </ul>
+                            <div style="text-align:right;">
+                              <!-- <button type="button" (click)="addToMap(agentData?.userData?.id, gm)" class="btn btn-primary"
+                                *ngIf="Usertype == '2'">Change to my agent</button> -->
+                                <button type="button" (click)="add(addAgentModel,agentData)" class="btn btn-primary"
+                                *ngIf="Usertype == '2' && is_default_agent == '0'">Change to my agent</button>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <!-- <a (click)="onClickInfoView({id:m.id})" class="btn btn-attention pull-right">Daje <i class="fa fa-angle-double-right"></i></a> -->
+                </div>
+              </agm-info-window>
+            </agm-marker>
+          </div>
+
+          <agm-data-layer [geoJson]="geoJson" (layerClick)="eventLayer($event)" [style]="styleFunc">
+          </agm-data-layer>
+          <!-- <agm-kml-layer [url]="kmljson"> </agm-kml-layer>                    -->
+        </agm-map>
+        <div *ngIf="hideLoader == 0" id="loaderId" class="loader"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+<ng-template #addAgentModel let-modal>
+  <div class="modal-header">
+    <p class="modal-title" id="modal-basic-title">Add Agent</p>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <label>You need to make payment of $10 for year to become Client </label>
+    <div>
+      <button type="button" class="btn btn-outline-dark">Pay</button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Cancle</button>
+  </div>
+
+</ng-template> -->
+
+
+
+<ng-template #addAgentModel let-modal>
+  <div class="modal-header">
+
+      <h4 class="modal-title" id="modal-title">
+          <strong>Add Agent</strong>
+      </h4>
+
+      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="addAgentForm" (ngSubmit)="agentSubmit()">
+          <div class="row">
+              <div class="col-md-12">
+                  <label class="balance">Name</label>
+                  <div class="form-group">
+                      <input class="form-control" placeholder="Enter Name"  formControlName="first_name" type="text">
+                           <div *ngIf="addAgentForm.controls['first_name'].errors && (!addAgentForm.controls['first_name'].pristine || submitted ||addAgentForm.controls['first_name'].touched )"
+                          class="error-msg">
+                            <div [hidden]="!addAgentForm.controls['first_name'].errors.required">Name
+                              is required.
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- <div class="col-md-6">
+                <label class="balance">Last Name</label>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Enter Last Name" formControlName="last_name" type="text">
+                       <div *ngIf="addAgentForm.controls['last_name'].errors && (!addAgentForm.controls['last_name'].pristine || submitted ||addAgentForm.controls['last_name'].touched )"
+                        class="error-msg"> 
+                         <div [hidden]="!addAgentForm.controls['last_name'].errors.required">Last Name
+                            is required.
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-md-12" style="margin-top: 1%;">
+              <label class="balance">Email</label>
+              <div class="form-group">
+                  <input class="form-control" placeholder="Enter Email "  formControlName="email" type="email">
+                      <div *ngIf="addAgentForm.controls['email'].errors && (!addAgentForm.controls['email'].pristine || submitted ||addAgentForm.controls['email'].touched )"
+                      class="error-msg">
+                       <div [hidden]="!addAgentForm.controls['email'].errors.required">Email
+                          is required.
+                      </div>
+                      <div [hidden]="!addAgentForm.controls['email'].errors.pattern">Email is invalid.
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-12" style="margin-top: 1%;">
+            <label class="balance">Phone</label>
+            <div class="form-group"> 
+                <input class="form-control" placeholder="Enter Phone Number"  minlength="8" onKeyPress="if(this.value.length==10) return false;return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46"
+                    formControlName="mobile" type="text">
+                    <div *ngIf="addAgentForm.controls['mobile'].errors && (!addAgentForm.controls['mobile'].pristine || submitted ||addAgentForm.controls['mobile'].touched )"
+                    class="error-msg">
+                      <div [hidden]="!addAgentForm.controls['mobile'].errors.required">Phone No.
+                        is required.
+                    </div>
+                    <div [hidden]="!addAgentForm.controls['mobile'].errors.minlength">Phone No.
+                      Must be 10 digits.
+                  </div>
+               </div>
+            </div>
+        </div>
+          </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary btn-rounded" 
+          (click)="modal.dismiss('cancel')">Cancel</button>
+      <button  [disabled]="!addAgentForm.valid" type="submit"  ngbAutofocus (click)="modal.close('Ok')"
+          class="btn btn-primary btn-rounded m-1">Add</button>
+  </div>
+</ng-template>
+
+
+
+
+
+<ng-template #paymentModel let-modal>
+  <div class="modal-header">
+    <p class="modal-title" id="modal-basic-title">Payment</p>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <label>You need to make payment of $10 for year to become Client </label>
+    <div>
+      <button type="button" class="btn btn-outline-dark">Pay</button>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Cancle</button>
+  </div>
+
+</ng-template>

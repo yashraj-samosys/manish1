@@ -1,0 +1,454 @@
+<div class="rn-gt-wrapper">
+    <div class="container-fluid px-0">
+      <div class="row gt-row--main">
+        <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-xs-12 gt-col--left">
+          <div class="gt-content--left">
+            <div class="gt-contents--main">
+              <div class="gt-contents--inner u-fancy-scrollbar">
+
+                    <h3 class="title--large cc-book mb-40"> {{"client_registration.welcome_to_my_referral_network" | translate}}</h3>
+                    <p class="cc-book mb-30"> {{"client_registration.this_website_is_free_to_use" | translate}}.</p> 
+                    <p class="cc-book mb-30"> {{"client_registration.the_realtors_on_this" | translate}}.</p> 
+                    <p class="cc-book mb-30"> {{"client_registration.my_referral_network_team" | translate}}.</p> 
+                <!-- <h3 class="title--large cc-book mb-40"> {{"client_registration.you_have_been_Invited_to_join_My_Referral_Network" | translate}}</h3> -->
+                <!-- <p class="cc-book mb-30"> {{"client_registration.your_friend_in_real_estate" | translate}}.</p> -->
+                <!-- <p class="cc-book mb-30">{{"client_registration.all_you_have_to_do_is" | translate}}: <br> {{"client_registration.fill_in_all_the_information_required" | translate}}.</p> -->
+                <!-- <p class="cc-book mb-30">{{"client_registration.welcome_from_the_my_referral_network_team" | translate}}</p> -->
+              </div>
+            </div>
+            <div class="bg-collage" style="background-image: url('./assets/images/collage-img.png');"></div>
+          </div>
+        </div>
+        <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-xs-12 gt-col--right">
+          <form [formGroup]="clientRegistrationForm" (ngSubmit)="onSubmit()" >
+            <div class="gt-content--right">
+              <div class="gt-contents--main">
+                <div class="gt-contents--inner u-fancy-scrollbar">
+                  <h3 class="title--large cc-book text-center mb-30"> {{"client_registration.welcome_to_my_refferal_network_confirmation_of_information" | translate}} {{"client_registration.and_service_areas" | translate}} .</h3>
+                  <div class="row gt-form--row">
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="name_gt" placeholder="Name*" formControlName="name" [ngClass]="{'is-invalid': submitted && f.name.errors}">
+                          <label for="name_gt">{{"client_registration.name" | translate}} *</label>
+                          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.name.errors.required">Name is required</div> -->
+                            <div *ngIf="f.name.errors.required">{{"client_registration.name_is_required" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="real_estate_office_gt" placeholder="Real Estate Office" formControlName="officeName" [ngClass]="{'is-invalid': submitted && f.officeName.errors}">
+                          <label for="real_estate_office_gt">{{"client_registration.real_estate_Office" | translate}} </label>
+                          <div *ngIf="submitted && f.officeName.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.officeName.errors.required">
+                              Real Estate Office is required
+                            </div> -->
+                            <div *ngIf="f.officeName.errors.required">{{"client_registration.real_Estate_Office_is_required" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="phone_gt" placeholder="Phone*" formControlName="mobile"  onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"  [ngClass]="{'is-invalid': submitted && f.mobile.errors}">
+                          <label for="phone_gt">{{"client_registration.phone" | translate}} *</label>
+                          <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.mobile.errors.required">
+                              Phone Number is required
+                            </div> -->
+                            <!-- <div *ngIf="f.mobile.errors.minlength">Please enter 10 digit phone no.</div> -->
+
+                            <div *ngIf="f.mobile.errors.required">{{"client_registration.phone_number_is_required" | translate}}</div>
+                            <div *ngIf="f.mobile.errors.minlength">{{"create_request.please_enter_10_digit_phone_no" | translate}}</div>
+                          </div> 
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="brokerage_phone_gt" placeholder="Brokerage Phone*" formControlName="brokerage_phone" onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"  [ngClass]="{'is-invalid': submitted && f.brokerage_phone.errors}">
+                          <label for="brokerage_phone_gt">{{"client_registration.brokerage_phone" | translate}}*</label>
+                          <div *ngIf="submitted && f.brokerage_phone.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.brokerage_phone.errors.required"> -->
+                              <!-- Brokerage Phone is required -->
+                            <!-- </div> -->
+                            <div *ngIf="f.brokerage_phone.errors.required">{{"client_registration.brokerage_Phone_is_required" | translate}}</div>
+                            <div *ngIf="f.brokerage_phone.errors.minlength"> {{"client_registration.please_enter_10_digit_brokerage_phone_no" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="text_line_gt" onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57" placeholder="Text Number" formControlName="text_line" [ngClass]="{'is-invalid': submitted && f.text_line.errors}">
+                          <label for="text_line_gt">{{"client_registration.text_line" | translate}} *</label>
+                          <div *ngIf="submitted && f.text_line.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.text_line.errors.required">
+                              Text Line is required
+                            </div> -->
+                            <div *ngIf="f.text_line.errors.required">{{"client_registration.text_Line_is_required" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                          <label>Account Number</label>
+                          <input disabled
+                              onKeyPress="if(this.value.length==18) return false;return event.charCode >= 48"
+                              min='1' formControlName="account_number" type="number" class="form-control"
+                              placeholder="Account Number">
+                          <div *ngIf="f['account_number'].errors && (f['account_number'].pristine || submitted ||f['account_number'].touched )"
+                              class="error-msg">
+                              <div [hidden]="f['account_number'].errors.required">
+                                  Account
+                                  number is
+                                  required.
+                              </div>
+                          </div>
+                      </div>
+                  </div> -->
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating web-icon">
+                          <button class="btn btn-secondary web-icon-btn" type="button" id="button-addon1" ><i class="fa fa-globe"></i></button>
+                          <input type="text" class="form-control pl-4" id="weblink_gt" placeholder="weblink*"
+                           formControlName="website" [ngClass]="{ 'is-invalid': submitted && f.website.errors }">
+                          <label for="website">{{ "client_registration.weblink" | translate}}*</label>
+                          <div *ngIf="submitted && f.website.errors" class="invalid-feedback">
+                            <div *ngIf="f.website.errors.required">{{"client_registration.weblink_is_required" | translate}}</div>
+                            <div *ngIf="f.website.errors.pattern">{{"client_registration.invalid_website" | translate}}</div>
+                              <!-- <div *ngIf="f.website.errors.required"> {{ "subagent.weblink_is_required" | translate}}
+                              </div> -->
+                            <!-- <div *ngIf="f.website.errors.pattern">Invalid address -->
+                            <!-- </div> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="email" class="form-control" id="email_gt" placeholder="Email*" formControlName="email" [ngClass]="{'is-invalid': submitted && f.email.errors}">
+                          <label for="email_gt">{{"client_registration.email" | translate}} *</label>
+                          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.email.errors.required">Email is required</div> -->
+                            <!-- <div *ngIf="f.email.errors.pattern">Email is invalid</div> -->
+                            <div *ngIf="f.email.errors.required">{{"client_registration.email_is_required" | translate}}</div>
+                            <div *ngIf="f.email.errors.pattern">{{"client_registration.email_is_invalid" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+             
+
+                    <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="input-group">
+                          <button class="btn btn-secondary" type="button" id="button-addon1">{{"client_registration.upload_image" | translate}} </button>
+                          <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        </div>
+                      </div>
+                    </div> -->
+
+                    <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="input-group">
+                        <button class="btn btn-secondary" type="button" id="button-addon1" ><i class="fas fa-upload"></i></button>
+                        <input type="file" accept="image/*" (change)="fileUpload($event)" style="line-height: 44px" class="form-control"
+                          placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"
+                          formControlName="image" [ngClass]="{'is-invalid': submitted && f.image.errors}">
+                        <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
+                          <div *ngIf="f.image.errors.required">{{"client_registration.image_is_required" | translate}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group mb-20">
+                      <div class="input-group">
+
+                        <div class="image-crop-view">
+                          <img class="mt-3 mr-3" [src]="croppedImage ? croppedImage : 'assets/images/person.png'"
+                            [width]="120" [height]="120">
+                          <button class="btn btn-secondary" type="button" (click)="open(modalCropper)"
+                            id="button-addon1">{{"client_registration.upload_image" | translate}} </button>
+                        </div>
+                      </div>
+                      <div *ngIf="submitted && !dataImg" style="color: #dc3545;">
+                        <div>{{"client_registration.image_is_required" | translate}}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div *ngIf="requestDataa?.imageExists == true"
+                  class="col-xl-12 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <img style="width: 150px;height: 150px; float: right; " src="{{requestDataa?.profile_img}}"
+                    alt="">
+                    
+                </div> -->
+                <div *ngIf="image">
+                  <img style="width: 150px;height: 150px; float: right; " id="blah" [src]="image" alt="" />
+                </div>
+
+
+<!-- 
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <textarea class="form-control" placeholder="Office Address" id="office_address" style="height: 100px"></textarea>
+                          <label for="office_address">{{"client_registration.office_address" | translate}}</label>
+                        </div>
+                      </div>
+                    </div> -->
+
+
+                    <div style="margin-top: 10px;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <textarea #addressSearch autocomplete="off" class="form-control" placeholder="Office Address"
+                            id="office_address" style="height: 100px" formControlName="office_address" [ngClass]="{'is-invalid': submitted && f.office_address.errors}"
+                            ></textarea>
+                          <label for="office_address">{{ "subagent.office_address" | translate}}</label>
+                          <div *ngIf="submitted && f.office_address.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.office_address.errors.required">Office Address is required</div> -->
+                            <div *ngIf="f.office_address.errors.required">{{"client_registration.office_Address_is_required" | translate}}</div>
+                              
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" id="password_gt" placeholder="Password"  formControlName="password" [type]="showHidePass ? 'password': 'text'" [ngClass]="{'is-invalid': submitted && f.password.errors}" >
+                          <a href="javascript:void(0);" (click)="showHidePassword()"  id="show"><span
+                            [ngClass]="submitted ? 'fas fa-eye-slash eye-icon is-invalid' : showHidePass ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                          <label for="password_gt">{{"client_registration.password" | translate}}</label>
+                          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.password.errors.required"> Password is required -->
+                            <!-- </div> -->
+                            <!-- <div *ngIf="f.password.errors.minlength"> Password must be at least 6 characters"</div> -->
+                            <div *ngIf="f.password.errors.required">{{"client_registration.password_is_required" | translate}}</div>
+                            <div *ngIf="f.password.errors.minlength">{{"client_registration.password_must_be_at_least_6_characters" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" id="password_confirm_gt" placeholder="Confirm Password" formControlName="cpassword" [type]="showHidePass1 ? 'password': 'text'" [ngClass]="{'is-invalid': submitted && f.cpassword.errors}">
+                          <a href="javascript:void(0);" (click)="showHidePassword1()" id="show"><span
+                            [ngClass]="submitted ? 'fas fa-eye-slash eye-icon is-invalid' : showHidePass1 ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                          <label for="password_confirm_gt">{{"client_registration.confirm_password" | translate}}</label>
+                          <div *ngIf="submitted && f.cpassword.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.cpassword.errors.required"> Confirm password is required</div> -->
+                            <!-- <div *ngIf="f.cpassword.errors.mustMatch">Password must match</div> -->
+                            <div *ngIf="f.cpassword.errors.required">{{"client_registration.confirm_password_is_required" | translate}}</div>
+                            <div *ngIf="f.cpassword.errors.mustMatch">{{"client_registration.password_must_match" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px">
+                      <div class="area-tags mt-10">
+                        <h5 class="cc-bold mb-20">{{"realtor_registration.i_want_you_to_help_me_in" | translate}}</h5>
+                         <angular2-multiselect class="form-control" style="height: auto;" [settings]="settings"  [data]="fsaData" formControlName="fsa" ></angular2-multiselect>
+                            <div *ngIf="submitted && clientRegistrationForm.value.fsa == '' " style="width: 100%;margin-top: .25rem;font-size: .875em;color: #dc3545;">
+                            <!-- <div>Fsa is required</div> -->
+                            <div *ngIf="f.fsa.errors.required">{{"client_registration.fsa_is_required" | translate}}</div>
+                        </div> 
+  
+                      </div>
+                    </div>
+                    
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="facebook_gt" placeholder="Facebook" formControlName="facebook" [ngClass]="{'is-invalid': submitted && f.facebook.errors}">
+                          <label for="facebook_gt"> {{"client_registration.facebook" | translate}}</label>
+                          <div *ngIf="submitted && f.facebook.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.facebook.errors.required">Facebook is required</div> -->
+                            <div *ngIf="f.facebook.errors.required">{{"client_registration.facebook_is_required" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="whatsapp_gt" placeholder="Whatsapp" formControlName="whatsapp" [ngClass]="{'is-invalid': submitted && f.whatsapp.errors}">
+                          <label for="whatsapp_gt">{{"client_registration.whatsapp" | translate}}</label>
+                           <div *ngIf="submitted && f.whatsapp.errors" class="invalid-feedback">
+                          <!-- <div *ngIf="f.whatsapp.errors.required">Whatsapp is required</div> -->
+                          <div *ngIf="f.whatsapp.errors.required">{{"client_registration.whatsapp_is_required" | translate}}</div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="messanger_gt" placeholder="Messanger" [ngClass]="{'is-invalid': submitted && f.messenger.errors}" formControlName="messenger">
+                          <label for="messanger_gt">{{"client_registration.messanger" | translate}}</label>
+                          <div *ngIf="submitted && f.messenger.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.messenger.errors.required">Messenger is required</div> -->
+                            <div *ngIf="f.messenger.errors.required">{{"client_registration.messenger_is_required" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="wechat_gt" placeholder="Wechat"  formControlName="wechat"  [ngClass]="{'is-invalid': submitted && f.wechat.errors}">
+                          <label for="wechat_gt">{{"client_registration.wechat" | translate}}</label>
+                          <div *ngIf="submitted && f.wechat.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.wechat.errors.required">Wechat is required</div> -->
+                            <div *ngIf="f.wechat.errors.required">{{"client_registration.wechat_is_required" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <textarea onKeyPress = "if(this.value.replace(/ /g, '').length ==20) return false;" class="form-control" placeholder="Short Bio" id="short_bio" formControlName="shortBio" [ngClass]="{'is-invalid': submitted && f.shortBio.errors}" style="height: 100px" minlength="2" ></textarea>
+                          <label for="short_bio">{{"client_registration.short_bio" | translate}}</label>
+                          <div *ngIf="submitted && f.shortBio.errors" class="invalid-feedback">
+                            <div *ngIf="f.shortBio.errors.required">{{"client_registration.shortBio_is_required" | translate}}</div>
+                         <!-- <div *ngIf="f.shortBio.errors.minlength"> Short Bio
+                          should
+                          be under 20 Characters.  </div> -->
+                          </div> 
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-floating">
+                          <textarea class="form-control"  formControlName="longBio" placeholder="Long Bio" [ngClass]="{'is-invalid': submitted && f.longBio.errors}" id="long_bio" style="height: 100px" minlength="21" ></textarea>
+                          <label for="long_bio">{{"client_registration.long_bio" | translate}}</label>
+                          <div *ngIf="submitted && f.longBio.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.longBio.errors.required">LongBio is required</div> -->
+                            <div *ngIf="f.longBio.errors.required">{{"client_registration.longBio_is_required" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-check-custom">
+                          <input  formControlName="accept1" type="checkbox" name=""  [ngClass]="{'is-invalid': submitted && f.accept1.errors}" id="info_text_gt" name="info_text_gt" class="check-item-custom">
+                          <label for="info_text_gt" class="check-label-custom"> {{"client_registration.the_above_information_is_certified_correct" | translate}}</label>
+                          <div *ngIf="submitted && f.accept1.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.accept1.errors.required"> This Field is required </div> -->
+                            <div *ngIf="f.accept1.errors.required">{{"client_registration.this_Field_is_required" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group mb-20">
+                        <div class="form-check-custom">
+                          <input  formControlName="accept2" [ngClass]="{'is-invalid': submitted && f.accept2.errors}" type="checkbox" name="" id="terms_text_gt" name="terms_text_gt" class="check-item-custom">
+                          <label for="terms_text_gt" class="check-label-custom">
+                            {{"client_registration.i_have_reviewed_and_read_the_User_agreement_and_agree_to_the" | translate}}  <a href="/terms-conditions" target="_blank"> {{"client_registration.terms_conditions" | translate}}</a> {{"client_registration.of_the_site" | translate}} <a href="/user-agreement" target="_blank">{{"client_registration.user_agreement" | translate}}</a>  {{"client_registration.and_use_of_my_personal_information" | translate}}
+                          </label>
+
+                          <div *ngIf="submitted && f.accept2.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.accept2.errors.required">Please accept tearms conditions is required</div> -->
+                              <div *ngIf="f.accept2.errors.required">{{"client_registration.please_accept_tearms_conditions_is_required" | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-btn-group mt-40">
+                        <div class="btn-row-flex">
+                          <div class="flex-item">
+                            <a href="" class="btn btn-transparent"><span class="fal fa-chevron-left"></span> <span>{{"client_registration.back" | translate}} </span></a>
+                          </div>
+                          <div class="flex-item">
+                            <button class="btn btn-blue-fill">{{"client_registration.complete_signup" | translate}}</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <ng-template #modalCropper let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Upload & Crop</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body text-center image-coropp-popup">
+      <input style="padding-top: 16px;    padding-left: 19px;" accept="image/*" (change)="fileChangeEvent($event)" type="file"
+        class="form-control" placeholder="" aria-describedby="button-addon1">
+      <image-cropper style="width: 120px;height: 120px;" [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true" [aspectRatio]="4 / 4" format="png" (imageCropped)="imageCropped($event)"
+        (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+      <!-- <img-cropper  [settings]="cropperSettings"></img-cropper><br> -->
+      <img class="mt-3 mr-3" [src]="croppedImage ? croppedImage :'assets/images/person.png'" [width]="100"
+        [height]="100"> 
+  
+      <!-- <img *ngIf="data?.image" class="rounded-circle mt-3" [src]="data?.image" [width]="100" [height]="100"> -->
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-rounded btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+  </ng-template> 

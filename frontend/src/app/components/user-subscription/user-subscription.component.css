@@ -1,0 +1,22 @@
+.email-box-card {
+	background-color: #f2f5f9;
+	height: calc(100vh - 200px);
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+.email-box-card .successfully-message{
+	border: 4px dashed #3bb143;
+	font-weight: bold;
+		max-width: auto;	
+		/* max-width: 600px; */
+	background-color: #eefbef;
+}
+.email-box-card .message-box{
+	justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 24px;
+    padding: 1rem 2rem;
+}

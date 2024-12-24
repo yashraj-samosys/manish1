@@ -1,0 +1,483 @@
+<section>
+    <div class="container">
+        <div class="d-sm-flex mb-5">
+            <span class="m-auto"></span>
+
+       
+            
+
+            <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" *ngIf="showprePartneragent && (data?.user_type == 3 || (data?.user_type ==2 && data?.is_default_agent==1))" (click)="PatnerPervious(data.id)">Previous Agent</button>
+            <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" *ngIf="showpreclientagent && (data?.user_type == 2 && data?.agent_type == 1 && data?.is_default_agent != 1)" (click)="ClientPrevious(data.id)">Previous Agent</button>
+            <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" *ngIf="showpreuser && data?.user_type == 4" (click)="UserPrevious(data.id)">Previous User</button>
+
+            <button *ngIf="data?.user_type == 2 && data?.is_default_agent==0" class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" [routerLink]="['/users/list-client']">Back To List</button>
+            <!-- <button *ngIf="data?.user_type == 2 && data?.is_default_agent==1" class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3"
+                [routerLink]="['/users/list-default-agent']">Back
+                To
+                List</button> -->
+           <button *ngIf="data?.user_type == 3 || data?.user_type ==2 && data?.is_default_agent==1"
+                class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" [routerLink]="['/users/list-default-agent']">Back
+                To
+                List</button>
+
+            <button *ngIf="type == 3 && data?.is_default_agent ==1" class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3"
+                [routerLink]="['/users/list-partner']">Back
+                To
+                List</button>
+            <button *ngIf="type == 4" class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3"
+                [routerLink]="['/users/list-users']">Back
+                To
+                List</button>
+
+
+                <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" *ngIf=" shownextPartneragent && (data?.user_type == 3 || data?.user_type ==2 && data?.is_default_agent==1)" (click)="PatnerNext(data.id)">Next Agent</button>
+<button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" *ngIf="shownextclientagent && (data?.user_type == 2 && data?.agent_type == 1 && data?.is_default_agent != 1)" (click)="ClientNext(data.id)">Next Agent</button>
+
+  <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" *ngIf="shownextuser && data?.user_type == 4" (click)="UserNext(data.id)">Next User</button>
+
+
+
+
+
+
+            <!-- <button class="btn btn-outline-secondary mr-3 mb-sm-0 mb-3" [hidden]="show" (click)="next()">Next Agent</button> -->
+        </div>
+        <div id="print-area">
+            <div class="row mb-5 viewblock">
+                <div class="col-md-4">
+                    <div class="card mb-4 o-hidden">
+                        <div class="program-img">
+                            <img class="card-img-top program-img" [src]="data?.profile_img" alt="">
+                        </div>
+                        <div class="card-body">
+                            <p><span class="font-weight-bold">Name: </span>{{data?.first_name}}
+                                {{data?.last_name}}</p>
+                        </div>
+                    </div>
+
+
+                    <!-- <button class="btn btn-lg btn-primary" (click)="open(mymodal)">Send Referral</button> -->
+
+                    <ng-template #mymodal let-modal style="width:auto;height:auto">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-basic-title">Send Referral</h4>
+                            <button type="button" class="close" aria-label="Close"
+                                (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="width:auto;height:auto">
+                            <form [formGroup]="agentForm">
+                                <div class="form-group">
+                                    <label>FSA </label>
+                                    <ng-select formControlName="fsa_id" placeholder="Select Fsa">
+
+                                        <ng-option *ngFor="let item of fsa" [value]="item" required="">
+                                            {{item.fsa_code}} - {{item.nieghborhood}}</ng-option>
+                                    </ng-select>
+                                    <div *ngIf="agentForm.controls['fsa_id'].errors && (!agentForm.controls['fsa_id'].pristine || submitted ||agentForm.controls['fsa_id'].touched )"
+                                        class="error-msg">
+                                        <div [hidden]="!agentForm.controls['fsa_id'].errors.required">FSA is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input (keyup)="onemailchange($event)" type="email" class="form-control"
+                                        placeholder="Enter email" formControlName="client_email" required>
+                                    <div *ngIf="agentForm.controls['client_email'].errors && (!agentForm.controls['client_email'].pristine || submitted ||agentForm.controls['client_email'].touched )"
+                                        class="error-msg">
+                                        <div [hidden]="!agentForm.controls['client_email'].errors.required">Email is
+                                            required.
+                                        </div>
+                                        <div [hidden]="!agentForm.controls['client_email'].errors.pattern">Invalid
+                                            email.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="email" class="form-control" placeholder="Enter Name"
+                                        formControlName="name" required>
+                                    <div *ngIf="agentForm.controls['name'].errors && (!agentForm.controls['name'].pristine || submitted ||agentForm.controls['name'].touched )"
+                                        class="error-msg">
+                                        <div [hidden]="!agentForm.controls['name'].errors.required">Name is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Message</label>
+
+                                    <!-- <input type="text" class="form-control" placeholder="Enter Message"
+                                        formControlName="message" required> -->
+                                    <textarea class="form-control" placeholder="Enter Message" formControlName="message"
+                                        required rows="4" cols="50"></textarea>
+                                    <div *ngIf="agentForm.controls['message'].errors && (!agentForm.controls['message'].pristine || submitted ||agentForm.controls['message'].touched )"
+                                        class="error-msg">
+                                        <div [hidden]="!agentForm.controls['message'].errors.required">Message is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary" (click)="agentSubmit()">Send</button>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </ng-template>
+
+
+
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-4 o-hidden">
+                        <div class="card-body d-flex align-items-center">
+                            <p class="m-0"><span class="font-weight-bold">Details</span></p>
+                            <button style="float: right;" id="sendl" *ngIf="this.id != 0 && data?.user_type == 3"
+                                class="btn btn-primary btn-rounded m-1 ml-auto" (click)="Sendlink()">Send Link</button>
+                        </div>
+                        <table class=" table table-striped mb-0 table-bordered detailTable">
+                            <tbody>
+                                <tr
+                                    *ngIf="data?.user_type == 2 && data?.is_default_agent == 0 && data?.become != undefined && data?.become != null">
+                                    <td>Client Id</td>
+                                    <td>{{data?.id}}</td>
+                                </tr>
+                                <tr *ngIf="type == 4">
+                                    <td>First Name</td>
+                                    <td>{{data?.first_name}}</td>
+                                </tr>
+                                <tr *ngIf="type == 4">
+                                    <td>Last Name</td>
+                                    <td>{{data?.last_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{data?.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Create Date</td>
+                                    <td>{{data?.created_date | date: 'dd/MM/yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile</td>
+                                    <td>+{{data?.phonecode}}{{data?.mobile}}</td>
+                                </tr>
+                                <tr *ngIf="type == 2 || type == 3">
+                                    <td>Type</td>
+                                    <td>{{data?.user_type == 2 && data?.is_default_agent == 1 ? "Partner Agent" :
+                                        data?.user_type == 2 && data?.is_default_agent == 0 ? "Client Agent" :
+                                        data?.user_type == 3 ? "Partner
+                                        Agent":
+                                        data?.user_type == 4 ? "Public User" : ""}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Added By</td>
+                                    <td>{{data?.added_by}}</td>
+                                </tr>
+                                <tr
+                                    *ngIf="data?.user_type == 2 && data?.is_default_agent == 0 && data?.become != undefined && data?.become != null">
+                                    <td>Payment Amount</td>
+                                    <td>{{data?.become.amount}}</td>
+                                </tr>
+
+                                <tr *ngIf="type == 2 || type == 3">
+                                    <td>Account</td>
+                                    <td>{{data?.account_number}}</td>
+                                </tr>
+                                <tr *ngIf="type == 2 || type == 3">
+                                    <td>Address</td>
+                                    <td>{{data?.address != 'undefined' ? data?.address : ""}}</td>
+                                </tr>
+                                <tr *ngIf="type == 2 || type == 3">
+                                    <td>Shown On Map</td>
+                                    <td>{{data?.shownOnMap}}</td>
+                                </tr>
+
+                                <tr *ngIf="type == 2 || type == 3">
+                                    <td *ngIf="type == 2 || type == 3">Text No</td>
+                                    <td>{{data?.textNo != 'null' ? data?.textNo : ""}}</td>
+                                </tr>
+                                <tr *ngIf="type == 2 || type == 3">
+                                    <td>Whatsapp</td>
+                                    <td>{{data?.whatsapp != 'null' ? data?.whatsapp : ""}}</td>
+                                </tr>
+                                <tr *ngIf="type == 2 || type == 3">
+                                    <td>Messenger</td>
+                                    <td>{{data?.messenger != 'null' ? data?.messenger : ""}}</td>
+                                </tr>
+                                <tr *ngIf="type == 2 || type == 3">
+                                    <td>Facebook</td>
+                                    <td>{{data?.facebook != 'null' ? data?.facebook : ""}}</td>
+                                </tr>
+                                <tr *ngIf="type == 2 || type == 3">
+                                    <td>Website</td>
+                                    <td>{{data?.website != 'null' ? data?.website : ""}}</td>
+                                </tr>
+                                <tr *ngIf="type == 2 || type == 3">
+                                    <td>Wechat</td>
+                                    <td>{{data?.wechat != 'null' ? data?.wechat : ""}}</td>
+                                </tr>
+                                <tr *ngIf="this.data?.user_type != 4">
+                                    <td>Brokerage Name</td>
+                                    <td>{{data?.brokerageName }}</td>
+                                </tr>
+                                <tr *ngIf="this.data?.user_type != 4">
+                                    <td>Broker Phone No</td>
+                                    <td>+{{data?.phonecode}}{{data?.brokerPhoneNo}}</td>
+                                </tr>
+                                <tr *ngIf="this.data?.user_type != 4">
+                                    <td>Brokerage Street Address</td>
+                                    <td>{{data?.BrokerageStreetAddress != 'null' ? data?.BrokerageStreetAddress : ""}}
+                                    </td>
+                                </tr>
+                                <tr *ngIf="this.data?.user_type == 4">
+                                    <td>Street Address</td>
+                                    <td>{{data?.BrokerageStreetAddress != 'null' ? data?.BrokerageStreetAddress : ""}}
+                                    </td>
+                                </tr>
+                                <tr *ngIf="this.data?.user_type != 4">
+                                    <td>Brokerage City</td>
+                                    <td>{{data?.BrokerageCity}}</td>
+                                </tr>
+                                <tr *ngIf="this.data?.user_type == 4">
+                                    <td>City</td>
+                                    <td>{{data?.BrokerageCity}}</td>
+                                </tr>
+                                <tr *ngIf="this.data?.user_type != 4">
+                                    <td>Brokerage Province</td>
+                                    <td>{{data?.BrokerageProvince != 'null' ? data?.BrokerageProvince : ""}}</td>
+                                </tr>
+                                <tr *ngIf="this.data?.user_type == 4">
+                                    <td>Province</td>
+                                    <td>{{data?.BrokerageProvince != 'null' ? data?.BrokerageProvince : ""}}</td>
+                                </tr>
+                                <tr *ngIf="this.data?.user_type == 4">
+                                    <td> Postal Code</td>
+                                    <td>{{data?.BrokeragePostalCode != 'null' ? data?.BrokeragePostalCode : ""}}</td>
+                                </tr>
+
+                                <tr *ngIf="this.data?.user_type != 4">
+                                    <td>Brokerage Postal Code</td>
+                                    <td>{{data?.BrokeragePostalCode != 'null' ? data?.BrokeragePostalCode : ""}}</td>
+                                </tr>
+
+                                <!-- <tr>
+                                    <td>FSA Code</td>
+                                    <td>{{FSACODE}}</td>
+                                </tr>
+                                <tr>
+                                    <td>FSA Name</td>
+                                    <td>{{FSANAME}}</td>
+                                </tr> -->
+                                <!-- <tr *ngIf="this.data.user_type!= 4">
+                                    <td>Bio</td>
+                                    <td *ngIf="this.data?.bio != undefined">
+                                        {{ common.textTruncate(this.data?.bio, 20) }}
+                                        <span class="readMore" (click)="common.readMore()"
+                                            *ngIf="20 < this.data?.bio.length">{{
+                                            !isMore ?
+                                            'Read More' : 'Read Less' }}</span>
+                                    </td>
+                                    <td *ngIf="this.data?.bio == undefined"></td>
+                                </tr> -->
+
+                                <!-- <tr *ngIf="this.data?.user_type!= 4"> -->
+                                <tr *ngIf="this.data?.user_type != 4">
+                                    <td>Bio</td>
+
+                                    <td
+                                        *ngIf="this.data?.bio != undefined ||this.data?.bio != null || this.data?.shortBio != undefined">
+                                        {{ textTruncate(this.data?.bio,this.data?.shortBio, 20) }}
+                                        <span class="readMore" (click)="readMore()" *ngIf="2 < this.data?.bio.length">{{
+                                            !isMore ?
+                                            'Read More' : 'Read Less' }}</span>
+                                    </td>
+                                    <td *ngIf="this.data?.bio == undefined"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class="row  w-100" *ngIf="this.data?.user_type == 4">
+                    <div class="col-box  w-100">
+                        <div class="card">
+                            <div class="card-body">
+                                <p><span class="font-weight-bold">Request Details</span></p>
+                                <div class="profile-dtl">
+                                    <!-- <h5 style="cursor: pointer;" class="card-title">{{s.name}}</h5>
+                            <p>{{s.created_at | date}}</p> -->
+                                    <table class=" table table-striped mb-0 table-bordered detailTable">
+
+
+
+                                        <tbody>
+                                            <tr>
+                                                <td scope="col">Agent Name</td>
+                                                <td scope="col">Message</td>
+                                                <td scope="col">Status</td>
+                                                <td scope="col">FSA</td>
+                                                <td scope="col">Request Date</td>
+                                                <td scope="col">Action</td>
+                                            </tr>
+                                            <tr *ngFor="let s of requestData;">
+                                                <td>{{s?.first_name}} {{s?.last_name}}</td>
+                                                <td>{{s?.message}}</td>
+                                                <td *ngIf="s?.status == 0"> New Request</td>
+                                                <td *ngIf="s?.status == 1"> Accept</td>
+                                                <td *ngIf="s?.status == 2"> Canceled</td>
+                                                <td *ngIf="s?.status == 3">Request From Submitted</td>
+                                                <td *ngIf="s?.status == 4">Fourteen day has completed</td>
+                                                <td>{{getfsabyid(s?.fsa)?.fsa_code}}</td>
+                                                <td>{{s?.created_at | date: 'dd/MM/yyyy'}}</td>
+                                                <td (click)="getolddata(s)" *ngIf="s?.status == 2 || s?.status == 4" style="text-align: center;">
+                                                    <button class="btn btn-lg btn-primary" (click)="open(mymodal)">Send
+                                                        Referral</button>
+                                                </td>
+                                                <td style="text-align: center;" *ngIf="s?.status != 2 && s?.status != 4"> -
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-12 text-center" *ngIf="!requestData?.length">
+                                    <div class="displayFlex">
+                                        <div>
+                                            <img src="../assets/images/nosearch.png"><br><br>
+                                            <h5><b>No data found!</b></h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div class="col-md-4">
+                    <div class="card mb-4 o-hidden">
+                        <div class="card-body">
+                            <p><span class="font-weight-bold">Bio</span></p>
+                        </div>
+                        <div class="bio">
+                            {{this.data?.bio}}
+                            {{ textTruncate(this.data?.bio, 20) }}
+                            <span class="readMore" (click)="readMore()" *ngIf="20 < this.data?.bio.length">{{ !isMore ?
+                                'Read More' : 'Read Less' }}</span>
+                        </div>
+                    </div>
+                </div>  -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section *ngIf="data?.user_type == 2 || data?.user_type == 3">
+
+    <div class="row  w-100  ml-0 mr-0 mb-5"
+        *ngIf="data?.user_type == 3 || (data?.user_type == 2 && data?.is_default_agent == 1)">
+        <div class="col-md-12">
+            <div class="col-box  w-100">
+                <div class="card">
+                    <div class="card-body">
+                        <p><span class="font-weight-bold">Request Details</span></p>
+                        <div class="profile-dtl">
+                            <table class=" table table-striped mb-0 table-bordered detailTable">
+                                <tbody *ngIf="requestDataPartner?.length">
+                                    <tr>
+                                        <td scope="col">User Name</td>
+                                        <td scope="col">Email</td>
+                                        <td scope="col">Mobile</td>
+                                        <td scope="col">Message</td>
+                                        <td scope="col">Status</td>
+                                        <td scope="col">Request Date</td>
+                                    </tr>
+                                    <tr *ngFor="let s of requestDataPartner;">
+                                        <td>{{s?.name}}</td>
+                                        <td>{{s?.email}}</td>
+                                        <td>+{{s?.phone}}</td>
+                                        <td>{{s?.message}}</td>
+                                        <td>{{s?.status == 0 ? 'New Request' : s?.status == 1 ? 'Accepted' : s?.status == 2 ? 'Declined' : s?.status == 3 ? 'Request Form Submitted' : s?.status == 4 ? 'Fourteen days has completed' : ''}}
+                                        </td>
+                                        <td>{{s?.created_at | date: 'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="col-md-12 text-center" *ngIf="!requestDataPartner?.length">
+                            <div class="displayFlex">
+                                <div>
+                                    <img src="../assets/images/nosearch.png"><br><br>
+                                    <h5><b>No data found!</b></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-6 o-hidden">
+                                <div class="card-body">
+                                    <p><span class="font-weight-bold">FSA Details</span></p>
+                                </div>
+                                <table class=" table table-striped mb-0 table-bordered">
+                                    <tbody>
+                                        <tr class="font-weight-bold">
+                                            <td>S.no</td>
+                                            <td>FSA</td>
+                                            <td>FSA NAME</td>
+                                            <td>Address</td>
+                                            <td>Status</td>
+                                            <!-- <td *ngIf="data?.is_default_agent == 1">Status</td> -->
+                                        </tr>
+                                        <!-- <div *ngIf="let data of data"> -->
+
+                                        <tr [data]="data" *ngFor="let item of data?.FSAData; let i=index;">
+                                            <td>{{i + 1}}</td>
+                                            <td>{{item.fsa_code}}</td>
+                                            <td>{{item.fsa_name}}</td>
+                                            <td>{{item?.fsa_code}} - {{item?.address}}</td>
+                                            <td>{{item?.activate_status == 1 && item?.status == 1 ? 'Default Agent'
+                                    :item?.activate_status == 0 && item?.agent_type == 1 && item?.status == 1 ? 'Client
+                                    Agent' : 'Partner Agent'}}</td>
+                                            <!-- <span *ngIf="item?.activate_status == 1 && item?.is_default_agent == 1 && item?.user_type == 2">Default Agent</span>
+                                    <span *ngIf="( item?.activate_status == 0 && item?.is_default_agent == 1 && item?.user_type == 2  ) || (item?.activate_status == 0 && item?.is_default_agent == 0 && item?.user_type == 3)">Partner Agent</span>
+                                    <span *ngIf="( item?.activate_status == 0 && item?.is_default_agent == 0 && item?.user_type == 2  ) || (item?.activate_status == 0 && item?.is_default_agent == 0 && item?.agent_type == 1) || (item?.activate_status == 0 && item?.is_default_agent == 1 && item?.agent_type == 1)">Client Agent</span> -->
+
+                                            <!-- <td>{{item?.activate_status == 1 && data?.is_default_agent == 1 && data?.user_type == 2 ? "Default Agent" : data?.agent_type == 2  ? "Client Agent" : data?.agent_type == 3 ? "Partner Agent" : data?.agent_type == null ? (data?.user_type == 2 ? "Client Agent" : data?.user_type == 3 ? "Partner Agent" : ""): "" }}</td> -->
+                                            <!-- <td *ngIf="data?.is_default_agent == 1"><label class="switch switch-primary mr-3">
+                                        <input (click)="activateFSA(item,$event.target.checked)" type="checkbox"
+                                        [checked]="item.activate_status">
+                                        <span class="slider"></span>
+                                    </label>
+                                </td> -->
+                                        </tr>
+                                        <!-- </div> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <iframe [src]="Fsaurl" width="100%" height="600px" style="border:0;    padding-bottom: 5%;" allowfullscreen="" loading="lazy"></iframe> -->

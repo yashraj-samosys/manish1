@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Payment </title>
+ 
+</head>
+<body>
+  <h1>You need to make payment of $10 for year to become Client</h1>
+  <!-- <form action="/admin/pay" method="post"> -->
+  <!-- <form action="/pay" method="post"> -->
+    <form id="paymentForm" method="post">
+    <input  type="hidden" value="10" name="amount">
+    <input  type="hidden"  name="user_id" id="user_idd">
+    <input style="margin-left: 17%; cursor: pointer;" type="submit" value="Pay Now">
+  </form>
+  <script>
+    let id = window.location.href.split('/paymentpage/')[1];
+    document.getElementById('user_idd').value=id;
+
+    const form = document.getElementById('paymentForm');
+    const currentDomain = window.location.hostname;
+    if (currentDomain.includes('myreferralnetwork')) {
+      form.action = '/admin/pay';
+    } else {
+      form.action = '/pay';
+    }
+
+  </script>
+</body>
+</html>

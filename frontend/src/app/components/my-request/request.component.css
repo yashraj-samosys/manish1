@@ -1,0 +1,16 @@
+::ng-deep .modal-content{
+      margin-top: 130px !important;
+    }
+    .request-card-wrap .profile-dtl .card-title {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+  @media(max-width: 991px) {
+    .tab-wrap-w{
+      width: 100%;
+      clear: both;
+    }
+    }

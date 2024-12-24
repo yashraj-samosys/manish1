@@ -1,0 +1,1517 @@
+<section class="mb-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 *ngIf="type==2 && is_default == 1">{{id == 0 ? "Add Default Agent" : "Edit Partner Agent"}}</h4>
+        <h4 *ngIf="type==2 && is_default == 0">{{id == 0 ? "Add Client Agent" : "Edit Client Agent"}}</h4>
+        <h4 *ngIf="type==3">{{id == 0 ? "Add Partner Agent" : "Edit Partner Agent"}}</h4>
+        <button *ngIf="type==2 && is_default == 0" [routerLink]="['/users/list-client']"
+          class="btn btn-outline-secondary mr- 3 mb-sm-0 mb-3" style=" float: right;position: relative;top: -35px;">Back
+          To List</button>
+        <button *ngIf="type==2 && is_default == 1" [routerLink]="['/users/list-default-agent']"
+          class="btn btn-outline-secondary mr- 3 mb-sm-0 mb-3" style=" float: right;position: relative;top: -35px;">Back
+          To List</button>
+        <button *ngIf="type==3" [routerLink]="['/users/list-default-agent']"
+          class="btn btn-outline-secondary mr- 3 mb-sm-0 mb-3" style=" float: right;position: relative;top: -35px;">Back
+          To List</button>
+        <span class="lastdate" *ngIf="this.id != 0"> Last Modified Date - {{modifyDate | date: "dd/MM/yyyy" }}</span>
+
+        <div class="input-group mb-10">
+          <div class="custom-file viewimg">
+            <span class="m-auto pencileBtn">
+              <img #img01 src="{{data?.image ? data?.image : './assets/images/avatar.jpg' }}" (error)="img01.src = './assets/images/avatar.jpg'"  alt="Package Image">
+              <i (click)="open(modalCropper)" class="i-Crop-2 pencileInner"></i>
+            </span>
+            <button id="sendl" *ngIf="this.id != 0" class="btn btn-primary btn-rounded m-1" (click)="Sendlink()">Send
+              Link</button>
+
+          </div>
+        </div>
+
+        <div class="card  o-hidden">
+          <div class="card-body">
+            <form [formGroup]="addEditForm" (ngSubmit)="addEdit()">
+              <div class="row ml-0 mr-0">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-10">
+                    <div class="form-floating">
+                      <label>First Name <span class="text-red">*</span> </label>
+                      <input min='2' maxlength="{{validations_cnfg.maxlength_twenty_five}}"
+                        onkeypress='if(this.value.length > 24) return false;return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                        formControlName="first_name" type="text" class="form-control" max="30" placeholder="First Name">
+                      <div
+                        *ngIf="addEditForm.controls['first_name'].errors && (!addEditForm.controls['first_name'].pristine || submitted ||addEditForm.controls['first_name'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['first_name'].errors.required">First
+                          name
+                          is
+                          required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['first_name'].errors.pattern">Invalid first name
+                        </div>
+                        <div [hidden]="!addEditForm.controls['first_name'].errors.maxlength">First name is too large
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+
+                      <label>Last Name <span class="text-red">*</span> </label>
+                      <input minlength='1' maxlength="{{validations_cnfg.maxlength_twenty_five}}"
+                        onkeypress='if(this.value.length > 25) return false;return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                        formControlName="last_name" type="text" class="form-control" placeholder="Last Name">
+                      <div
+                        *ngIf="addEditForm.controls['last_name'].errors && (!addEditForm.controls['last_name'].pristine || submitted ||addEditForm.controls['last_name'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['last_name'].errors.required">
+                          Last name
+                          is
+                          required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['last_name'].errors.pattern">Invalid last name
+                        </div>
+                        <div [hidden]="!addEditForm.controls['last_name'].errors.maxlength">Last name is too large
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-lg-2 form-group ">
+                  <div class="form-floating">
+                    <label>Phone Code</label>
+                    <select disabled formControlName="country_code_id" class="form-control">
+                      <option value=39>Canada(+1)</option>
+                      <!-- <option *ngFor="let item of code" [value]="item.id">
+                                                    {{item.name}}(+{{item.phonecode}})</option> -->
+                    </select>
+                    <div
+                      *ngIf="addEditForm.controls['country_code_id'].errors && (!addEditForm.controls['country_code_id'].pristine || submitted ||addEditForm.controls['country_code_id'].touched )"
+                      class="error-msg">
+                      <div [hidden]="!addEditForm.controls['country_code_id'].errors.required">
+                        Phone
+                        code is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 form-group ">
+                  <div class="form-floating">
+                    <label>Phone <span class="text-red">*</span> </label>
+                    <input maxlength="{{validations_cnfg.maxlength_fifteen}}"
+                      onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                      formControlName="mobile" type="text" class="form-control" minlength="8" placeholder="Phone">
+                    <div
+                      *ngIf="addEditForm.controls['mobile'].errors && (!addEditForm.controls['mobile'].pristine || submitted ||addEditForm.controls['mobile'].touched )"
+                      class="error-msg">
+                      <div [hidden]="!addEditForm.controls['mobile'].errors.required">Phone number is
+                        required
+                      </div>
+                      <div [hidden]="!addEditForm.controls['mobile'].errors.minlength">Phone number should be 8 to 15
+                        digit
+                      </div>
+                      <div [hidden]="!addEditForm.controls['mobile'].errors.maxlength">Phone number should be 8 to 15
+                        digit
+                      </div>
+                      <div [hidden]="!addEditForm.controls['mobile'].errors.pattern"> Invalid phone number
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Text <span class="text-red">*</span> </label>
+                      <input maxlength="{{validations_cnfg.maxlength_twenty_five}}" formControlName="textNo" type="text"
+                        class="form-control" placeholder="Text Number" minlength="2">
+                      <div
+                        *ngIf="addEditForm.controls['textNo'].errors && (!addEditForm.controls['textNo'].pristine || submitted ||addEditForm.controls['textNo'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['textNo'].errors.required">Text
+                          is
+                          required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['textNo'].errors.minlength">Text number should be more then two character
+                        </div>
+                        <div [hidden]="!addEditForm.controls['textNo'].errors.pattern">Text number is invalid
+                        </div>
+                        <!-- <div [hidden]="!addEditForm.controls['textNo'].errors.minlength">Text
+                          should be 10 digit.
+                        </div> -->
+                        <div [hidden]="!addEditForm.controls['textNo'].errors.maxlength">Text
+                          is too large
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Email <span class="text-red">*</span></label>
+                      <input maxlength="{{validations_cnfg.maxlength_fifty}}" style="text-transform: lowercase" (change)="addEditForm.patchValue({email: $event.target.value.toUpperCase()})"
+                       onKeyPress="return event.charCode != 32"
+                        formControlName="email" type="email" class="form-control" placeholder="Email">
+                      <div
+                        *ngIf="addEditForm.controls['email'].errors && (!addEditForm.controls['email'].pristine || submitted ||addEditForm.controls['email'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['email'].errors.required">Email is
+                          required</div>
+                        <!-- <div *ngIf="addEditForm.controls['email'].errors.pattern">Invalid email
+                        </div> -->
+                        <div *ngIf="f.email.errors.pattern || f.email.errors.email">Email is invalid</div>
+                        <div [hidden]="!addEditForm.controls['email'].errors.maxlength">Email is too large
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-10">
+                    <div class="form-floating">
+                      <label>Title <span class="text-red">*</span> </label>
+                      <input min='2' maxlength="{{validations_cnfg.maxlength_twenty_five}}"
+                        onkeypress='if(this.value.length > 24) return false;return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                        formControlName="title" type="text" class="form-control" max="30" placeholder="Title">
+                      <div
+                        *ngIf="addEditForm.controls['title'].errors && (!addEditForm.controls['title'].pristine || submitted ||addEditForm.controls['title'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['title'].errors.required">Title required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['title'].errors.pattern">Invalid Title
+                        </div>
+                        <div [hidden]="!addEditForm.controls['title'].errors.maxlength">Title is too large
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Brokerage Name <span class="text-red">*</span></label>
+
+                      <!-- <input onKeyPress="if(this.value.length==70) return false;" min='1' onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )' -->
+                      <input maxlength="{{validations_cnfg.m50}}"
+                      onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                      formControlName="brokerageName" type="text"
+                        class="form-control" placeholder="Brokerage Name">
+                      <div
+                        *ngIf="addEditForm.controls['brokerageName'].errors && (!addEditForm.controls['brokerageName'].pristine || submitted ||addEditForm.controls['brokerageName'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['brokerageName'].errors.required">
+                          Brokerage name
+                          is
+                          required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['brokerageName'].errors.maxlength">
+                          Brokerage name
+                          is
+                          too large
+                        </div>
+                        <div [hidden]="!addEditForm.controls['brokerageName'].errors.pattern">
+                          Brokerage name
+                          is
+                          invalid
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Brokerage Street Address <span class="text-red">*</span></label>
+                      <input maxlength="{{validations_cnfg.m200}}" onkeydown="return (event.keyCode!=13);"
+                        onKeyPress="if(this.value.length==100) return false;" min='1'
+                        formControlName="BrokerageStreetAddress" #BrokerageaddressSearch type="text"
+                        class="form-control" placeholder="Brokerage Street Address">
+                      <div
+                        *ngIf="addEditForm.controls['BrokerageStreetAddress'].errors && (!addEditForm.controls['BrokerageStreetAddress'].pristine || submitted ||addEditForm.controls['BrokerageStreetAddress'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['BrokerageStreetAddress'].errors.required">
+                          Brokerage street address
+                          is
+                          required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['BrokerageStreetAddress'].errors.maxlength">
+                          Brokerage street address
+                          is
+                          too large
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Brokerage City <span class="text-red">*</span></label>
+                      <input maxlength="{{validations_cnfg.m25}}" onKeyPress="if(this.value.length==25) return false;"
+                      onkeypress='if(this.value.length > 25) return false;return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+
+                        (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" minlength="2"
+                        spellcheck="off" formControlName="BrokerageCity" type="text" class="form-control"
+                        placeholder="Brokerage City">
+                      <div
+                        *ngIf="addEditForm.controls['BrokerageCity'].errors && (!addEditForm.controls['BrokerageCity'].pristine || submitted ||addEditForm.controls['BrokerageCity'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['BrokerageCity'].errors.required">
+                          Brokerage city is
+                          required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['BrokerageCity'].errors.maxlength">
+                          Brokerage city is
+                          too large
+                        </div>
+                        <div [hidden]="!addEditForm.controls['BrokerageCity'].errors.pattern">
+                          Brokerage city is
+                          invalid
+                        </div>
+                        <div [hidden]="!addEditForm.controls['BrokerageCity'].errors.minlength">
+                          Brokerage city should be more then 2 character
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Brokerage Province <span class="text-red">*</span></label>
+                      <input maxlength="{{validations_cnfg.maxlength_twenty_five}}"
+                      onkeypress='if(this.value.length > 25) return false;return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 47 && event.charCode <= 57) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+
+                       min='1' formControlName="BrokerageProvince"
+                        type="text" class="form-control" placeholder="Brokerage Province" minlength="2">
+                      <div
+                        *ngIf="addEditForm.controls['BrokerageProvince'].errors && (!addEditForm.controls['BrokerageProvince'].pristine || submitted ||addEditForm.controls['BrokerageProvince'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['BrokerageProvince'].errors.required">
+                          Brokerage province
+                          is
+                          required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['BrokerageProvince'].errors.maxlength">
+                          Brokerage province
+                          is
+                          too large
+                        </div>
+                        <div [hidden]="!addEditForm.controls['BrokerageProvince'].errors.pattern">
+                           Invalid brokerage province
+                        </div>
+                        <div [hidden]="!addEditForm.controls['BrokerageProvince'].errors.minlength">Brokerage province should be more then 2 character
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Brokerage Postal Code <span class="text-red">*</span></label>
+                      <input maxlength="{{validations_cnfg.m15}}"
+                       onkeypress='if(this.value.length > 25) return false;return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 47 && event.charCode <= 57) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+
+                        min='1' formControlName="BrokeragePostalCode" type="text" class="form-control"
+                        placeholder="Brokerage Postal Code">
+                      <div
+                        *ngIf="addEditForm.controls['BrokeragePostalCode'].errors && (!addEditForm.controls['BrokeragePostalCode'].pristine || submitted ||addEditForm.controls['BrokeragePostalCode'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['BrokeragePostalCode'].errors.required">
+                          Brokerage postal code
+                          is
+                          required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['BrokeragePostalCode'].errors.maxlength">
+                          Brokerage postal code
+                          is
+                          too large
+                        </div>
+                        <div [hidden]="!addEditForm.controls['BrokeragePostalCode'].errors.pattern">
+                          Brokerage postal code
+                          is
+                        invalid
+                        </div>
+                        <div [hidden]="!addEditForm.controls['BrokeragePostalCode'].errors.minlength">
+                          Brokerage postal code hould be more then 2 character
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Phone Code </label>
+                      <select disabled formControlName="country_code_id" class="form-control">
+                        <option value=39>Canada(+1)</option>
+                      </select>
+                      <div
+                        *ngIf="addEditForm.controls['country_code_id'].errors && (!addEditForm.controls['country_code_id'].pristine || submitted ||addEditForm.controls['country_code_id'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['country_code_id'].errors.required">
+                          Phone
+                          code is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label> Brokerage Phone<span class="text-red">*</span> </label>
+                      <input maxlength="{{validations_cnfg.m15}}"
+                        onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                        formControlName="brokerPhoneNo" type="text" class="form-control" minlength="8"
+                        placeholder="Brokerage Phone">
+                      <div
+                        *ngIf="addEditForm.controls['brokerPhoneNo'].errors && (!addEditForm.controls['brokerPhoneNo'].pristine || submitted ||addEditForm.controls['brokerPhoneNo'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['brokerPhoneNo'].errors.required">
+                          Brokerage phone is
+                          required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['brokerPhoneNo'].errors.pattern">
+                          Brokerage phone is
+                          Invalid
+                        </div>
+                        <div [hidden]="!addEditForm.controls['brokerPhoneNo'].errors.minlength">Phone number should be 8
+                          to 15 digit
+                        </div>
+                        <div [hidden]="!addEditForm.controls['brokerPhoneNo'].errors.maxlength">Phone number should be 8
+                          to 15 digit
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class=" upload-file-row col-md-3">
+                  <div class="col-md-12 row">
+                    <div class="form-group mb-20">
+                      <div class="input-group">
+                        <div class="image-crop-view">
+                          <img class="imgview" src="{{data?.image ? data?.image : './assets/images/avatar.jpg' }}" #img03 (error)="img03.src = './assets/images/avatar.jpg'"
+                            alt="Package Image" style="width: 128px;object-fit: cover;">
+                          <button
+                            style="border:0;color:#ffffff; width: 128px;bottom: 0;background-color: rgb(0 0 0 / 60%);"
+                            class="btn btn-secondary" type="button" (click)="open(modalCropper)"
+                            id="button-addon1">Upload image</button>
+                        </div> <span class="text-red"> &nbsp; *</span>
+                      </div>
+                      <div *ngIf="submitted && !this.data.image"
+                        style=" font-size: 14px; color: red;font-weight: 500; margin-top: 10px;">
+                        <span>Image is required</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="top-bottom--row col-md-9">
+                  <div class="ml-auto btn-left-col">
+                    <div class="ml-auto btn-col-1">
+                      <button style="float: right;" type="submit" class="btn btn-primary btn-rounded m-1">{{ id ==0
+                        ?'Add' :'Update'}}</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Personal Real Estate Website <span class="text-red">*</span></label>
+                      <input maxlength="{{validations_cnfg.m100}}" onKeyPress="if(this.value.length==100) return false;"
+                        min='1' formControlName="website" type="text" class="form-control"
+                        placeholder="Personal Real Estate Website">
+                      <div
+                        *ngIf="addEditForm.controls['website'].errors && (!addEditForm.controls['website'].pristine || submitted ||addEditForm.controls['website'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['website'].errors.required"> Personal real estate website
+                          is
+                          required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['website'].errors.pattern">Personal real estate website is
+                          invalid
+                        </div>
+                        <div [hidden]="!addEditForm.controls['website'].errors.maxlength">Personal real estate website
+                          is
+                          too large
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Short Greeting (less than 20 characters) <span class="text-red">*</span></label>
+                      <input type="textarea"
+                      onKeyPress="if(this.value.replace(/ /g, '').length == 20) return false;"
+                        formControlName="shortBio"  class="form-control" placeholder="Short Bio"
+                        minlength="2">
+
+                      <div
+                        *ngIf="addEditForm.controls['shortBio'].errors && (!addEditForm.controls['shortBio'].pristine || submitted ||addEditForm.controls['shortBio'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['shortBio'].errors.required">Short bio is required</div>
+
+                        <div [hidden]="!addEditForm.controls['shortBio'].errors.maxlength">Short bio is too large</div>
+
+                        <div [hidden]="!addEditForm.controls['shortBio'].errors.pattern">Invalid short bio</div>
+
+                        <div [hidden]="!addEditForm.controls['shortBio'].errors.minlength">Short bio should be more then two character</div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Long Bio (more than 20 words to 200 words) </label>
+                      <textarea maxlength="{{validations_cnfg.m2000}}" formControlName="bio"
+                        type="text" class="form-control" placeholder="Long Bio" minlength="21"></textarea>
+                      <div
+                        *ngIf="addEditForm.controls['bio'].errors && (!addEditForm.controls['bio'].pristine || submitted ||addEditForm.controls['bio'].touched )"
+                        class="error-msg">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Password <span class="text-red">*</span></label>
+                      <input maxlength="{{validations_cnfg.m50}}" autocomplete="off"
+                        onKeyPress="if(this.value.length==50) return false; return event.charCode != 32" minlength="6"
+                        formControlName="password" [type]="showHidePass ? 'password' : 'text'" class="form-control"
+                        placeholder="Password">
+                      <a href="javascript:void(0);" (click)="showHidePassword()" id="show"><span
+                          [ngClass]="showHidePass ? 'fas fa-eye-slash eye-icon' : 'far fa-eye eye-icon'"></span></a>
+                      <div
+                        *ngIf="addEditForm.controls['password'].errors && (!addEditForm.controls['password'].pristine || submitted ||addEditForm.controls['password'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['password'].errors.required">Password is
+                          required</div>
+                        <div [hidden]="!addEditForm.controls['password'].errors.maxlength">Password is
+                          too large</div>
+                        <div [hidden]="!addEditForm.controls['password'].errors.minlength">
+                          Password must be at least 6 characters
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Facebook</label>
+                      <input maxlength="{{validations_cnfg.maxlength_twenty_five}}"
+                        onKeyPress="if(this.value.length==25) return false;" min='1' formControlName="facebook"
+                        type="text" class="form-control" placeholder="Facebook">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Whatsapp</label>
+                      <input maxlength="{{validations_cnfg.maxlength_twenty_five}}"
+                        onKeyPress="if(this.value.length==25) return false;" min='1' formControlName="whatsapp"
+                        type="text" class="form-control" placeholder="Whatsapp">
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Messenger</label>
+                      <input maxlength="{{validations_cnfg.maxlength_twenty_five}}"
+                        onKeyPress="if(this.value.length==25) return false;" min='1' formControlName="messenger"
+                        type="text" class="form-control" placeholder="Messenger">
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Wechat</label>
+                      <input maxlength="{{validations_cnfg.maxlength_twenty_five}}"
+                        onKeyPress="if(this.value.length==25) return false;" min='1' formControlName="wechat"
+                        type="text" class="form-control" placeholder="Wechat">
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Address <span class="text-red">*</span></label>
+                      <input maxlength="{{validations_cnfg.m200}}" (keydown.enter)="$event.preventDefault()"
+                        autocorrect="off" autocapitalize="off" spellcheck="off" #addressSearch formControlName="address"
+                        type="text" class="form-control" placeholder="Address">
+                      <div
+                        *ngIf="addEditForm.controls['address'].errors && (!addEditForm.controls['address'].pristine || submitted ||addEditForm.controls['address'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['address'].errors.required">Address is required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['address'].errors.maxlength">Address is too large
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Type <span class="text-red">*</span></label>
+                      <select disabled class="select form-control" formControlName="user_type">
+                        <option value=2>Client Agent</option>
+                        <option value=3>Partner Agent</option>
+                      </select>
+                      <div
+                        *ngIf="addEditForm.controls['user_type'].errors && (!addEditForm.controls['user_type'].pristine || submitted ||addEditForm.controls['user_type'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['user_type'].errors.required">Type is
+                          required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+
+
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Shown On Map <span class="text-red">*</span></label>
+                      <select class="select form-control" formControlName="shownOnMap">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                      <div
+                        *ngIf="addEditForm.controls['shownOnMap'].errors && (!addEditForm.controls['shownOnMap'].pristine || submitted ||addEditForm.controls['shownOnMap'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['shownOnMap'].errors.required">Shown on
+                          map is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group mb-20">
+                    <div class="form-floating">
+                      <label>Account Number <span class="text-red">*</span></label>
+                      <input maxlength="{{validations_cnfg.maxlength_twenty_five}}"
+                        onKeyPress="if(this.value.length==25) return false;return event.charCode >= 48 && event.charCode <= 57"
+                        formControlName="account_number" type="text" class="form-control" placeholder="Account Number">
+                      <div
+                        *ngIf="addEditForm.controls['account_number'].errors && (!addEditForm.controls['account_number'].pristine || submitted ||addEditForm.controls['account_number'].touched )"
+                        class="error-msg">
+                        <div [hidden]="!addEditForm.controls['account_number'].errors.required">
+                          Account number is required
+                        </div>
+                        <div [hidden]="!addEditForm.controls['account_number'].errors.maxlength">
+                          Account number is too large
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+                <div class="mt-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 fas-admin-wrap">
+                  <div class="form-group mb-20">
+                    <p>Enter all the FSA areas ( First three letters of postal codes) you serve. Enter up to 40 FSA
+                      areas. At least one area needs to be chosen</p>
+
+                    <div class="mb-2 row">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            1:</b> &nbsp;ENTER FSA code here &nbsp;<span class="text-red">*</span> &nbsp;
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <div class="form-floating">
+
+                          <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                            maxlength="{{validations_cnfg.m3}}" formControlName="fsa1"
+                            (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n1', 'FSA Code Not Exist', 'remove')"
+                            class="form-control fas-input" placeholder="FSA">
+                          <div
+                            *ngIf="addEditForm.controls['fsa1'].errors && (!addEditForm.controls['fsa1'].pristine || submitted ||addEditForm.controls['fsa1'].touched )"
+                            class="error-msg">
+                            <div [hidden]="!addEditForm.controls['fsa1'].errors.required">
+                              FSA is required
+                            </div>
+                            <div [hidden]="!addEditForm.controls['fsa1'].errors.pattern">
+                              FSA is invalid
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n1" disabled class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            2:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}" formControlName="fsa2"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n2', 'FSA Code Not Exist', 'remove')"
+                          class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n2" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            3:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n3', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa3" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n3" disabled class="form-control">
+
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            4:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n4', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa4" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n4" disabled class="form-control">
+
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            5:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n5', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa5" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n5" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            6:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n6', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa6" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n6" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            7:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n7', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa7" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n7" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            8:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n8', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa8" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n8" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            9:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n9', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa9" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n9" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            10:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n10', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa10" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n10" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            11:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n11', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa11" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n11" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            12:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n12', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa12" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n12" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            13:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n13', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa13" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n13" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            14:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n14', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa14" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n14" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            15:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n15', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa15" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n15" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            16:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n16', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa16" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n16" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            17:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n17', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa17" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n17" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            18:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n18', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa18" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n18" disabled class="form-control">
+
+                      </div>
+                    </div>
+
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            19:</b> &nbsp;ENTER FSA code here
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n19', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa19" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n19" disabled class="form-control">
+
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            20:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n20', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa20" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n20" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            21:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n21', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa21" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n21" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            22:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n22', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa22" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n22" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            23:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n23', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa23" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n23" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            24:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n24', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa24" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n24" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            25:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n25', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa25" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n25" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            26:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n26', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa26" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n26" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            27:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n27', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa27" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n27" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            28:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n28', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa28" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n28" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            29:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n29', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa29" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n29" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            30:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n30', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa30" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n30" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            31:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n31', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa31" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n31" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            32:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n32', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa32" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n32" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            33:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n33', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa33" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n33" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            34:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n34', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa34" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n34" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            35:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n35', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa35" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n35" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            36:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n36', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa36" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n36" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            37:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n37', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa37" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n37" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            38:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n38', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa38" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n38" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width fsa-text-lable fsa-adjust"> <b>FSA Area
+                            39:</b> &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n39', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa39" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n39" disabled class="form-control">
+                      </div>
+                    </div>
+                    <div class="mb-2 row  ">
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label col-width  fsa-adjust"> <b>FSA Area 40:</b>
+                          &nbsp;ENTER FSA code here
+
+                        </label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="text" onkeyup="this.value = this.value.toUpperCase();"
+                          maxlength="{{validations_cnfg.m3}}"
+                          (keyup)="getFsaCodeAndNeighborhood($event.target.value, 'n40', 'FSA Code Not Exist', 'remove')"
+                          formControlName="fsa40" class="form-control fas-input" placeholder="FSA">
+                      </div>
+                      <div class="col-auto">
+                        <label for="staticEmail" class="col-form-label"> - </label>
+                      </div>
+                      <div class="col col-auto-fill">
+                        <input type="text" id="n40" disabled class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button style="float: right;" type="submit" class="btn btn-primary btn-rounded m-1">{{ id == 0 ?
+                'Add':'Update'}}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #modalCropper let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Upload & Crop</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body text-center">
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings" (change)="fileChangeEvent($event)"></img-cropper>
+    <br>
+    <img *ngIf="data?.image" class="mt-3 mr-3" [src]="data?.image" [width]="100" [height]="100">
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-rounded btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

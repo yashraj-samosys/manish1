@@ -1,0 +1,244 @@
+<div class="rn-gt-wrapper rn-ct-wrapper">
+  <div class="noswipe-inner noswipe--image">
+    <div
+      class="nsi-img-bg"
+      style="background-image: url('./assets/images/contact-bg.png')"
+    ></div>
+    <div class="sh-padding pt-100 pt-md-80 pt-xs-60 pb-110 pb-md-70 pb-xs-80">
+      <div class="sh-banner pl-120 pl-md-40 pl-xs-20">
+        <div class="row">
+          <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="noswipe-caption">
+              <h2 class="ns-title--main">
+                {{"contact_us.lorem_ipsum" | translate}}
+              </h2>
+              <h5 class="ns-title--blue cc-book ns-title-border">
+                {{"contact_us.duis_aute" | translate}}
+              </h5>
+              <p class="cc-book mb-0">
+                {{"contact_us.sed_ut_perspiciatis" | translate}}
+              </p>
+              <!--<ul class="list-inline bullet-points">
+                  <li><span>Design</span></li>
+                  <li><span>Setup</span></li>
+                  <li><span>Development</span></li>
+                  <li><span>Integeration</span></li>
+                </ul>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div
+      class="rn-ct-contents pt-100 pt-md-80 pt-xs-60 pb-110 pb-md-70 pb-xs-80"
+    >
+      <div class="row row-ct--heading">
+        <div
+          class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center"
+        >
+          <h1 class="mb-0">{{"contact_us.get_in_touch" | translate}}</h1>
+          <p class="mb-0">{{"contact_us.content" | translate}}</p>
+          <!-- <p class="mb-0">{{"contact_us.we_are_always_open" | translate }}.</p> -->
+          <!-- <p class="mb-0">{{"contact_us.contact_us_for" | translate}}.</p> -->
+        </div>
+      </div>
+      <div class="row row-ct--infos">
+        <div
+          class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center"
+        >
+          <div class="info-grid">
+            <div (click)="openmap()" class="ig-item">
+              <div class="ig-box">
+                <i class="fas fa-map-marker-alt ig-icon"></i>
+                <!-- <p>{{"contact_us.redcar" | translate}},{{"contact_us.teesside" | translate}} </p> -->
+                <p> 15414 24th Ave Surrey BC V4B 2J3</p>
+              </div>
+            </div>
+            <div  (click)="sendEmail()" class="ig-item">
+              <div class="ig-box">
+                <i class="fas fa-envelope ig-icon"></i>
+                <p>Info@myreferralnetwork.ca</p>
+              </div>
+            </div>
+            <div (click)="callPhone()" class="ig-item">
+              <div class="ig-box">
+                <i class="fas fa-phone ig-icon"></i>
+                <p>604-329-6759</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row row-ct--main">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="ct-form--wrap">
+            <form
+              [formGroup]="addContactForm"
+              (ngSubmit)="submit()"
+              class="row row-ct--form"
+            >
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="ct-form">
+                  <div class="form-group mb-30">
+                    <label class="d-block mb-10">{{"contact_us.name" | translate }}</label>
+                    <input
+                      type="text"
+                      placeholder="ex:john"
+                      formControlName="name"
+                      class="form-control"
+                      maxlength={{myValidation.nameMaxLength}}
+                      onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) )'
+                    />
+                    <div *ngIf="addContactForm.controls['name'].errors && (!addContactForm.controls['name'].pristine || submitted ||addContactForm.controls['name'].touched )"
+                    class="error-msg">
+                    <div [hidden]="!addContactForm.controls['name'].errors.required">First
+                        Name
+                        is
+                        required
+                    </div>
+                    <div [hidden]="!addContactForm.controls['name'].errors.pattern">{{"contact_us.invalid_name" | translate}}
+                    </div>
+                    <div [hidden]="!addContactForm.controls['name'].errors.maxlength">{{"tolong.name" | translate}}
+                    </div>
+                </div>
+
+
+                  </div>
+                  <div class="form-group mb-30">
+                    <label class="d-block mb-10">{{ "contact_us.email_address" | translate}}</label>
+                    <input
+                      type="text"
+                      maxlength={{myValidation.emailMaxLenght}}
+                      placeholder="ex: info@myreferralnetwork.com"
+                      formControlName="email"
+                      class="form-control"
+                    />
+
+                    <div
+                      *ngIf="
+                        addContactForm.controls['email'].errors &&
+                        (!addContactForm.controls['email'].pristine ||
+                          submitted ||
+                          addContactForm.controls['email'].touched)
+                      "
+                      class="error-msg"
+                    >
+                      <div
+                        [hidden]="
+                          !addContactForm.controls['email'].errors.required
+                        "
+                      >
+                       {{"contact_us.email_is_require" | translate}}
+                      </div>
+                      <div [hidden]="!addContactForm.controls['email'].errors.maxlength">{{"tolong.Email" | translate}}
+                      </div>
+                      <div *ngIf="f.email.errors.pattern || f.email.errors.email">
+                       {{"contact_us.invalid_email" | translate}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group mb-30">
+                    <label class="d-block mb-10">{{"contact_us.phone" | translate}}</label>
+                    <input
+                      type="text"
+                      maxlength={{myValidation.m15}}
+                      onKeyPress="if(this.value.length==15) return false;return event.charCode >= 48 && event.charCode <= 57"
+                      placeholder="ex: +44 7464 245 243"
+                      formControlName="phone"
+                      class="form-control"
+                    />
+                    <div
+                      *ngIf="
+                        addContactForm.controls['phone'].errors &&
+                        (!addContactForm.controls['phone'].pristine ||
+                          submitted ||
+                          addContactForm.controls['phone'].touched)
+                      "
+                      class="error-msg"
+                    >
+                      <div
+                        [hidden]="
+                          !addContactForm.controls['phone'].errors.required
+                        "
+                      >
+                        {{"contact_us.phone_is_required" | translate}}
+                      </div>
+                      <div [hidden]="!addContactForm.controls['phone'].errors.maxlength">{{"contact_us.phone_should_be_digit" | translate }}
+                      </div>
+
+                      <div
+                        [hidden]="
+                          !addContactForm.controls['phone'].hasError(
+                            'minlength'
+                          )
+                        "
+                      >
+                        <!-- phone should be 10 digit. -->
+                        {{"contact_us.phone_should_be_digit" | translate }}
+                      </div>
+                      <div
+                      [hidden]="
+                        !addContactForm.controls['phone'].hasError(
+                          'pattern'
+                        )
+                      "
+                    >
+                    {{"contact_us.phone_should_be_digit" | translate }}
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group mb-30">
+                  <label class="d-block mb-10">{{ "contact_us.message" | translate}}</label>
+                  <textarea
+                  maxlength={{myValidation.m2000}}
+                    class="form-control"
+                    formControlName="message"
+                  ></textarea>
+                  <div
+                    *ngIf="
+                      addContactForm.controls['message'].errors &&
+                      (!addContactForm.controls['message'].pristine ||
+                        submitted ||
+                        addContactForm.controls['message'].touched)
+                    "
+                    class="error-msg"
+                  >
+                    <div
+                      [hidden]="
+                        !addContactForm.controls['message'].errors.required
+                      "
+                    >
+                      <!-- Message is require
+                       -->
+                       {{ "contact_us.message_is_require" | translate}}
+                    </div>
+                    <div [hidden]="!addContactForm.controls['message'].errors.maxlength">{{"tolong.Message" | translate}}
+                    </div>
+                    <div [hidden]="!addContactForm.controls['message'].errors.pattern">{{"contact_us.invalid_data" | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="
+                  col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12
+                  d-flex
+                  justify-content-end
+                "
+              >
+                <button class="btn btn-blue-fill" type="submit">
+                  {{"contact_us.send_message" | translate}}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

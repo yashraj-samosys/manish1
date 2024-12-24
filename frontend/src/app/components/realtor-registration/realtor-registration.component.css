@@ -1,0 +1,54 @@
+::ng-deep .cuppa-dropdown .dropdown-list{ left: unset !important;    top: 644px !important; }
+
+::ng-deep body {
+  position: relative !important;
+  overflow: auto;
+  }
+
+.multi-select-m angular2-multiselect{
+    padding: 0;
+    height: auto;
+    }
+
+    .eye-icon {
+        float: right;
+        margin-right: 10px;
+        margin-top: -37px;
+        position: relative;
+      }
+
+      /* .is-invalid{
+        margin-right: 30px;
+      } */
+      .image-crop-view img.imgview {
+        width: 128px;
+        height:128px;
+    }
+    .image-crop-view button{
+      position: absolute;
+        clear: both;
+        bottom: 0px;
+        left: 0;
+        right: 0;
+        padding: 0;
+        border-radius: 0;
+        font-size: 15px;
+        width: 120px;
+        background-color: rgb(0 0 0 / 60%);
+        /* height: 36px; */
+        height: auto;
+        line-height: 1.5;
+    }
+    .bottom-single-btn{
+      width: calc(100% - 120px);
+    }
+    @media screen and (max-width: 768px) {
+      ::ng-deep .top-bottom--row .btn-blue-fill{
+        width: 100%  !important;
+        margin-top: 0 !important;
+        margin-bottom: 2rem;
+      }
+      ::ng-deep .top-bottom--row .btn-col.btn-col-1{
+        width: 100%;
+      }
+      }

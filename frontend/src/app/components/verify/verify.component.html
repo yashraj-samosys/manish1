@@ -1,0 +1,42 @@
+<div class="email-box-card">
+    <div *ngIf="verify == 1" class="verifying-message message-box">
+
+        <!-- Please wait we are verifying your account -->
+        {{"verify.please_wait_we_are_verifying_your_account" | translate}}
+    </div>
+    <div *ngIf="verify == 2" class="expierd-message message-box">
+
+        <!-- Token is expired -->
+        {{"verify.token_is_expired" | translate}}
+        <!-- {{"verify.verifyed" | translate}} -->
+    </div>
+    <div *ngIf="verify == 5" class="expierd-message message-box">
+
+        <!-- Token is expired -->
+        {{"verify.adminVerify" | translate}}
+        <!-- {{"verify.verifyed" | translate}} -->
+    </div>
+
+    <div *ngIf="verify == 3 && userType == 3" class="successfully-message message-box">
+        {{"verify.your_account_is_verified_successfully_You_can_now_login_in_your_account" | translate}} &nbsp;<a
+            href='/login/realtor'> {{"verify.click_here" | translate}} </a> &nbsp;{{"verify.for_login" | translate}} .
+        <!-- Your account is verified successfully.You can now login in your account. -->
+    </div>
+    <div *ngIf="verify == 3 && userType == 4" class="successfully-message message-box">
+        {{"verify.your_account_is_verified_successfully_You_can_now_login_in_your_account" | translate}} &nbsp;<a
+            href='/login'> {{"verify.click_here" | translate}} </a> &nbsp;{{"verify.for_login" | translate}} .
+    </div>
+
+    <div *ngIf="verify == 4 && userType == 3" class="successfully-message message-box">
+        <!-- {{"verify.your_account_is_verified_successfully_You_can_now_login_in_your_account" | translate}} -->
+        {{"verify.verifyed" | translate}} &nbsp;<a href='/login/realtor'>{{"verify.click_here" | translate}}
+        </a>&nbsp;{{"verify.for_login" | translate}} .
+        <!-- Your account is verified successfully.You can now login in your account. -->
+    </div>
+
+    <div *ngIf="verify == 4 && userType == 4" class="successfully-message message-box">
+        <!-- {{"verify.your_account_is_verified_successfully_You_can_now_login_in_your_account" | translate}} -->
+        {{"verify.verifyed" | translate}} &nbsp;<a href='/login'>{{"verify.click_here" | translate}}
+        </a>&nbsp;{{"verify.for_login" | translate}} .
+    </div>
+</div>

@@ -1,0 +1,407 @@
+<div *ngIf="type == 1 || type == 5">
+    <div class="breadcrumb col-lg-12 col-md-12 col-sm-12">
+        <h1>Dashboard</h1>
+        <div class="ml-auto">
+        <h3 class="pr-3 mb-0 pb-0" style="text-align: right;">Agent Authorization</h3></div>
+        <label class="switch switch-primary mb-0">
+            <!-- <input (click)="changeDefaultAgentStatus(row)" type="checkbox" [checked]="row.status ? 1 : 0"
+                value={{row.status}}> -->
+                <input (click)="ChangAgentAuthorizedStatus(authorizedStatus)" type="checkbox" [checked]="authorizedStatus.agent_authorized ? 1 : 0"
+                value="authorizedStatus.agent_authorized">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+    <div class="row justify-content-around">
+        <!-- ICON BG -->
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="counts card card-icon-bg card-icon-bg-primary o-hidden mb-4" (click)="viewFSA()">
+                <div class="card-body text-center">
+                    <i class="i-Add-User"></i>
+                    <div class="content">
+                        <p class="text-muted mt-2 mb-0">FSA</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{count?.total_fsa}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="counts card card-icon-bg card-icon-bg-primary o-hidden mb-4" (click)="viewPartner_Agent()">
+                <div class="card-body text-center">
+                    <i class="i-Add-User"></i>
+                    <div class="content">
+                        <p class="text-muted mt-2 mb-0">Partner Agent</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{count?.default_total}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="counts card card-icon-bg card-icon-bg-primary o-hidden mb-4" (click)="viewPublic_User()">
+                <div class="card-body text-center">
+                    <i class="i-Add-User"></i>
+                    <div class="content">
+                        <p class="text-muted mt-2 mb-0">Public User</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{count?.public_user}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="counts card card-icon-bg card-icon-bg-primary o-hidden mb-4" (click)="viewClient_agent()">
+                <div class="card-body text-center">
+                    <i class="i-Add-User"></i>
+                    <div class="content">
+                        <p class="text-muted mt-2 mb-0">Client Agent</p>
+                        <!-- <p class="text-primary text-24 line-height-1 mb-1">0</p> -->
+
+                        <p class="text-primary text-24 line-height-1 mb-1">{{count?.Client_agent}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="counts card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    <i class="i-Checkout-Basket"></i>
+                    <div class="content">
+                        <p class="text-muted mt-2 mb-0">Recipes</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">0</p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    <i class="i-Money-2"></i>
+                    <div class="content">
+                        <p class="text-muted mt-2 mb-0">Expense</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">120</p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">This Year Subscriptions</div>
+                    <div echarts [options]="salesChartBar" [autoResize]="true" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">Top 5 Agents</div>
+                    <div echarts [options]="salesChartPie" [autoResize]="true" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card card-chart-bottom o-hidden mb-4">
+                        <div class="card-body">
+                            <div class="text-muted">This Month Subscriptions</div>
+                            <!-- <p class="mb-4 text-primary text-24">$40250</p> -->
+                            <p class="mb-4 text-primary text-24">${{monthAmount}}</p>
+                            <div echarts [options]="chartLineOption1" [autoResize]="true" style="height: 160px;"></div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="card card-chart-bottom o-hidden mb-4">
+                        <div class="card-body">
+                            <div class="text-muted">This Week Subscriptions</div>
+                            <!-- <p class="mb-4 text-warning text-24">$10250</p> -->
+                            <p class="mb-4 text-warning text-24">${{weekAmount}}</p>
+                            <div echarts [options]="chartLineOption2" [autoResize]="true" style="height: 170px;"></div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+
+            <!-- 
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h6 class="mb-2 text-muted">iPhone x Stock</h6>
+                            <p class="mb-1 text-24 font-weight-light text-title">50%</p>
+                            <p class="mb-1">
+                                <ngb-progressbar type="success" [value]="50" height="4px"></ngb-progressbar>
+                            </p>
+                            <small class="text-muted">Most sold in last 3 days</small>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h6 class="mb-2 text-muted">iPhone 6 Stock</h6>
+                            <p class="mb-1 text-24 font-weight-light text-title">90%</p>
+                            <p class="mb-1">
+                                <ngb-progressbar type="danger" [value]="90" height="4px"></ngb-progressbar>
+                            </p>
+                            <small class="text-muted">Most sold in last 7 days</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div> -->
+
+        </div>
+
+
+        <div class="col-lg-6 col-md-12">
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">Most Favourite Agents</div>
+                    <div *ngFor="let s of getFavoriteAgentsData;"
+                        class="d-flex flex-column flex-sm-row align-items-sm-center mb-3">
+                        <img class="avatar-lg mb-3 mb-sm-0 rounded mr-sm-3" src="{{s.profile_img}}" alt="">
+                        <div class="flex-grow-1">
+                            <h5 class=""><a>{{s.name}}</a></h5>
+                            <p class="m-0 text-small text-muted">{{s.bio}}</p>
+                            <!--  <p class="text-small text-danger m-0">$450 <del class="text-muted">$500</del></p> -->
+                        </div>
+                        <div>
+                            <button routerLink="/users/view/{{s.id}}/2"
+                                class="btn btn-outline-primary mt-3 mb-3 m-sm-0 btn-rounded btn-sm">View
+                                details</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 
+            <div class="card mb-4">
+                <div class="card-body p-0">
+                    <div class="card-title border-bottom d-flex align-items-center m-0 p-3">
+                        <span>User activity</span>
+                        <span class="flex-grow-1"></span>
+                        <span class="badge badge-pill badge-warning">Updated daily</span>
+                    </div>
+                    <div class="d-flex border-bottom justify-content-between p-3">
+                        <div class="flex-grow-1">
+                            <span class="text-small text-muted">Pages / Visit</span>
+                            <h5 class="m-0">2065</h5>
+                        </div>
+                        <div class="flex-grow-1">
+                            <span class="text-small text-muted">New user</span>
+                            <h5 class="m-0">465</h5>
+                        </div>
+                        <div class="flex-grow-1">
+                            <span class="text-small text-muted">Last week</span>
+                            <h5 class="m-0">23456</h5>
+                        </div>
+                    </div>
+                    <div class="d-flex border-bottom justify-content-between p-3">
+                        <div class="flex-grow-1">
+                            <span class="text-small text-muted">Pages / Visit</span>
+                            <h5 class="m-0">1829</h5>
+                        </div>
+                        <div class="flex-grow-1">
+                            <span class="text-small text-muted">New user</span>
+                            <h5 class="m-0">735</h5>
+                        </div>
+                        <div class="flex-grow-1">
+                            <span class="text-small text-muted">Last week</span>
+                            <h5 class="m-0">92565</h5>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between p-3">
+                        <div class="flex-grow-1">
+                            <span class="text-small text-muted">Pages / Visit</span>
+                            <h5 class="m-0">3165</h5>
+                        </div>
+                        <div class="flex-grow-1">
+                            <span class="text-small text-muted">New user</span>
+                            <h5 class="m-0">165</h5>
+                        </div>
+                        <div class="flex-grow-1">
+                            <span class="text-small text-muted">Last week</span>
+                            <h5 class="m-0">32165</h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div> -->
+
+        </div>
+        <!-- 
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-body p-0">
+                    <h5 class="card-title m-0 p-3">Last 20 Days Sales</h5>
+                    <div echarts [options]="chartLineOption3"></div>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</div>
+
+
+
+
+<div *ngIf="type == 2">
+    <div class="breadcrumb">
+        <h1>Dashboard</h1>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body counts text-center" [routerLink]="['/users/list-partner']">
+                    <i class="i-Add-User"></i>
+                    <div class="content">
+                        <p class="text-muted mt-2 mb-0">Partner Agents</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{data?.count}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="title">
+                <h2>{{data?.first_name}} {{data?.last_name}}</h2>
+                <p>Client</p>
+            </div>
+            <div class="about">
+                <span>About</span>
+            </div>
+            <table class="aboutInner">
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{data?.first_name}} {{data?.last_name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{data?.email}}</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile</td>
+                        <td>+{{data?.phonecode}}{{data?.mobile}}</td>
+                    </tr>
+                    <tr>
+                        <td>Type</td>
+                        <td>Client </td>
+                    </tr>
+                    <tr>
+                        <td>Account</td>
+                        <td>{{data?.account_number}}</td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>{{data?.address}}</td>
+                    </tr>
+                    <tr>
+                        <td>FSA Code</td>
+                        <td>{{agentFsa?.fsa_code}}</td>
+                    </tr>
+                    <tr>
+                        <td>FSA Name</td>
+                        <td>{{agentFsa?.fsa_name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Bio</td>
+                        <td>
+                            {{ commmon.textTruncate(this.data?.bio, 20) }}
+                            <span class="readMore" (click)="commmon.readMore()" *ngIf="20 < this.data?.bio.length">{{
+                                !isMore ?
+                                'Read More' : 'Read Less' }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- <div class="col-md-6">
+            <div class="card mb-4 o-hidden">
+                <img class="card-img-top program-img" [src]="data?.profile_img" alt="">
+                <div class="card-body">
+                    <p><span class="font-weight-bold">Name: </span>{{data?.first_name}}
+                        {{data?.last_name}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4 o-hidden">
+                <div class="card-body">
+                    <p><span class="font-weight-bold">Details</span></p>
+                </div>
+                <table class=" program-img table table-striped mb-0 table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>Email</td>
+                            <td>{{data?.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile</td>
+                            <td>+{{data?.phonecode}}{{data?.mobile}}</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>{{data?.user_type == 2 ? "Client" : data?.user_type == 3 ? "Partner Agent":
+                                data?.user_type == 4 ? "User" : ""}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Account</td>
+                            <td>{{data?.account_number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4 o-hidden">
+                <div class="card-body">
+                    <p><span class="font-weight-bold">FSA Details</span></p>
+                </div>
+                <table class=" table table-striped mb-0 table-bordered">
+                    <tbody>
+                        <tr class="font-weight-bold">
+                            <td>FSA</td>
+                            <td>FSA NAME</td>
+                        </tr>
+                        <tr *ngFor="let item of agentFsa">
+                            <td>{{item.fsa_code}}</td>
+                            <td>{{item.fsa_name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> -->
+    </div>
+</div>

@@ -1,0 +1,60 @@
+.viewimg {
+    background: #e7e7e7;
+    margin-bottom: 20px;
+    padding: 30px;
+    min-height: 150px;
+    border-radius: 10px;
+}
+.viewimg img {
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 1px solid #237ffa;
+    box-shadow: 0 4px 5px #828080;
+}
+
+.removeIcon delete-icon.ng-star-inserted {
+    display: none !important;
+}
+.pencileBtn {
+    position: relative;
+}
+.pencileInner {
+    color: white;
+    position: absolute;
+    top: 82px;
+    right: 6px;
+    background: #653298;
+    font-size: 12px;
+    padding: 7px 7px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.image-coropp-popup image-cropper {
+    width: auto !important;
+    height: auto !important;
+}
+.image-crop-view button{
+  position: absolute;
+    clear: both;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    padding: 0;
+    border-radius: 0;
+    font-size: 15px;
+    width: 120px;
+    // background-color: rgb(0 0 0 / 60%);
+    /* height: 36px; */
+    height: auto;
+    line-height: 1.5;
+}
+.lastdate{
+    float:right;
+    margin-right: -99px;
+    margin-top: 7px;
+}
+#sendl{
+    float: right;
+}

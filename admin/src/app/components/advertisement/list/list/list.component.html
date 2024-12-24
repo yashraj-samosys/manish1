@@ -1,0 +1,261 @@
+<section>
+  <div class="container">
+    <div class="breadcrumb">
+      <h1>Advertisement</h1>
+      <ul>
+        <li>List</li>
+      </ul>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <!-- <input
+            id="email"
+            placeholder="Search"
+            [formControl]="searchControl"
+            class="form-control form-control-rounded"
+            type="text"
+          /> -->
+        </div>
+      </div>
+      <div class="col-md-8 text-right">
+        <button
+          [routerLink]="['/advertisement/add-edit/0']"
+          type="button"
+          class="btn btn-primary btn-rounded m-1"
+        >
+          Add
+        </button>
+        <!-- <button (click)="export()" type="button" class="btn btn-primary btn-rounded m-1">Export</button> -->
+      </div>
+      <div class="col-md-12 prof-img">
+        <div class="card o-hidden">
+          <ngx-datatable
+            *ngIf="filtered?.length"
+            style="height: 500px; box-shadow: none "
+            class="material fullscreen hideFsa remove-filter"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [rowHeight]="60"
+            [scrollbarV]="true"
+            [rows]="filtered"
+          >
+            <ngx-datatable-column
+              name="S.No"
+              [sortable]="false"
+              [maxWidth]="50"
+              [width]="20"
+            >
+              <ng-template ngx-datatable-header-template> S.No </ng-template>
+
+              <ng-template
+                ngx-datatable-cell-template
+                let-value="value"
+                let-rowIndex="rowIndex"
+                let-row="row"
+              >
+                {{ rowIndex + 1 }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column
+              name="images"
+              prop="profile_img"
+              [minWidth]="50"
+              [width]="70"
+            >
+              <ng-template ngx-datatable-header-template> Image </ng-template>
+              <ng-template
+                ngx-datatable-cell-template
+                let-value="value"
+                let-row="row"
+              >
+                <!-- <ol *ngFor = " let x of data; let i= index"> -->
+                  <div class="adv_img">
+                    <img [src]="row.profile_img" />
+                  </div>
+                <!-- </ol> -->
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column
+              name="weight"
+              prop="type"
+              [minWidth]="50"
+              [width]="50"
+            >
+              <ng-template ngx-datatable-header-template> Type </ng-template>
+              <ng-template
+                ngx-datatable-cell-template
+                let-value="value"
+                let-row="row"
+              >
+                {{
+                  row.Type == 2
+                    ? "Client Realtor"
+                    : row.Type == 3
+                    ? "Partner Realtor"
+                    : row.Type == 4
+                    ? "Public User & Landing Page"
+                    : ""
+                }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column
+              name="weight"
+              prop="panel-type"
+              [minWidth]="50"
+              [width]="50"
+            >
+              <ng-template ngx-datatable-header-template>
+                Panel Type
+              </ng-template>
+              <!-- <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                        {{row.panelType}}
+                                    </ng-template> -->
+              <ng-template
+                ngx-datatable-cell-template
+                let-value="value"
+                let-row="row"
+              >
+                {{
+                  row.panelType == 1
+                    ? "Advert panel-1"
+                    : row.panelType == 2
+                    ? "Advert panel-2"
+                    : row.panelType == 3
+                    ? "Advert panel-3"
+                    : ""
+                }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column
+              name="weight"
+              prop="StartDate"
+              [minWidth]="50"
+              [width]="50"
+            >
+              <ng-template ngx-datatable-header-template>
+                Start Date
+              </ng-template>
+
+              <ng-template
+                ngx-datatable-cell-template
+                let-value="value"
+                let-row="row"
+              >
+                {{ row.StartDate | date: "dd/MM/yyyy" }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column
+              name="weight"
+              prop="EndDate"
+              [minWidth]="70"
+              [width]="50"
+            >
+              <ng-template ngx-datatable-header-template>
+                End Date
+              </ng-template>
+              <ng-template
+                ngx-datatable-cell-template
+                let-value="value"
+                let-row="row"
+              >
+                {{ row.EndDate | date: "dd/MM/yyyy" }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column
+              name="Status"
+              prop="status"
+              [minWidth]="50"
+              [width]="60"
+              >
+
+              <ng-template ngx-datatable-header-template> Status </ng-template>
+              <ng-template
+                ngx-datatable-cell-template
+                let-value="value"
+                let-row="row"
+              >
+                <label class="switch switch-primary ">
+                  <input
+                    (click)="changeStatus(row.id, row.status)"
+                    type="checkbox"
+                    [checked]="row.status"
+                  />
+                  <!-- {{row.status}} -->
+                  <!-- <mat-slide-toggle [checked]="checked"   (change)="handleChange($event)">Slide me!</mat-slide-toggle>
+                                        {{checked}}
+                                        {{toggle}} -->
+
+                  <span class="slider"></span>
+                </label>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column [sortable]="false" [minWidth]="50">
+              <ng-template ngx-datatable-header-template> Action </ng-template>
+              <ng-template
+                ngx-datatable-cell-template
+                let-value="value"
+                let-row="row"
+                let-rowIndex="rowIndex"
+              >
+                <button
+                  (click)="view(row.id)"
+                  type="button"
+                  class="btn btn-primary btn-rounded m-1"
+                >
+                  View
+                </button>
+                <button
+                  (click)="edit(row.id)"
+                  type="button"
+                  class="btn btn-primary btn-rounded m-1"
+                >
+                  Edit
+                </button>
+                <button
+                  (click)="delete(row.id, data)"
+                  type="button"
+                  class="btn btn-danger btn-rounded m-1"
+                >
+                  Delete
+                </button>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+          <mat-paginator #paginator
+          [length]="total"
+          [pageIndex]="pageIndex"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[10, 20, 50, 100, 200, 300, 400, 500]"
+          (page)="getAdvertisementList($event)"
+          >
+          </mat-paginator>
+
+          <!-- <tr *ngFor="let row of data" [attr.id]="d.id">
+                        <td>{{ row.S.No }}</td>
+                        <td>{{ row.images}}</td>
+                        <td>{{ row.weight }}</td>
+                        <td>{{ row.Status }}</td>
+                        <td>{{ row.rowIndex }}</td>
+                    </tr> -->
+        </div>
+        <div class="col-md-12 text-center" *ngIf="!filtered?.length">
+          <div class="displayFlex">
+            <div>
+              <img src="../assets/images/nosearch.png" /><br /><br />
+              <h5><b>No data found!</b></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
